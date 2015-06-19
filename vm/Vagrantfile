@@ -158,7 +158,7 @@ Vagrant.configure(2) do |config|
     win_slave.vm.communicator = "winrm"
 	win_slave.vm.guest = :windows
     win_slave.vm.provider :aws do |aws, override|	   
-	    aws.ami = ENV['AWS_WIN_AMI'] || "ami-ac3a1cc4" # Windows Server 2012 R2 with IE11
+	    aws.ami = ENV['AWS_WIN_AMI'] || "ami-5b9e6b30" # Windows Server 2012 R2 with IE11
 	    aws.region = ENV['AWS_CI_REGION'] || "us-east-1"
 	    aws.instance_type = ENV['AWS_CI_INSTANCE_TYPE'] || "t2.medium"	
 		override.winrm.username = "Administrator"	
