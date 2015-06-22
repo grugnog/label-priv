@@ -64,6 +64,7 @@ jenkins_plugin 'grails'
 jenkins_plugin 'xvfb'
 jenkins_plugin 'violations'
 jenkins_plugin 'cobertura'
+jenkins_plugin 'publish-over-ssh'
 jenkins_plugin 'github-oauth' do 
 	notifies :restart, 'service[jenkins]', :immediately 
 end
@@ -77,6 +78,30 @@ end
 jenkins_job 'LABEL-functional' do
 	config "/vagrant/jenkins/LABEL-functional/config.xml"
 	action :create
+end
+jenkins_job 'LABEL-deploy' do
+	config "/vagrant/jenkins/LABEL-deploy/config.xml"
+	action :create
+end
+
+
+# Add Publish Over SSH Dev server config.
+jenkins_script 'add_ssh_dev_config' do
+  command <<-EOH.gsub(/^ {4}/, '')
+    import jenkins.model.*
+    import hudson.security.*
+    import org.jenkinsci.plugins.*
+	import jenkins.plugins.publish_over_ssh.descriptor.*
+	import jenkins.plugins.publish_over_ssh.*
+  
+    plugin = Jenkins.getInstance().getExtensionList(BapSshPublisherPluginDescriptor.class)[0];
+	
+	BapSshCommonConfiguration conf = new BapSshCommonConfiguration("", """#{node['jenkins-setup']['private_key']}""", "", false);
+	plugin.setCommonConfig(conf);
+	
+	plugin.addHostConfiguration(new BapSshHostConfiguration("DEV", "#{node['jenkins-setup']['dev_host_name']}", "ubuntu", "", "/home/ubuntu", 22, 30000, false, "", "", false));
+	plugin.save();
+  EOH
 end
 
 
