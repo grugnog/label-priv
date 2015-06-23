@@ -6,59 +6,70 @@ import org.codehaus.groovy.grails.web.json.JSONElement
 import org.codehaus.groovy.grails.web.json.JSONObject
 
 /**
- * Created with IntelliJ IDEA.
- * User: Janakiram_G
+ * User: Janakiram Gollapudi
  * Date: 6/22/15
- * Time: 2:40 PM
- * To change this template use File | Settings | File Templates.
  */
 class SearchController {
     static defaultAction = "index"
     def searchService
 
     /**
-     * To display home page
-     * @return html page
+     * To display label home page(which is search label page)
+     * This method also gets called when user clicks on search button
+     * @return home page if no term provided or returns search results page
      */
     def index() {
+       //If search string provided then render search results page
        if(params.term){
            String term = params.term
            render(view:'results', model:[term:term])
        }
+       //Otherwise return same page(Home page)
        else {
             render(view:'index')
        }
     }
 
     /**
-     * Search based on given label
-     * @return results as JSON
+     * This method gets called on every search button click and on every pagination
+     * @return labels information based on search string as JSON
      */
     def searchJSON() {
+        //User entered term
         String term = params.term
-        def dataList = []
+        //To capture labels information
+        def labels = []
+        //To capture total labels
         int iTotalRecords = 0
+        //To capture total labels that we are showing
         int iTotalDisplayRecords = 0
+        //If term provided then search by term and return the results
         if(term) {
             try {
+                //draw captures current page of datatable
                 int page = params.draw?params.int('draw'):0
-                def response = searchService.search(term, page)
-                JSONElement responseJSON = JSON.parse(response)
-                iTotalRecords = responseJSON.totalCount
-                iTotalDisplayRecords = responseJSON.totalCount
-                responseJSON.labels.each { label ->
+                //Get the results using search term
+                log.info "Searching labels with term ${term}....."
+                Map<String, Object> searchResults = searchService.search(term, page)
+                log.info "Found ${searchResults.totalCount} labels"
+                iTotalRecords = searchResults.totalCount
+                iTotalDisplayRecords = searchResults.totalCount
+                //loop through labels that are found and construct view to show results
+                searchResults.labels.each { label ->
                     def resStr = "<a href='${label.id}'>${label.title}</a><p>${label.description}</p>"
-                     dataList << [
-                         column1:resStr
+                     labels << [
+                         labelDetails:resStr
                      ]
                 }
+                log.info "Showing results of page ${params.draw}"
             }
             catch (LabelServiceException e) {
                 log.error("Exception occurred while searching term ${params.term}: ${e}")
-                render([draw: params.draw, iTotalRecords:iTotalRecords, iTotalDisplayRecords:iTotalDisplayRecords, aaData:dataList] as JSON)
+                render([draw: params.draw, iTotalRecords:iTotalRecords, iTotalDisplayRecords:iTotalDisplayRecords, aaData:labels] as JSON)
             }
         }
-        render([draw: params.draw, iTotalRecords:iTotalRecords, iTotalDisplayRecords:iTotalDisplayRecords, aaData:dataList] as JSON)
+        //Otherwise return empty results
+        render([draw: params.draw, iTotalRecords:iTotalRecords, iTotalDisplayRecords:iTotalDisplayRecords, aaData:labels] as JSON)
     }
 
     def view(){

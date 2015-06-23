@@ -37,29 +37,31 @@ class SearchControllerSpec extends Specification {
 
     def 'test search by label'() {
         given:'construct a json to return as response for search method'
-        JSONObject resultJSON = new JSONObject()
-        resultJSON['totalCount'] = 10
-        resultJSON['label'] = [
-                {
-                    id:1
-                    title:"sample title"
-                    description:"test description"
-                }
+        Map<String, Object> results = [
+                totalCount: 10,
+                label:[
+                        {
+                            id:1
+                            title:"sample title"
+                            description:"test description"
+                        }
+                ]
         ]
+
         when:'I try to search label with valid value'
         controller.params.draw = 0
         controller.params.term = 'motrin'
         def mockSearchService =  mockFor(SearchService)
-        mockSearchService.demand.search { obj1, obj2 -> resultJSON.toString() }
+        mockSearchService.demand.search { obj1, obj2 -> results }
         controller.searchService = mockSearchService
         controller.searchJSON()
 
         then:'I should get valid results'
-        response.json.iTotalRecords == resultJSON.totalCount
-        response.json.iTotalDisplayRecords == resultJSON.totalCount
-        response.json.label.id == resultJSON.label.id
-        response.json.label.title == resultJSON.label.title
-        response.json.label.description == resultJSON.label.description
+        response.json.iTotalRecords == results.totalCount
+        response.json.iTotalDisplayRecords == results.totalCount
+        response.json.label.id == results.label.id
+        response.json.label.title == results.label.title
+        response.json.label.description == results.label.description
     }
 
 

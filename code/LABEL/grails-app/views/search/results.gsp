@@ -36,7 +36,7 @@
 <br/>
 <br/>
 <br/>
-<table id="labels" class="table">
+<table id="labelTable" class="table">
 
 </table>
 

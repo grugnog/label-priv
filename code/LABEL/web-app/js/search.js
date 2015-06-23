@@ -1,6 +1,6 @@
 $(document).ready( function () {
     var term = $("#term").val();
-    $('#labels').dataTable({
+    $('#labelTable').dataTable({
         searching: false,
         processing: true,
         serverSide: true,
@@ -19,7 +19,7 @@ $(document).ready( function () {
             type: 'POST'
         },
         "columns": [
-            { "data": "column1" }
+            { "data": "labelDetails" }
         ],
         "fnDrawCallback": function(oSettings) {
             if ($('#labels tbody tr td').html() == 'No labels found') {
