@@ -1,15 +1,23 @@
+import grails.util.Environment;
+
+import org.apache.log4j.ConsoleAppender;
+import org.apache.log4j.DailyRollingFileAppender;
+import org.apache.log4j.Level;
+
 // locations to search for config files that get merged into the main config;
+
 // config files can be ConfigSlurper scripts, Java properties files, or classes
 // in the classpath in ConfigSlurper format
 
-// grails.config.locations = [ "classpath:${appName}-config.properties",
-//                             "classpath:${appName}-config.groovy",
-//                             "file:${userHome}/.grails/${appName}-config.properties",
-//                             "file:${userHome}/.grails/${appName}-config.groovy"]
-
-// if (System.properties["${appName}.config.location"]) {
-//    grails.config.locations << "file:" + System.properties["${appName}.config.location"]
-// }
+// Load app config from external config file
+def configFolder = "${userHome}/.${appName}"
+//def extConfig = "file://${userHome}/.${appName}/${appName}-config.groovy"
+//if(new File("${extConfig}").exists()) {
+//    println("Loading ${appName} configuration from: ${extConfig}")
+//}else {
+//    println("External configuration '${extConfig}' not found, LABEL application can not start")
+//}
+//grails.config.locations = [extConfig]
 
 grails.project.groupId = appName // change this to alter the default package name and Maven publishing destination
 
@@ -21,15 +29,14 @@ grails.mime.types = [ // the first one is the default format
     css:           'text/css',
     csv:           'text/csv',
     form:          'application/x-www-form-urlencoded',
-    html:          ['text/html','application/xhtml+xml'],
+    html:          ['text/html', 'application/xhtml+xml'],
     js:            'text/javascript',
     json:          ['application/json', 'text/json'],
     multipartForm: 'multipart/form-data',
     rss:           'application/rss+xml',
     text:          'text/plain',
-    hal:           ['application/hal+json','application/hal+xml'],
-    xml:           ['text/xml', 'application/xml']
-]
+    hal:           ['application/hal+json', 'application/hal+xml'],
+    xml:           ['text/xml', 'application/xml']]
 
 // URL Mapping Cache Max Size, defaults to 5000
 //grails.urlmapping.cache.maxsize = 1000
@@ -95,23 +102,57 @@ environments {
     }
 }
 
+def log4jFileName = "${configFolder}/logs/${appName}.log"
+applicationLogLevel = "ALL"
+
 // log4j configuration
 log4j.main = {
     // Example of changing the log pattern for the default console appender:
-    //
-    //appenders {
-    //    console name:'stdout', layout:pattern(conversionPattern: '%c{2} %m%n')
-    //}
+    appenders {
+        // DailyRollingFileAppender Options   http://www.vipan.com/htdocs/log4jhelp.html
+        //Threshold=WARN: Appender will not loaqg any messages with priority lower than the one specified here even if the category's priority is set lower.
+        //This is useful to cut down the number of messages, for example, in a file log while displaying all messages on the console.
+        appender new DailyRollingFileAppender(name: 'LABELLogfile',
+            threshold: Level.toLevel(config.applicationLogLevel),
+            file: log4jFileName,
+            datePattern: "'.'yyyy-MM-dd",   //Rollover at midnight each day.
+            layout: pattern(conversionPattern: '%d{yyyy-MM-dd/HH:mm:ss.SSS} [%t] %x %-5p %c{2} - %m%n')
+            )
+
+        appender new ConsoleAppender(name: 'console',
+            threshold: Level.toLevel(config.applicationLogLevel),
+            layout: pattern(conversionPattern: '%d{yyyy-MM-dd/HH:mm:ss.SSS} [%t] %x %-5p %c{2} - %m%n')
+            )
+    }
+
 
     error  'org.codehaus.groovy.grails.web.servlet',        // controllers
-           'org.codehaus.groovy.grails.web.pages',          // GSP
-           'org.codehaus.groovy.grails.web.sitemesh',       // layouts
-           'org.codehaus.groovy.grails.web.mapping.filter', // URL mapping
-           'org.codehaus.groovy.grails.web.mapping',        // URL mapping
-           'org.codehaus.groovy.grails.commons',            // core / classloading
-           'org.codehaus.groovy.grails.plugins',            // plugins
-           'org.codehaus.groovy.grails.orm.hibernate',      // hibernate integration
-           'org.springframework',
-           'org.hibernate',
-           'net.sf.ehcache.hibernate'
+            'org.codehaus.groovy.grails.web.pages',          // GSP
+            'org.codehaus.groovy.grails.web.sitemesh',       // layouts
+            'org.codehaus.groovy.grails.web.mapping.filter', // URL mapping
+            'org.codehaus.groovy.grails.web.mapping',        // URL mapping
+            'org.codehaus.groovy.grails.commons',            // core / classloading
+            'org.codehaus.groovy.grails.plugins',            // plugins
+            'org.codehaus.groovy.grails.orm.hibernate',      // hibernate integration
+            'org.springframework',
+            'org.hibernate',
+            'net.sf.ehcache.hibernate'
+            
+    debug 'com.semanticbits.label'
+
+    List<String> loggers = []
+    //This is to log errors in log file for all environments
+    loggers.add('LABELLogfile')
+    if (Environment.current in [Environment.DEVELOPMENT, Environment.TEST]) {
+        loggers.add('console')
+    }
+    root {
+        error loggers as String[]
+        additivity = true
+    }
 }
+
+// open FDA API properties
+openFDA.API.url='https://api.fda.gov/drug/label.json'
+openFDA.API.key='cVfTPJpCJ6Uho6Rer7IFegyPXG8rCYbkdYo0I607'
+itemsPerPage=10
