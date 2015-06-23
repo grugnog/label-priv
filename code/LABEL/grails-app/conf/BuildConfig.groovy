@@ -146,6 +146,11 @@ codenarc.ruleSetFiles = [
     "rulesets/unused.xml"
 ]
 
+codenarc.properties = {
+    NoDef.enabled=false
+    
+}
+
 // Code coverage configuration  (https://github.com/beckje01/grails-code-coverage)
 coverage {
     enabledByDefault = true
