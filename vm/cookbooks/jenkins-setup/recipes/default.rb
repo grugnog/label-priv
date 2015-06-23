@@ -71,16 +71,20 @@ end
 
 
 # Create Jenkins jobs
-jenkins_job 'LABEL-unit-integration' do
-	config "/vagrant/jenkins/LABEL-unit-integration/config.xml"
+jenkins_job 'LABEL-unit' do
+	config "/vagrant/jenkins/LABEL-unit/config.xml"
+	action :create
+end
+jenkins_job 'LABEL-integration' do
+	config "/vagrant/jenkins/LABEL-integration/config.xml"
 	action :create
 end
 jenkins_job 'LABEL-functional' do
 	config "/vagrant/jenkins/LABEL-functional/config.xml"
 	action :create
 end
-jenkins_job 'LABEL-deploy' do
-	config "/vagrant/jenkins/LABEL-deploy/config.xml"
+jenkins_job 'LABEL-dev' do
+	config "/vagrant/jenkins/LABEL-dev/config.xml"
 	action :create
 end
 
