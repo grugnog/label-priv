@@ -33,7 +33,7 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <com.g2one.hudson.grails.GrailsBuilder plugin="grails@1.7">
-      <targets>&quot;test-app unit: integration:&quot; codenarc</targets>
+      <targets>&quot;test-app unit:&quot; codenarc</targets>
       <name>(Default)</name>
       <grailsWorkDir></grailsWorkDir>
       <projectWorkDir></projectWorkDir>
@@ -303,6 +303,15 @@
         <encoding>default</encoding>
       </config>
     </hudson.plugins.violations.ViolationsPublisher>
+    <hudson.tasks.BuildTrigger>
+      <childProjects>LABEL-integration</childProjects>
+      <threshold>
+        <name>SUCCESS</name>
+        <ordinal>0</ordinal>
+        <color>BLUE</color>
+        <completeBuild>true</completeBuild>
+      </threshold>
+    </hudson.tasks.BuildTrigger>
   </publishers>
   <buildWrappers/>
 </project>
