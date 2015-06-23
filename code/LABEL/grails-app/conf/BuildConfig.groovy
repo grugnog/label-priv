@@ -96,18 +96,9 @@ codenarc.maxPriority2Violations = 0
 codenarc.maxPriority3Violations = 0
 codenarc.systemExitOnBuildException = true   //exit when violations are above the limits
 
-//turn off analysing files in test folders
+//turn off analyzing files in test folders
 codenarc.processTestUnit = false
 codenarc.processTestIntegration = false
-
-//configure analysis rules
-codenarc.properties = {
-    LineLength.length = 180
-    SpaceAroundMapEntryColon.enabled = false
-    GrailsDomainHasToString.enabled = false
-    GrailsDomainHasEquals.enabled = false
-    DuplicateMapLiteral.enabled = false
-}
 
 // CodeNarc report configuration
 codenarc.reports = {
@@ -119,6 +110,15 @@ codenarc.reports = {
     CodenarcHTMLReport('html') {
         outputFile = 'target/codenarc/codenarc-report.html'
         title = 'CodeNarc Analysis Report'
+    }
+}
+
+ruleset {
+     // Do not report GrailsStatelessService on grailsApplication reference
+    ruleset("rulesets/grails.xml"){
+        GrailsStatelessService{
+            addToIgnoreFieldNames = ['grailsApplication']
+        }
     }
 }
 
@@ -134,7 +134,6 @@ codenarc.ruleSetFiles = [
     "rulesets/exceptions.xml",
     "rulesets/formatting.xml",
     "rulesets/generic.xml",
-    "rulesets/grails.xml",
     "rulesets/groovyism.xml",
     "rulesets/imports.xml",
     "rulesets/jdbc.xml",
@@ -147,11 +146,12 @@ codenarc.ruleSetFiles = [
 ]
 
 codenarc.properties = {
-    // In many places it is good to have def in grails application 
-    NoDef.enabled=false
+    LineLength.length = 180
     // Looks like there is an issue with this rule def, my code looks correct, but it still fails this validation
     // Disabling until the root cause is identified and fixed
-    SpaceAroundMapEntryColon.enabled=false  
+    SpaceAroundMapEntryColon.enabled=false
+    
+    maxPriority3Violations : 20
 }
 
 // Code coverage configuration  (https://github.com/beckje01/grails-code-coverage)
