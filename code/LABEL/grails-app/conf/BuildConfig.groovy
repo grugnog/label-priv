@@ -77,6 +77,8 @@ grails.project.dependency.resolution = {
         compile ':cache:1.1.8'
         compile ":asset-pipeline:2.1.5"
 
+	test ":code-coverage:2.0.3-3"
+
         // plugins needed at runtime but not for compilation
         // No DB needed for the application at this point 
         //runtime ":hibernate4:4.3.8.1" // or ":hibernate:3.6.10.18"
