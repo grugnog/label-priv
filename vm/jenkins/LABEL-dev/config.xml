@@ -20,6 +20,9 @@
         <completeBuild>true</completeBuild>
       </threshold>
     </jenkins.triggers.ReverseBuildTrigger>
+    <hudson.triggers.TimerTrigger>
+      <spec>@midnight</spec>
+    </hudson.triggers.TimerTrigger>
   </triggers>
   <concurrentBuild>false</concurrentBuild>
   <builders>
