@@ -150,6 +150,7 @@ codenarc.properties = {
     // Looks like there is an issue with this rule def, my code looks correct, but it still fails this validation
     // Disabling until the root cause is identified and fixed
     SpaceAroundMapEntryColon.enabled=false
+    TrailingWhitespace.enabled=false
     
     maxPriority3Violations : 20
 }
