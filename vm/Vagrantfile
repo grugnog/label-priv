@@ -17,6 +17,11 @@ end
 def installGrails(config)
     # Install GVM and run it to install Grails.
     config.vm.provision "shell", privileged: false, inline: "curl -s get.gvmtool.net | bash && source \"$HOME/.gvm/bin/gvm-init.sh\" && yes Y | gvm install grails 2.5.0"
+	
+	# Add modified PATH and GRAILS_HOME to /etc/environment so that they are visible to SSH sessions initiated by Jenkins SSH Plugins.
+    config.vm.provision "shell", privileged: false, inline: "sudo bash -l -c 'echo \"PATH=$PATH\" >> /etc/environment'"
+    config.vm.provision "shell", privileged: false, inline: "sudo bash -l -c 'echo \"GRAILS_HOME=$GRAILS_HOME\" >> /etc/environment'"
+
 end
 
 def installDevStackWithChef(config)
@@ -76,10 +81,6 @@ Vagrant.configure(2) do |config|
 
     # Upload a Bash script used to redeploy the Web app.
     dev.vm.provision "shell", privileged: false, inline: "cp /vagrant/bash/dev_refresh.sh ~ && chmod a+rx ~/dev_refresh.sh"   
-
-	# Add modified PATH and GRAILS_HOME to /etc/environment so that they are visible to SSH sessions initiated by Jenkins SSH Plugins.
-    dev.vm.provision "shell", privileged: false, inline: "sudo bash -l -c 'echo \"PATH=$PATH\" >> /etc/environment'"
-    dev.vm.provision "shell", privileged: false, inline: "sudo bash -l -c 'echo \"GRAILS_HOME=$GRAILS_HOME\" >> /etc/environment'"
 	
     # Finally, execute the Dev Refresh script. Dev node is ready at this point.
     dev.vm.provision "shell", privileged: false, inline: "~/dev_refresh.sh"  
@@ -135,7 +136,8 @@ Vagrant.configure(2) do |config|
 					"github_client_id" => ENV['GITHUB_CLIENT_ID'],
 					"github_client_secret" => ENV['GITHUB_CLIENT_SECRET'],
 					"linux_slave_host" => ENV['AWS_CI_SLAVE01_IP'],
-					"dev_host_name" => ENV['AWS_DEV_ELASTIC_IP']					
+					"dev_host_name" => ENV['AWS_DEV_ELASTIC_IP'],					
+					"qa_host_name" => ENV['AWS_QA_ELASTIC_IP']
 			  }
 			}			
 			
@@ -236,8 +238,6 @@ Vagrant.configure(2) do |config|
    
    # Install GVM and run it to install Grails.
    installGrails(linux_slave)   
-   linux_slave.vm.provision "shell", privileged: false, inline: "sudo bash -l -c 'echo \"PATH=$PATH\" >> /etc/environment'"
-   linux_slave.vm.provision "shell", privileged: false, inline: "sudo bash -l -c 'echo \"GRAILS_HOME=$GRAILS_HOME\" >> /etc/environment'"
 
   end  
 
