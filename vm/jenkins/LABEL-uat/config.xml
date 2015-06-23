@@ -3,7 +3,17 @@
   <actions/>
   <description></description>
   <keepDependencies>false</keepDependencies>
-  <properties/>
+  <properties>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.StringParameterDefinition>
+          <name>tag</name>
+          <description>Git tag to deploy in QA.</description>
+          <defaultValue>master</defaultValue>
+        </hudson.model.StringParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+  </properties>
   <scm class="hudson.scm.NullSCM"/>
   <canRoam>true</canRoam>
   <disabled>false</disabled>
@@ -18,8 +28,8 @@
         <delegate>
           <publishers>
             <jenkins.plugins.publish__over__ssh.BapSshPublisher>
-              <configName>DEV</configName>
-              <verbose>false</verbose>
+              <configName>QA</configName>
+              <verbose>true</verbose>
               <transfers>
                 <jenkins.plugins.publish__over__ssh.BapSshTransfer>
                   <remoteDirectory>/home/ubuntu</remoteDirectory>
@@ -32,7 +42,7 @@
                   <noDefaultExcludes>false</noDefaultExcludes>
                   <makeEmptyDirs>false</makeEmptyDirs>
                   <patternSeparator>[, ]+</patternSeparator>
-                  <execCommand>./dev_refresh.sh</execCommand>
+                  <execCommand>./qa_refresh.sh $TAG</execCommand>
                   <execTimeout>180000</execTimeout>
                   <usePty>false</usePty>
                 </jenkins.plugins.publish__over__ssh.BapSshTransfer>

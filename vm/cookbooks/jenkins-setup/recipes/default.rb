@@ -71,22 +71,31 @@ end
 
 
 # Create Jenkins jobs
-jenkins_job 'LABEL-unit-integration' do
-	config "/vagrant/jenkins/LABEL-unit-integration/config.xml"
+jenkins_job 'LABEL-unit' do
+	config "/vagrant/jenkins/LABEL-unit/config.xml"
+	action :create
+end
+jenkins_job 'LABEL-integration' do
+	config "/vagrant/jenkins/LABEL-integration/config.xml"
 	action :create
 end
 jenkins_job 'LABEL-functional' do
 	config "/vagrant/jenkins/LABEL-functional/config.xml"
 	action :create
 end
-jenkins_job 'LABEL-deploy' do
-	config "/vagrant/jenkins/LABEL-deploy/config.xml"
+jenkins_job 'LABEL-dev' do
+	config "/vagrant/jenkins/LABEL-dev/config.xml"
+	action :create
+end
+jenkins_job 'LABEL-uat' do
+	config "/vagrant/jenkins/LABEL-uat/config.xml"
 	action :create
 end
 
 
+
 # Add Publish Over SSH Dev server config.
-jenkins_script 'add_ssh_dev_config' do
+jenkins_script 'add_ssh_dev_qa_config' do
   command <<-EOH.gsub(/^ {4}/, '')
     import jenkins.model.*
     import hudson.security.*
@@ -98,8 +107,13 @@ jenkins_script 'add_ssh_dev_config' do
 	
 	BapSshCommonConfiguration conf = new BapSshCommonConfiguration("", """#{node['jenkins-setup']['private_key']}""", "", false);
 	plugin.setCommonConfig(conf);
-	
+
+	// DEV.
 	plugin.addHostConfiguration(new BapSshHostConfiguration("DEV", "#{node['jenkins-setup']['dev_host_name']}", "ubuntu", "", "/home/ubuntu", 22, 30000, false, "", "", false));
+	
+	// QA.
+	plugin.addHostConfiguration(new BapSshHostConfiguration("QA", "#{node['jenkins-setup']['qa_host_name']}", "ubuntu", "", "/home/ubuntu", 22, 30000, false, "", "", false));
+
 	plugin.save();
   EOH
 end

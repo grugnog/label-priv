@@ -9,12 +9,82 @@ import spock.lang.Specification
 @TestFor(OpenFDAService)
 class OpenFDAServiceSpec extends Specification {
 
-    def setup() {
+    def openFDAService
+    def grailsApplication
+    
+    void "invoke openFDA"() {
+        when:
+        def resp = openFDAService.invoke([search : 'motrin'])
+        then:
+        resp != null 
     }
-
-    def cleanup() {
+    
+    void "invoke openFDA with no search param"() {
+        when:
+        def resp = openFDAService.invoke([:])
+        then:
+        LabelServiceException e = thrown()
+        e.message == 'search parameter must be specified for invoking the openFDA API'
     }
-
-    void "test something"() {
+    
+    void "invoke openFDA with null search param"() {
+        when:
+        def resp = openFDAService.invoke()
+        then:
+        LabelServiceException e = thrown()
+        e.message == 'search parameter must be specified for invoking the openFDA API'
+    }
+    
+    void "invoke openFDA with empty search param"() {
+        when:
+        def resp = openFDAService.invoke([search : '' ])
+        then:
+        LabelServiceException e = thrown()
+        e.message == 'search parameter must be specified for invoking the openFDA API'
+    }
+    
+    void "invoke openFDA with skip and limit"() {
+        when:
+        def resp = openFDAService.invoke([search : 'motrin', limit : 10, skip : 1])
+        then:
+        resp != null
+    }
+    
+    void "invoke openFDA with openFDA API url not configured "() {
+        given:
+        def goodURL = grailsApplication.config.openFDA.API.url
+        grailsApplication.config.openFDA.API.url=''
+        when:
+        def resp = openFDAService.invoke([search : 'motrin', limit : 10, skip : 1])
+        then:
+        LabelServiceException e = thrown()
+        e.message == 'openFDA.API.url property not configured, unable to invoke openFDA API'
+        cleanup:
+        grailsApplication.config.openFDA.API.url=goodURL
+    }
+    
+    void "invoke openFDA with openFDA API key not specified "() {
+        given:
+        def goodKey = grailsApplication.config.openFDA.API.key
+        grailsApplication.config.openFDA.API.key = ''
+        when:
+        def resp = openFDAService.invoke([search : 'motrin', limit : 10, skip : 1])
+        then:
+        resp != null
+        cleanup:
+        grailsApplication.config.openFDA.API.key = goodKey
+    }
+    
+    void "invoke openFDA with openFDA API invalid key "() {
+        given:
+        def goodKey = grailsApplication.config.openFDA.API.key
+        grailsApplication.config.openFDA.API.key = 'invalid'
+        when:
+        def resp = openFDAService.invoke([search : 'motrin', limit : 10, skip : 1])
+        then:
+        LabelServiceException e = thrown()
+        e.message == 'Error invoking the openFDA API'
+        cleanup:
+        grailsApplication.config.openFDA.API.key = goodKey
     }
 }
