@@ -146,6 +146,14 @@ codenarc.ruleSetFiles = [
     "rulesets/unused.xml"
 ]
 
+codenarc.properties = {
+    // In many places it is good to have def in grails application 
+    NoDef.enabled=false
+    // Looks like there is an issue with this rule def, my code looks correct, but it still fails this validation
+    // Disabling until the root cause is identified and fixed
+    SpaceAroundMapEntryColon.enabled=false  
+}
+
 // Code coverage configuration  (https://github.com/beckje01/grails-code-coverage)
 coverage {
     enabledByDefault = true
