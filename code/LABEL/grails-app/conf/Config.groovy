@@ -11,13 +11,13 @@ import org.apache.log4j.Level;
 
 // Load app config from external config file
 def configFolder = "${userHome}/.${appName}"
-//def extConfig = "file://${userHome}/.${appName}/${appName}-config.groovy"
-//if(new File("${extConfig}").exists()) {
-//    println("Loading ${appName} configuration from: ${extConfig}")
-//}else {
-//    println("External configuration '${extConfig}' not found, LABEL application can not start")
-//}
-//grails.config.locations = [extConfig]
+def extConfig = "${configFolder}/${appName}-config.groovy"
+if(new File("${extConfig}").exists()) {
+    println("Loading ${appName} configuration from: ${extConfig}")
+}else {
+    println("External configuration '${extConfig}' not found, LABEL application can not start")
+}
+grails.config.locations = [extConfig]
 
 grails.project.groupId = appName // change this to alter the default package name and Maven publishing destination
 
@@ -152,7 +152,8 @@ log4j.main = {
     }
 }
 
-// open FDA API properties
+// open FDA API properties, values given here are overridden by the values
+// given in the externalized config file at $HOME/.LABEL/LABEL-config.groovy
 openFDA.API.url='https://api.fda.gov/drug/label.json'
-openFDA.API.key=
+openFDA.API.key=''
 itemsPerPage=10

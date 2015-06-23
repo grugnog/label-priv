@@ -1,7 +1,6 @@
 package com.semanticbits.label.service
 
 import grails.transaction.Transactional
-import groovy.json.JsonBuilder
 import groovy.json.JsonSlurper
 
 /**
@@ -22,7 +21,7 @@ class SearchService {
      * Search for a term, return the result from the specified page
      * @param term search term(s)
      * @param page result page number to return, page index start from 0 
-     * @return Searh results in JSON format
+     * @return Search results in a Map<String, Object> containing the following data
      * {
      *  totalCount: 10 
      *  totalPages: 1
@@ -38,11 +37,12 @@ class SearchService {
      * }
      * @throws LabelServiceException
      */
-    String search(String term, int page = 0) throws LabelServiceException {
+    Map<String, Object> search(String term, int page = 0) throws LabelServiceException {
         if (term) {
             log.debug("Searching for term  ${term}")
-            String response = openFDAService.invoke(prepareSearchRequestParam(sanitizeSearchTerm(term), page,
-                 grailsApplication.config.itemsPerPage))
+            String response = openFDAService.invoke(['search' : sanitizeSearchTerm(term), 
+                                                      'limit' :  grailsApplication.config.itemsPerPage,
+                                                      'skip' : page])
             log.debug("Retrieved response ${response} from openFDA")
             return generateResponse(response)
         }
@@ -55,55 +55,55 @@ class SearchService {
      * @return sanitized term
      */
     private String sanitizeSearchTerm(String term) {
+        // Strip off first #
+        def cleanTerm = term
+        if (term.startsWith('#')) {
+            cleanTerm = term[1.. -1]
+        }
+        
         // Replace all spaces with +, https://open.fda.gov/api/reference/#spaces
-        term.replaceAll(' ', '+')
+        cleanTerm.replaceAll(' ', '+')
     }
 
     /**
-     * Build the search request param as expected by the OpenFDA API    
-     * @param term
-     * @param page
-     * @param itemsPerPage
-     * @return return the search request parameters
-     */
-    private String prepareSearchRequestParam(String term, int page, int itemsPerPage) {
-        new StringBuilder('search=').append(term).append('&limit=').append(itemsPerPage)
-            .append('&skip=').append(page).toString()
-    }
-
-    /**
-     * Generate the respose JSON string to be returned
-     * @param response response returned by the openFDA service
-     * @return JSON in the format
+     * Generate the response JSON string to be returned
+     * @param response response returned by the openFDA API
+     * @return JSON map in the format
      * [ {id:'93321bf0-d58d-4ac1-bfa7-cb033ca9df85', name:'label', description: 'A description of the label' },
      *  {id:'93321bf0-d58d-4ac1-bfa7-1234434', name:'label 2', description: 'A description of the label 2' }
      * ] 
      */
     private generateResponse(String response) {
         try {
-            def responseJson =  new JsonSlurper().parseText(response)
-
-            def totalCount = responseJson.meta?.results?.total
-            def currentPage =  responseJson.meta?.results?.skip
-            def totalPages
-            if (totalCount && responseJson.meta?.results?.limit) {
-                totalPages = totalCount / responseJson.meta?.results?.limit
-            } else if (totalCount) {
-                totalPages = 1
-            } else {
-                totalPages = 0
-            }
-            def labels
-            if (responseJson.results) {
-                labels = responseJson.results.collect {
-                    [ id : it.id,
-                     title : getLabelName(it),
-                     description : it.description ? it.description[0].replaceFirst('DESCRIPTION ', '') : '' ]
+            JsonSlurper js = new JsonSlurper()
+            int totalCount = 0
+            int currentPage = 0
+            float totalPages = 0
+            def labels = []
+            if (response) {
+                def responseJson = js.parseText(response)
+    
+                totalCount = responseJson.meta?.results?.total
+                currentPage =  responseJson.meta?.results?.skip
+                
+                if (totalCount && responseJson.meta?.results?.limit) {
+                    totalPages = totalCount / responseJson.meta?.results?.limit
+                } else if (totalCount) {
+                    totalPages = 1
+                } else {
+                    totalPages = 0
+                }
+                
+                if (responseJson.results) {
+                    labels = responseJson.results.collect {
+                        [ id : it.id,
+                         title : getLabelName(it),
+                         description : it.description ? it.description[0].replaceFirst('DESCRIPTION ', '') : '' ]
+                    }
                 }
             }
-            def resultJson = new JsonBuilder(totalCount : totalCount, totalPages : Math.ceil(totalPages).intValue(),
-                currentCount : labels.size(), currentPage : currentPage, labels : labels )
-            return resultJson.toPrettyString()
+            return [totalCount : totalCount, totalPages : Math.ceil(totalPages).intValue(),
+                    currentCount : labels.size(), currentPage : currentPage, labels : labels ]
         } catch (all) {
             throw new LabelServiceException('Error parsing response from openFDA api', all)
         }
