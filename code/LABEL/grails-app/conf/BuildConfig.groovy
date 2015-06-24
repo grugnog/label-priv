@@ -65,6 +65,9 @@ grails.project.dependency.resolution = {
         test("com.github.detro.ghostdriver:phantomjsdriver:${ghostDriverVersion}") { transitive = false }
 
         test "org.grails:grails-datastore-test-support:1.0.2-grails-2.4"
+
+        // Barcode scanning API
+        compile "com.google.zxing:javase:3.2.0"
     }
 
     plugins {
@@ -77,8 +80,8 @@ grails.project.dependency.resolution = {
         compile ':cache:1.1.8'
         compile ":asset-pipeline:2.1.5"
         compile ":functional-test:2.0.0"
-
-	test ":code-coverage:2.0.3-3"
+        
+        test ":code-coverage:2.0.3-3"
 
         // plugins needed at runtime but not for compilation
         // No DB needed for the application at this point 
@@ -87,7 +90,6 @@ grails.project.dependency.resolution = {
 
         // Add angular JS and bootstrap
         runtime ':twitter-bootstrap:3.3.1'
-        runtime ":angularjs-resources:1.4.0"
         runtime ":jquery:1.11.1"
         runtime ':font-awesome-resources:4.3.0.1'
     }
