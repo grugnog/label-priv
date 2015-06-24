@@ -3,7 +3,6 @@ package com.semanticbits.label.controller
 import com.semanticbits.label.service.SearchService
 import grails.test.mixin.Mock
 import grails.test.mixin.TestFor
-import org.codehaus.groovy.grails.web.json.JSONObject
 import spock.lang.Specification
 
 /**
@@ -11,7 +10,7 @@ import spock.lang.Specification
  * Date: 6/22/15
  */
 @TestFor(SearchController)
-@Mock(SearchService)
+//@Mock(SearchService)
 class SearchControllerSpec extends Specification {
 
     def setup() {
@@ -37,31 +36,41 @@ class SearchControllerSpec extends Specification {
 
     def 'test search by label'() {
         given:'construct a json to return as response for search method'
-        Map<String, Object> results = [
+        def labels = []
+        def labelsMap = [:]
+        labelsMap["id"] = 1
+        labelsMap["title"] = 'sample title'
+        labelsMap['description'] = 'test description'
+        labels.add(labelsMap)
+        Map<String, Object> results =    [
                 totalCount: 10,
-                label:[
-                        {
-                            id:1
-                            title:"sample title"
-                            description:"test description"
-                        }
-                ]
+                labels:labels
         ]
 
         when:'I try to search label with valid value'
         controller.params.draw = 0
         controller.params.term = 'motrin'
         def mockSearchService =  mockFor(SearchService)
-        mockSearchService.demand.search { obj1, obj2 -> results }
-        controller.searchService = mockSearchService
+        mockSearchService.demand.search {obj1, obj2 -> results }
+        controller.searchService = mockSearchService.createMock()
         controller.searchJSON()
 
         then:'I should get valid results'
         response.json.iTotalRecords == results.totalCount
         response.json.iTotalDisplayRecords == results.totalCount
-        response.json.label.id == results.label.id
-        response.json.label.title == results.label.title
-        response.json.label.description == results.label.description
+        response.json.aaData[0].labelDetails =="<a href='1'>sample title</a><p>test description</p>"
+    }
+
+    def 'test search by label with empty string'() {
+        when:'I try to search label with valid value'
+        controller.params.draw = 0
+        controller.params.term = ''
+        controller.searchJSON()
+
+        then:'I should get valid results'
+        response.json.iTotalRecords == 0
+        response.json.iTotalDisplayRecords == 0
+        response.json.aaData == []
     }
 
 
