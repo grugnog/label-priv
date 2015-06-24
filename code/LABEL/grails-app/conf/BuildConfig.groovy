@@ -76,6 +76,7 @@ grails.project.dependency.resolution = {
         compile ":scaffolding:2.1.2"
         compile ':cache:1.1.8'
         compile ":asset-pipeline:2.1.5"
+        compile ":functional-test:2.0.0"
 
 	test ":code-coverage:2.0.3-3"
 
