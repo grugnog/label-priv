@@ -12,7 +12,7 @@ grails.project.fork = [
     //  compile: [maxMemory: 256, minMemory: 64, debug: false, maxPerm: 256, daemon:true],
 
     // configure settings for the test-app JVM, uses the daemon by default
-    test: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256, daemon:true],
+    // test: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256, daemon:true],
     // configure settings for the run-app JVM
     run: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256, forkReserve:false],
     // configure settings for the run-war JVM
@@ -77,6 +77,8 @@ grails.project.dependency.resolution = {
         compile ':cache:1.1.8'
         compile ":asset-pipeline:2.1.5"
 
+	test ":code-coverage:2.0.3-3"
+
         // plugins needed at runtime but not for compilation
         // No DB needed for the application at this point 
         //runtime ":hibernate4:4.3.8.1" // or ":hibernate:3.6.10.18"
@@ -97,18 +99,9 @@ codenarc.maxPriority2Violations = 0
 codenarc.maxPriority3Violations = 0
 codenarc.systemExitOnBuildException = true   //exit when violations are above the limits
 
-//turn off analysing files in test folders
+//turn off analyzing files in test folders
 codenarc.processTestUnit = false
 codenarc.processTestIntegration = false
-
-//configure analysis rules
-codenarc.properties = {
-    LineLength.length = 180
-    SpaceAroundMapEntryColon.enabled = false
-    GrailsDomainHasToString.enabled = false
-    GrailsDomainHasEquals.enabled = false
-    DuplicateMapLiteral.enabled = false
-}
 
 // CodeNarc report configuration
 codenarc.reports = {
@@ -123,36 +116,41 @@ codenarc.reports = {
     }
 }
 
+
 // Codenarc rules
 codenarc.ruleSetFiles = [
-    "rulesets/basic.xml",
-    "rulesets/braces.xml",
-    "rulesets/concurrency.xml",
-    "rulesets/convention.xml",
-    "rulesets/design.xml",
-    "rulesets/dry.xml",
-    "rulesets/enhanced.xml",
-    "rulesets/exceptions.xml",
-    "rulesets/formatting.xml",
-    "rulesets/generic.xml",
-    "rulesets/grails.xml",
-    "rulesets/groovyism.xml",
-    "rulesets/imports.xml",
-    "rulesets/jdbc.xml",
-    "rulesets/logging.xml",
-    "rulesets/naming.xml",
-    "rulesets/security.xml",
-    "rulesets/serialization.xml",
-    "rulesets/unnecessary.xml",
-    "rulesets/unused.xml"
+    'rulesets/basic.xml',
+    'rulesets/braces.xml',
+    'rulesets/concurrency.xml',
+    'rulesets/convention.xml',
+    'rulesets/design.xml',
+    'rulesets/dry.xml',
+    'rulesets/enhanced.xml',
+    'rulesets/exceptions.xml',
+    'rulesets/formatting.xml',
+    'rulesets/generic.xml',
+    'rulesets/groovyism.xml',
+    'rulesets/imports.xml',
+    'rulesets/jdbc.xml',
+    'rulesets/logging.xml',
+    'rulesets/naming.xml',
+    'rulesets/security.xml',
+    'rulesets/serialization.xml',
+    'rulesets/unnecessary.xml',
+    'rulesets/unused.xml',
+    'rulesets/grails.xml'
 ]
 
 codenarc.properties = {
-    // In many places it is good to have def in grails application 
-    NoDef.enabled=false
+    LineLength.length = 180
     // Looks like there is an issue with this rule def, my code looks correct, but it still fails this validation
     // Disabling until the root cause is identified and fixed
-    SpaceAroundMapEntryColon.enabled=false  
+    SpaceAroundMapEntryColon.enabled=false
+    TrailingWhitespace.enabled=false
+    
+    maxPriority3Violations : 20
+    
+    GrailsStatelessService.addToIgnoreFieldNames='grailsApplication'
 }
 
 // Code coverage configuration  (https://github.com/beckje01/grails-code-coverage)

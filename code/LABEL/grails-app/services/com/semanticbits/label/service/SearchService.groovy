@@ -1,6 +1,7 @@
 package com.semanticbits.label.service
 
-import grails.transaction.Transactional
+import org.codehaus.groovy.grails.commons.GrailsApplication
+
 import groovy.json.JsonSlurper
 
 /**
@@ -8,15 +9,13 @@ import groovy.json.JsonSlurper
  * @author gopal
  *
  */
-@Transactional
 class SearchService {
 
-    def grailsApplication
-    def openFDAService
-    def resultSanitizationList = ['description':'DESCRIPTION',
-        'boxed_warning':'WARNING',
-        'adverse_reactions':'ADVERSE REACTIONS']
+    private static final String SPACE_CHAR = ' '
 
+    GrailsApplication grailsApplication
+    OpenFDAService openFDAService
+    
     /**
      * Search for a term, return the result from the specified page
      * @param term search term(s)
@@ -48,6 +47,27 @@ class SearchService {
         }
        throw new LabelServiceException('Invalid search, empty search string')
     }
+    
+    /**
+     * 
+     * @param labelId id of the label to be retrieved
+     * @return A map containing the all the label details returned by the openFDA API
+     *         The map will have extract same structure represented by the labels JSON except the following
+     *          - Any attribute value with a prefix same as the attribute name, will sanitized by removing the prefix
+     *            (e.g DESCRIPTION, WARNING etc)
+     *          - A title attribute will be added to the root of the map. The title attribute value will be set to one
+     *          of openfda.generic_name, openfda.brand_name or id it that order of preference
+     * @throws LabelServiceException when there are errors fetching the label details
+     */
+    Map<String, Object> getLabelDetails(String labelId) throws LabelServiceException {
+        if (!labelId) {
+            throw new LabelServiceException('A valid label id must be provided')
+        }        
+        Map jsonResponse = new JsonSlurper().parseText(openFDAService.invoke([search : "id:${labelId}"]))
+        Map result = sanitizeLabelAttributeValues(jsonResponse.results[0])
+        result.title =  getLabelTitle(jsonResponse.results[0])
+        result   
+    }
 
     /**
      * Sanitize the input search term per the openFDA API rules
@@ -56,13 +76,13 @@ class SearchService {
      */
     private String sanitizeSearchTerm(String term) {
         // Strip off first #
-        def cleanTerm = term
+        String cleanTerm = term
         if (term.startsWith('#')) {
             cleanTerm = term[1.. -1]
         }
         
         // Replace all spaces with +, https://open.fda.gov/api/reference/#spaces
-        cleanTerm.replaceAll(' ', '+')
+        cleanTerm.replaceAll(SPACE_CHAR, '+')
     }
 
     /**
@@ -79,9 +99,9 @@ class SearchService {
             int totalCount = 0
             int currentPage = 0
             float totalPages = 0
-            def labels = []
+            List labels = []
             if (response) {
-                def responseJson = js.parseText(response)
+                Object responseJson = js.parseText(response)
     
                 totalCount = responseJson.meta?.results?.total
                 currentPage =  responseJson.meta?.results?.skip
@@ -97,8 +117,8 @@ class SearchService {
                 if (responseJson.results) {
                     labels = responseJson.results.collect {
                         [ id : it.id,
-                         title : getLabelName(it),
-                         description : it.description ? it.description[0].replaceFirst('DESCRIPTION ', '') : '' ]
+                         title : getLabelTitle(it),
+                         description : it.description ? sanitizeLabelValue('description', it.description[0]):'']
                     }
                 }
             }
@@ -110,18 +130,62 @@ class SearchService {
     }
 
     /**
-     * Extract the label name from label json
+     * Extract the label title from label json
      * @param labelJson json representation of the label record
-     * @return selected displayname of the label
+     * @return selected title of the label
      */
-    private getLabelName(def labelJson) {
-        if (labelJson.openfda.generic_name) {
+    private getLabelTitle(Map labelJson) {
+        if (labelJson.openfda?.generic_name) {
             return labelJson.openfda.generic_name[0]
         } else if (labelJson.openfda.brand_name) {
             return labelJson.openfda.brand_name[0]
         } else if (labelJson.openfda.substance_name) {
             return labelJson.openfda.substance_name[0]
+        } else if (labelJson.package_label_principal_display_panel) {
+            return sanitizeLabelValue('principal_display_panel', labelJson.package_label_principal_display_panel[0])
         }
         labelJson.id
+    }
+    
+    /**
+     * Iterate through the label attributes and sanitize the attribute values 
+     * @param labelAttrs map of attribute values
+     * @return the sanitized label attribute map
+     */
+    private Map sanitizeLabelAttributeValues(Map labelAttrs) {
+        labelAttrs.each { name, value ->
+            if (value in String) {
+                labelAttrs[name] = sanitizeLabelValue(name, value)
+            } else if (value in List) {
+                List newListVal = []
+                value.each { val ->
+                    newListVal += sanitizeLabelValue(name, val)
+                }
+                labelAttrs[name] = newListVal
+            } else if (value in Map) {
+                labelAttrs[name]  = sanitizeLabelAttributeValues(value)
+            }
+        }
+        labelAttrs
+    }
+    
+    /**
+     * Sanitize label attribute value
+     *  - Remove the attribute name from the beginning of the attribute value 
+     * @param attrName attribute name
+     * @param attrVal attribute value
+     * @return sanitized attribute value
+     */
+    private String sanitizeLabelValue(String attrName, String attrVal) {
+        String result = attrVal
+        if (attrName && attrVal) {
+            String prefix = attrName.replaceAll('_', SPACE_CHAR).replaceAll('and', '&').toUpperCase()
+            if (attrVal.startsWith(prefix)) {
+                result = attrVal[prefix.length() + 1 .. -1]
+            } else {
+                result = attrVal
+            }
+        }
+        result
     }
 }
