@@ -7,9 +7,8 @@ import geb.Page
  * Date: 6/23/15
  */
 class HomePage extends Page {
-    static url = "/"
     static at = {
-        title == ~ /Label and Barcode Excerpt Locator/
+        title.equals("Label and Barcode Excerpt Locator")
     }
 
     static content = {

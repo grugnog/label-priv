@@ -135,6 +135,18 @@ class SearchServiceSpec extends Specification {
         assert result.labels[0].description == 'Diclofenac Sodium Extended-Release Tablets, USP is a benzeneacetic acid derivative. Diclofenac sodium extended-release is available as extended-release tablets of 100 mg (light pink) for oral administration. The chemical name is 2-[(2,6-dichlorophenyl)amino] benzeneacetic acid, monosodium salt. The molecular weight is 318.14. Its molecular formula is C14H10Cl2NNaO2, and it has the following structural formula The inactive ingredients in Diclofenac Sodium Extended-Release Tablets, USP include: cetyl alcohol, hydroxypropyl methylcellulose, iron oxide, magnesium stearate, polyethylene glycol, polysorbate, povidone, silicon dioxide, sucrose, talc, titanium dioxide. diclofenac sodium structural formula'
     }
     
+    void "test search by UPC"() {
+        when:
+        def result = searchService.search('#openfda.upc:0070038610946')
+        then :
+        assert result.totalCount == 1
+        assert result.totalPages == 1
+        assert result.currentCount == 1
+        assert result.currentPage == 0
+        assert result.labels.size() == 1
+        assert result.labels[0].id == 'cc52d4da-7159-48f8-a9d7-ed517b134e17'
+        assert result.labels[0].title == 'ACETAMINOPHEN'
+    }
     
     void "test getLabelDetails" () {
         when:
@@ -164,4 +176,5 @@ class SearchServiceSpec extends Specification {
         LabelServiceException e = thrown()
         e.message == 'A valid label id must be provided'
     }
+    
 }
