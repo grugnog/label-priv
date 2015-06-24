@@ -159,7 +159,7 @@ openFDA.API.key=''
 itemsPerPage=10
 
 
-lables.map = [
+labels.map = [
               "IDANDVERSION": ["set_id", "id", "version", "effective_time"],
               "ABUSEANDOVERDOSE": ["drug_abuse_and_dependence", "controlled_substance", "abuse", "dependence", "overdosage"],
               "ADVERSEEFFECTS": ["adverse_reactions", "drug_interactions", "drug_and_or_laboratory_test_interactions"],

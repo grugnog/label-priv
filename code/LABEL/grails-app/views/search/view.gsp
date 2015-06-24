@@ -6,7 +6,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-    <title>Search</title>
+    <title>${name} - LABEL</title>
     <meta name="layout" content="main"/>
 </head>
 
@@ -49,7 +49,7 @@
                     <h2 class="text-uppercase"><g:message code="abuse.and.over.dosage"/></h2>
                     <hr/>
 
-                    <g:each in="${grails.util.Holders.config.lables.map.ABUSEANDOVERDOSE}" var="drugs">
+                    <g:each in="${grails.util.Holders.config.labels.map.ABUSEANDOVERDOSE}" var="drugs">
                         <g:if test="${details."${drugs}"}">
                             <g:render template="viewListDetails" model='[id: "${drugs}", code: "${drugs.replaceAll("_", ".")}", valueList: details."${drugs}" ]' />
                         </g:if>
@@ -64,7 +64,7 @@
 
                     <hr/>
 
-                    <g:each in="${grails.util.Holders.config.lables.map.ADVERSEEFFECTS}" var="itr">
+                    <g:each in="${grails.util.Holders.config.labels.map.ADVERSEEFFECTS}" var="itr">
                         <g:if test="${details."${itr}"}">
                             <g:render template="viewListDetails" model='[id: "${itr}", code: "${itr.replaceAll("_", ".")}", valueList: details."${itr}" ]' />
                         </g:if>
@@ -77,7 +77,7 @@
                     <h2 class="text-uppercase"><g:message code="clinical.pharmacology"/></h2>
                     <hr/>
 
-                    <g:each in="${grails.util.Holders.config.lables.map.CLINICALPHAR}" var="itr">
+                    <g:each in="${grails.util.Holders.config.labels.map.CLINICALPHAR}" var="itr">
                         <g:if test="${details."${itr}"}">
                             <g:render template="viewListDetails" model='[id: "${itr}", code: "${itr.replaceAll("_", ".")}", valueList: details."${itr}" ]' />
                         </g:if>
@@ -91,7 +91,7 @@
 
                     <hr/>
 
-                    <g:each in="${grails.util.Holders.config.lables.map.INDICATIONS}" var="itr">
+                    <g:each in="${grails.util.Holders.config.labels.map.INDICATIONS}" var="itr">
                         <g:if test="${details."${itr}"}">
                             <g:render template="viewListDetails" model='[id: "${itr}", code: "${itr.replaceAll("_", ".")}", valueList: details."${itr}" ]' />
                         </g:if>
@@ -105,7 +105,7 @@
 
                     <hr/>
 
-                    <g:each in="${grails.util.Holders.config.lables.map.PATIENTINFO}" var="itr">
+                    <g:each in="${grails.util.Holders.config.labels.map.PATIENTINFO}" var="itr">
                         <g:if test="${details."${itr}"}">
                             <g:render template="viewListDetails" model='[id: "${itr}", code: "${itr.replaceAll("_", ".")}", valueList: details."${itr}" ]' />
                         </g:if>
@@ -120,7 +120,7 @@
 
                     <hr/>
 
-                    <g:each in="${grails.util.Holders.config.lables.map.SPECIALPOPULATION}" var="itr">
+                    <g:each in="${grails.util.Holders.config.labels.map.SPECIALPOPULATION}" var="itr">
                         <g:if test="${details."${itr}"}">
                             <g:render template="viewListDetails" model='[id: "${itr}", code: "${itr.replaceAll("_", ".")}", valueList: details."${itr}" ]' />
                         </g:if>
@@ -135,7 +135,7 @@
 
                     <hr/>
 
-                    <g:each in="${grails.util.Holders.config.lables.map.TOXILOGY}" var="itr">
+                    <g:each in="${grails.util.Holders.config.labels.map.TOXILOGY}" var="itr">
                         <g:if test="${details."${itr}"}">
                             <g:render template="viewListDetails" model='[id: "${itr}", code: "${itr.replaceAll("_", ".")}", valueList: details."${itr}" ]' />
                         </g:if>
@@ -150,7 +150,7 @@
 
                     <hr/>
 
-                    <g:each in="${grails.util.Holders.config.lables.map.REFERENCE}" var="itr">
+                    <g:each in="${grails.util.Holders.config.labels.map.REFERENCE}" var="itr">
                         <g:if test="${details."${itr}"}">
                             <g:render template="viewListDetails" model='[id: "${itr}", code: "${itr.replaceAll("_", ".")}", valueList: details."${itr}" ]' />
                         </g:if>
@@ -166,7 +166,7 @@
 
                     <hr/>
 
-                    <g:each in="${grails.util.Holders.config.lables.map.SUPPLYSTORAGE}" var="itr">
+                    <g:each in="${grails.util.Holders.config.labels.map.SUPPLYSTORAGE}" var="itr">
                         <g:if test="${details."${itr}"}">
                             <g:render template="viewListDetails" model='[id: "${itr}", code: "${itr.replaceAll("_", ".")}", valueList: details."${itr}" ]' />
                         </g:if>
@@ -181,7 +181,7 @@
 
                     <hr/>
 
-                    <g:each in="${grails.util.Holders.config.lables.map.WARNINGS}" var="itr">
+                    <g:each in="${grails.util.Holders.config.labels.map.WARNINGS}" var="itr">
                         <g:if test="${details."${itr}"}">
                             <g:render template="viewListDetails" model='[id: "${itr}", code: "${itr.replaceAll("_", ".")}", valueList: details."${itr}" ]' />
                         </g:if>
@@ -196,7 +196,7 @@
 
                     <hr/>
 
-                    <g:each in="${grails.util.Holders.config.lables.map.IDANDVERSION}" var="itr">
+                    <g:each in="${grails.util.Holders.config.labels.map.IDANDVERSION}" var="itr">
                         <g:if test="${details."${itr}"}">
                             <g:render template="viewStringDetails" model='[id: "${itr}", code: "${itr.replaceAll("_", ".")}", value: details."${itr}" ]' />
                         </g:if>
@@ -211,7 +211,7 @@
 
                     <hr/>
 
-                    <g:each in="${grails.util.Holders.config.lables.map.OTHER}" var="itr">
+                    <g:each in="${grails.util.Holders.config.labels.map.OTHER}" var="itr">
                         <g:if test="${details."${itr}"}">
                             <g:render template="viewListDetails" model='[id: "${itr}", code: "${itr.replaceAll("_", ".")}", valueList: details."${itr}" ]' />
                         </g:if>
@@ -225,7 +225,7 @@
 
                     <hr/>
 
-                    <g:each in="${grails.util.Holders.config.lables.map.OPENFDA}" var="itr">
+                    <g:each in="${grails.util.Holders.config.labels.map.OPENFDA}" var="itr">
                         <g:if test="${details."${itr}"}">
                             <g:render template="viewListDetails" model='[id: "${itr}", code: "${itr.replaceAll("_", ".")}", valueList: details."${itr}" ]' />
                         </g:if>
