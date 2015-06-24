@@ -53,11 +53,9 @@ class SearchController {
                 iTotalRecords = searchResults.totalCount ?: 0
                 iTotalDisplayRecords = searchResults.totalCount ?: 0
                 //loop through labels that are found and construct view to show results
-                //TODO: JanakiRam Display description not more than three lines
                 searchResults.labels.each { label ->
-                    def resStr = "<a href='${label.id}'>${label.title}</a><p>${label.description}</p>"
                     labels << [
-                            labelDetails:resStr
+                            labelDetails:label
                     ]
                 }
                 log.info "Showing results of page ${params.draw}"

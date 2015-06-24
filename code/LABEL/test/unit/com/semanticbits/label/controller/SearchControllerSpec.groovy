@@ -58,7 +58,9 @@ class SearchControllerSpec extends Specification {
         then:'I should get valid results'
         response.json.iTotalRecords == results.totalCount
         response.json.iTotalDisplayRecords == results.totalCount
-        response.json.aaData[0].labelDetails =="<a href='1'>sample title</a><p>test description</p>"
+        response.json.aaData[0].labelDetails.id ==  results.labels[0].id
+        response.json.aaData[0].labelDetails.title ==  results.labels[0].title
+        response.json.aaData[0].labelDetails.description ==  results.labels[0].description
     }
 
     def 'test search by label with empty string'() {

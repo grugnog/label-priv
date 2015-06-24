@@ -4,25 +4,34 @@ $(document).ready( function () {
         searching: false,
         processing: true,
         serverSide: true,
-        "sDom": "<'row'<'col-md-6'i><'col-md-6'<'pull-right'p>>r>t<'row'<'col-md-6'><'col-md-6'>>",
-        "oLanguage": {
-            "oPaginate": {
-                "sPrevious": "<",
-                "sNext": ">"
+        sPaginationType: "full_numbers",
+        sDom: "<'row'<'col-md-6'i><'col-md-6'<'pull-right'p>>r>t<'row'<'col-md-6'><'col-md-6'>>",
+        oLanguage: {
+            oPaginate: {
+                sPrevious: "<",
+                sNext: ">",
+                sFirst: "<<",
+                sLast: ">>"
             } ,
-            "sEmptyTable":"No results found. Please update your query.",
-            "sInfo": "Showing _START_ - _END_ of _TOTAL_ labels"
+            sEmptyTable:"No results found. Please update your query.",
+            sInfo: "Showing _START_ - _END_ of _TOTAL_ labels"
         },
         ajax: {
-            url: '../search/searchJSON',
+            url: "../search/searchJSON",
             data: {term:term},
-            type: 'POST'
+            type: "POST"
         },
-        "columns": [
-            { "data": "labelDetails" }
+        columns: [
+            {
+                data: "labelDetails",
+                "render" : function(data, type, r, meta) {
+                    var content = '<a name="labelDetailsLink" href="'+data.id+'">'+data.title+'</a><p name="labelDescription">'+data.description+'</p>'
+                    return content
+                }
+            }
         ],
         "fnDrawCallback": function(oSettings) {
-            if ($('#labels tbody tr td').html() == 'No labels found') {
+            if ($('#labelTable tbody tr td').html() == "No results found. Please update your query.") {
                 $('.dataTables_paginate').hide();
             }
         }
