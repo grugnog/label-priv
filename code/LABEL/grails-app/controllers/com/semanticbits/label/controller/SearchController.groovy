@@ -74,8 +74,8 @@ class SearchController {
     /**
      * The method returns details for a LABEL term
      */
-    def details() {
-        def termDetails = searchService.getLabelDetails(params.id)
+    Object details() {
+        Map termDetails = searchService.getLabelDetails(params.id)
         render(view: 'view', model: [details: termDetails, name: params.name])
     }
 }
