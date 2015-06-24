@@ -79,8 +79,7 @@ grails.project.dependency.resolution = {
         compile ":scaffolding:2.1.2"
         compile ':cache:1.1.8'
         compile ":asset-pipeline:2.1.5"
-       
-
+        
         test ":code-coverage:2.0.3-3"
 
         // plugins needed at runtime but not for compilation
@@ -90,7 +89,6 @@ grails.project.dependency.resolution = {
 
         // Add angular JS and bootstrap
         runtime ':twitter-bootstrap:3.3.1'
-        runtime ":angularjs-resources:1.4.0"
         runtime ":jquery:1.11.1"
         runtime ':font-awesome-resources:4.3.0.1'
     }
