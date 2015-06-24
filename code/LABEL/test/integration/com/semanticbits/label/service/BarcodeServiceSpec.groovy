@@ -62,5 +62,53 @@ class BarcodeServiceSpec extends Specification {
         barCode == '083275099870'
         
     }
+     
+    void "test scan drug label image1"() {
+         given:
+         byte [] image =  new File ('test/integration/resources/druglabels/image1.jpg').bytes
+         when:
+         def barCode = barcodeService.scanBarcode(image)
+         then:
+         barCode == '300450123046'
+         
+     }
+    
+    void "test scan drug label image2"() {
+        given:
+        byte [] image =  new File ('test/integration/resources/druglabels/image2.jpg').bytes
+        when:
+        def barCode = barcodeService.scanBarcode(image)
+        then:
+        barCode == '360505082919'
+        
+    }
    
+    void "test scan drug label image3"() {
+        given:
+        byte [] image =  new File ('test/integration/resources/druglabels/image3.jpg').bytes
+        when:
+        def barCode = barcodeService.scanBarcode(image)
+        then:
+        barCode == '323900014527'        
+    }
+    
+    void "test scan drug label image4"() {
+        given:
+        byte [] image =  new File ('test/integration/resources/druglabels/image4.jpg').bytes
+        when:
+        def barCode = barcodeService.scanBarcode(image)
+        then:
+        barCode == '300450496607'
+        
+    }
+    
+    void "test scan drug label image5"() {
+        given:
+        byte [] image =  new File ('test/integration/resources/druglabels/image5.jpg').bytes
+        when:
+        def barCode = barcodeService.scanBarcode(image)
+        then:
+        barCode == '050428375464'
+        
+    }
 }
