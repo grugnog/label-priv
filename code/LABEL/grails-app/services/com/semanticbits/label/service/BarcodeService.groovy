@@ -24,25 +24,31 @@ class BarcodeService {
         if (!image) {
             throw new LabelServiceException('Image file is empty')
         }
-        // This is the only invokable public method on the ZXing API!
-        String imageFile = saveImage(image, imageName)
-        CommandLineRunner.main([imageFile, '--try_harder', '--dump_results'] as String [])
-        String result = readBarcodeOutput(imageFile)
-        cleanupTempfiles(imageFile)
-        result
+        File imageFile
+        try {
+            // This is the only invokable public method on the ZXing API!
+            imageFile = saveImage(image, imageName)
+            CommandLineRunner.main([imageFile.absolutePath, '--try_harder', '--dump_results'] as String [])
+            String result = readBarcodeOutput(imageFile)
+            result
+        } finally {
+            if (imageFile) {
+                cleanupTempfiles(imageFile)
+            }
+        }
     }
 
     /**
      * Save the image to work dir and return the filename
      * @param image image data
      * @param imageName imageName
-     * @return Path of saved image file
+     * @return saved image file
      */
-    private String saveImage(byte[] image, String imageName) {
-        File imageFile = new File(grailsApplication.config.barcode.workdir, imageName ?: "${System.currentTimeMillis()}.jpg")
-        FileOutputStream out = new FileOutputStream(imageFile) << image
-        out.close()
-        imageFile.absolutePath
+    private File saveImage(byte[] image, String imageName) {
+        File imageFile = new File(grailsApplication.config.barcode.workdir, imageName ?: 
+                                                        "${System.currentTimeMillis()}.jpg")
+        imageFile.bytes = image
+        imageFile
     }
 
     /**
@@ -50,8 +56,8 @@ class BarcodeService {
      * @param imageName
      * @return
      */
-    private String readBarcodeOutput(String imageName) throws LabelServiceException {
-        File outFile = new File(grailsApplication.config.barcode.workdir, getBarcodeOutFilename(imageName))
+    private String readBarcodeOutput(File imageFile) throws LabelServiceException {
+        File outFile = new File(getBarcodeOutFilename(imageFile))
         if (outFile.exists()) {
             return outFile.text.trim()
         }
@@ -60,11 +66,11 @@ class BarcodeService {
 
     /**
      * Get barcode output file name for the given image file
-     * @param imageFileName imagefile path
+     * @param imageFile image file
      * @return
      */
-    private String getBarcodeOutFilename(String imageFileName) {
-        String outFileName = new File(imageFileName).name
+    private String getBarcodeOutFilename(File imageFile) {
+        String outFileName = imageFile.absolutePath
         int pos = outFileName.lastIndexOf('.')
         outFileName = pos ? (outFileName[0..pos - 1] + '.txt') : outFileName
     }
@@ -74,8 +80,8 @@ class BarcodeService {
      * @param imageName
      * @return
      */
-    private cleanupTempfiles(String imageName) {
-        new File(imageName).delete()
-        new File(getBarcodeOutFilename(imageName)).delete()
+    private cleanupTempfiles(File imageFile) {
+        imageFile.delete()
+        new File(getBarcodeOutFilename(imageFile)).delete()
     }
 }
