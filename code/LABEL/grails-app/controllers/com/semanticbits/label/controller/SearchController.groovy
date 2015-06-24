@@ -1,6 +1,7 @@
 package com.semanticbits.label.controller
 
 import com.semanticbits.label.service.LabelServiceException
+import com.semanticbits.label.service.SearchService
 import grails.converters.JSON
 
 /**
@@ -8,15 +9,15 @@ import grails.converters.JSON
  * Date: 6/22/15
  */
 class SearchController {
-    static defaultAction = 'index'
-    def searchService
+    static final String INDEX_VIEW = 'index'
+    SearchService searchService
 
 /**
  * To display label home page(which is search label page)
  * This method also gets called when user clicks on search button
  * @return home page if no term provided or returns search results page
  */
-    def index() {
+    Object index() {
         //If search string provided then render search results page
         if (params.term) {
             String term = params.term
@@ -24,7 +25,7 @@ class SearchController {
         }
         //Otherwise return same page(Home page)
         else {
-            render(view:'index')
+            render(view:INDEX_VIEW)
         }
     }
 
@@ -32,11 +33,11 @@ class SearchController {
  * This method gets called on every search button click and on every pagination
  * @return labels information based on search string as JSON
  */
-    def searchJSON() {
+    JSON searchJSON() {
         //User entered term
         String term = params.term
         //To capture labels information
-        def labels = []
+        List<Object> labels = []
         //To capture total labels
         int iTotalRecords = 0
         //To capture total labels that we are showing
