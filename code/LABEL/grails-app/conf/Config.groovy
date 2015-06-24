@@ -157,3 +157,5 @@ log4j.main = {
 openFDA.API.url='https://api.fda.gov/drug/label.json'
 openFDA.API.key=''
 itemsPerPage=10
+// Barcode work directory for saving image files and barcode files
+barcode.workdir="${configFolder}/barcode"
