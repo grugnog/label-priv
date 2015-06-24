@@ -113,36 +113,29 @@ codenarc.reports = {
     }
 }
 
-ruleset {
-     // Do not report GrailsStatelessService on grailsApplication reference
-    ruleset("rulesets/grails.xml"){
-        GrailsStatelessService{
-            addToIgnoreFieldNames = ['grailsApplication']
-        }
-    }
-}
 
 // Codenarc rules
 codenarc.ruleSetFiles = [
-    "rulesets/basic.xml",
-    "rulesets/braces.xml",
-    "rulesets/concurrency.xml",
-    "rulesets/convention.xml",
-    "rulesets/design.xml",
-    "rulesets/dry.xml",
-    "rulesets/enhanced.xml",
-    "rulesets/exceptions.xml",
-    "rulesets/formatting.xml",
-    "rulesets/generic.xml",
-    "rulesets/groovyism.xml",
-    "rulesets/imports.xml",
-    "rulesets/jdbc.xml",
-    "rulesets/logging.xml",
-    "rulesets/naming.xml",
-    "rulesets/security.xml",
-    "rulesets/serialization.xml",
-    "rulesets/unnecessary.xml",
-    "rulesets/unused.xml"
+    'rulesets/basic.xml',
+    'rulesets/braces.xml',
+    'rulesets/concurrency.xml',
+    'rulesets/convention.xml',
+    'rulesets/design.xml',
+    'rulesets/dry.xml',
+    'rulesets/enhanced.xml',
+    'rulesets/exceptions.xml',
+    'rulesets/formatting.xml',
+    'rulesets/generic.xml',
+    'rulesets/groovyism.xml',
+    'rulesets/imports.xml',
+    'rulesets/jdbc.xml',
+    'rulesets/logging.xml',
+    'rulesets/naming.xml',
+    'rulesets/security.xml',
+    'rulesets/serialization.xml',
+    'rulesets/unnecessary.xml',
+    'rulesets/unused.xml',
+    'rulesets/grails.xml'
 ]
 
 codenarc.properties = {
@@ -152,6 +145,8 @@ codenarc.properties = {
     SpaceAroundMapEntryColon.enabled=false
     
     maxPriority3Violations : 20
+    
+    GrailsStatelessService.addToIgnoreFieldNames='grailsApplication'
 }
 
 // Code coverage configuration  (https://github.com/beckje01/grails-code-coverage)

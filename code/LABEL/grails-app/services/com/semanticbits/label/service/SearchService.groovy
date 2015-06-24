@@ -15,7 +15,7 @@ class SearchService {
 
     GrailsApplication grailsApplication
     OpenFDAService openFDAService
-
+    
     /**
      * Search for a term, return the result from the specified page
      * @param term search term(s)
@@ -118,7 +118,7 @@ class SearchService {
                     labels = responseJson.results.collect {
                         [ id : it.id,
                          title : getLabelTitle(it),
-                         description : sanitizeLabelValue('description', it.description)]
+                         description : it.description ? sanitizeLabelValue('description', it.description[0]):'']
                     }
                 }
             }
