@@ -70,4 +70,12 @@ class SearchController {
         render([draw: params.draw, iTotalRecords:iTotalRecords,
                 iTotalDisplayRecords:iTotalDisplayRecords, aaData:labels] as JSON)
     }
+
+    /**
+     * The method returns details for a LABEL term
+     */
+    def details() {
+        def termDetails = searchService.getLabelDetails(params.id)
+        render(view: 'view', model: [details: termDetails, name: params.name])
+    }
 }

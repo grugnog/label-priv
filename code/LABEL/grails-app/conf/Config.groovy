@@ -157,3 +157,23 @@ log4j.main = {
 openFDA.API.url='https://api.fda.gov/drug/label.json'
 openFDA.API.key=''
 itemsPerPage=10
+
+
+lables.map = [
+              "IDANDVERSION": ["set_id", "id", "version", "effective_time"],
+              "ABUSEANDOVERDOSE": ["drug_abuse_and_dependence", "controlled_substance", "abuse", "dependence", "overdosage"],
+              "ADVERSEEFFECTS": ["adverse_reactions", "drug_interactions", "drug_and_or_laboratory_test_interactions"],
+              "CLINICALPHAR": ["clinical_pharmacology", "mechanism_of_action", "pharmacodynamics", "pharmacokinetics"],
+              "INDICATIONS": ["indications_and_usage", "contraindications", "dosage_and_administration", "dosage_forms_and_strengths", "purpose", "description", "active_ingredient", "inactive_ingredient", "spl_product_data_elements"],
+              "PATIENTINFO": ["spl_patient_package_insert", "information_for_patients", "information_for_owners_or_caregivers", "instructions_for_use", "ask_doctor", "ask_doctor_or_pharmacist", "do_not_use", "keep_out_of_reach_of_children", "other_safety_information", "questions", "stop_use", "when_using"],
+              "SPECIALPOPULATION": ["use_in_specific_populations", "pregnancy", "teratogenic_effects", "nonteratogenic_effects", "labor_and_delivery", "nursing_mothers", "pregnancy_or_breast_feeding", "pediatric_use", "geriatric_use"],
+              "TOXILOGY": ["nonclinical_toxicology", "carcinogenesis_and_mutagenesis_and_impairment_of_fertility", "animal_pharmacology_and_or_toxicology"],
+              "REFERENCE": ["clinical_studies", "references"],
+              "SUPPLYSTORAGE": ["how_supplied", "storage_and_handling", "safe_handling_warning"],
+              "WARNINGS": ["boxed_warning", "warnings_and_precautions", "user_safety_warnings", "precautions", "warnings", "general_precautions"],
+              "OTHER": ["laboratory_tests", "recent_major_changes", "microbiology", "package_label_principal_display_panel", "spl_unclassified_section"],
+              "OPENFDA": ["openfda"],
+            ]
+
+
+
