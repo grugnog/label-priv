@@ -111,4 +111,44 @@ class BarcodeServiceSpec extends Specification {
         barCode == '050428375464'
         
     }
+    
+    void "test scan drug label ACETAMINOPHEN"() {
+        given:
+        byte [] image =  new File ('test/integration/resources/druglabels/ACETAMINOPHEN.png').bytes
+        when:
+        def barCode = barcodeService.scanBarcode(image)
+        then:
+        barCode == '007003861096'
+        
+    }
+    
+    void "test scan drug label Child ACCUDIAL"() {
+        given:
+        byte [] image =  new File ('test/integration/resources/druglabels/ChildACCUDIAL.png').bytes
+        when:
+        def barCode = barcodeService.scanBarcode(image)
+        then:
+        barCode == '034501400038'
+        
+    }
+    
+    void "test scan drug label WG ColdCough"() {
+        given:
+        byte [] image =  new File ('test/integration/resources/druglabels/WG_Cold&Cough.png').bytes
+        when:
+        def barCode = barcodeService.scanBarcode(image)
+        then:
+        barCode == '031191713202'
+        
+    }
+    
+    void "test scan drug label Allergy and Sinus"() {
+        given:
+        byte [] image =  new File ('test/integration/resources/druglabels/Allergy&Sinus.png').bytes
+        when:
+        def barCode = barcodeService.scanBarcode(image)
+        then:
+        barCode == '005042808546'
+        
+    }
 }
