@@ -148,7 +148,7 @@ class SearchService {
     }
     
     private String capitalize(String str) {
-        str?.toLowerCase().tokenize()*.capitalize()*.join(SPACE_CHAR)
+        str?.toLowerCase().tokenize()*.capitalize().join(SPACE_CHAR)
     }
     
     /**
