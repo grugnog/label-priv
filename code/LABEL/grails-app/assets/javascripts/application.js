@@ -19,3 +19,23 @@ if (typeof jQuery !== 'undefined') {
 		});
 	})(jQuery);
 }
+
+
+$(document).ready( function () {
+
+    $("#uploadBarCodeButton").on('click', function(event) {
+        $("#uploadBarCode").show();
+        $("#uploadBarCodeButton").hide();
+        $("#searchText").show();
+        $("#termText").hide();
+        event.preventDefault();
+    });
+
+    $("#searchText").on('click', function(event) {
+        $("#termText").show();
+        $("#uploadBarCode").hide();
+        $("#searchText").hide();
+        $("#uploadBarCodeButton").show();
+        event.preventDefault();
+    });
+});
