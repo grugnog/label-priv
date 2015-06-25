@@ -1,8 +1,13 @@
 package com.semanticbits.label.controller
 
+import com.semanticbits.label.service.BarcodeService
 import com.semanticbits.label.service.LabelServiceException
 import com.semanticbits.label.service.SearchService
 import grails.converters.JSON
+import grails.web.JSONBuilder
+import org.apache.commons.lang.StringUtils
+import org.springframework.web.multipart.MultipartFile
+import org.springframework.web.multipart.MultipartHttpServletRequest
 
 /**
  * User: Janakiram Gollapudi
@@ -11,6 +16,7 @@ import grails.converters.JSON
 class SearchController {
     static final String INDEX_VIEW = 'index'
     SearchService searchService
+    BarcodeService barcodeService
 
 /**
  * To display label home page(which is search label page)
@@ -27,6 +33,31 @@ class SearchController {
         else {
             render(view:INDEX_VIEW)
         }
+    }
+
+    /**
+     * Processes a bar code and returns value
+     */
+    JSON processBarCodeImage() {
+        def results = []
+        if (request instanceof MultipartHttpServletRequest) {
+            for (filename in request.fileNames) {
+
+                MultipartFile file = request.getFile(filename)
+
+                def scannedCode = barcodeService.scanBarcode(file.bytes)
+
+                JSONBuilder jSON = new JSONBuilder()
+                JSON json = jSON.build {
+                    size = file.size
+                    code = scannedCode
+                }
+
+                results = json.toString()
+            }
+        }
+
+        render results
     }
 
 /**

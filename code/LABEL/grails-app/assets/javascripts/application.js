@@ -27,6 +27,7 @@ $(document).ready( function () {
         $("#uploadBarCode").show();
         $("#uploadBarCodeButton").hide();
         $("#searchText").show();
+        $("#searchButton").hide();
         $("#termText").hide();
         event.preventDefault();
     });
