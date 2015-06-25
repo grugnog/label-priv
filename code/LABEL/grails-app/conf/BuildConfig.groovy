@@ -81,6 +81,7 @@ grails.project.dependency.resolution = {
         compile ":asset-pipeline:2.1.5"
         compile ":functional-test:2.0.0"
         
+        test ":geb:${gebVersion}"
         test ":code-coverage:2.0.3-3"
 
         // plugins needed at runtime but not for compilation
