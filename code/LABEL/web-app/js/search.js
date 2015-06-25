@@ -17,7 +17,7 @@ $(document).ready( function () {
             sInfo: "Showing _START_ - _END_ of _TOTAL_ labels"
         },
         ajax: {
-            url: "../textSearch",
+            url: "/LABEL/search/textSearch",
             data: {term:term},
             type: "POST"
         },
@@ -45,7 +45,6 @@ $(document).ready( function () {
         autoFocus: true,
         source: function (request, response) {
             if(request.term.startsWith("#") && request.term.length > 1 && request.term.indexOf(':') == -1){
-                var url = "${createLink(controller: 'search' , action:'autocomplete')}";
                 $.ajax({
                     dataType:"JSON",
                     type:"GET",
