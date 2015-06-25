@@ -97,6 +97,6 @@ class SearchController {
        }
        //Filter list by given string
        List<String> foundLabelFields = labelFields.findAll { it.startsWith(term[1..term.length() - 1]) }   //Remove first character and search string in list
-       render foundLabelFields as JSON
+       render foundLabelFields.sort() as JSON
     }
 }
