@@ -6,7 +6,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-    <title>${name} - LABEL</title>
+    <title>${title} - LABEL</title>
     <meta name="layout" content="main"/>
 </head>
 
@@ -21,9 +21,9 @@
             </div>
 
             <br/>
-            <a href=""><g:message code="back.to.search"/></a>
+            <a href="index?term=${params.term}&page=${params.page}"><g:message code="back.to.search"/></a>
 
-            <h3>${name}</h3>
+            <h3>${title}</h3>
             <hr/>
 
             <div class="col-sm-3">

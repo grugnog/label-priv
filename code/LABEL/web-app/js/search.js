@@ -25,7 +25,9 @@ $(document).ready( function () {
             {
                 data: "labelDetails",
                 "render" : function(data, type, r, meta) {
-                    var content = '<a name="labelDetailsLink" href="'+data.id+'">'+data.title+'</a><p name="labelDescription">'+data.description+'</p>'
+                    var api = new $.fn.dataTable.Api( meta.settings );
+                    var currentPage = api.page()+1 //If user is on first page 'api.page()' returns zero
+                    var content = '<a name="labelDetailsLink" href="details?id='+data.id+'&title='+data.title+'&term='+term+'&page='+currentPage+'">'+data.title+'</a><p name="labelDescription">'+data.description+'</p>'
                     return content
                 }
             }

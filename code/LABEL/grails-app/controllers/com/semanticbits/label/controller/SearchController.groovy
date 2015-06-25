@@ -78,7 +78,7 @@ class SearchController {
      */
     Object details() {
         Map termDetails = searchService.getLabelDetails(params.id)
-        render(view: 'view', model: [details: termDetails, name: params.name])
+        render(view: 'view', model: [details: termDetails, title: params.title], term: params.term, page: params.page)
     }
 
     /**
