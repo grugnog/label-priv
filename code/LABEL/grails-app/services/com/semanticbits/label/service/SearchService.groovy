@@ -136,13 +136,17 @@ class SearchService {
      */
     private getLabelTitle(Map labelJson) {
         if (labelJson.openfda.brand_name) {
-            return labelJson.openfda.brand_name[0].capitalize()
+            return capitalize(labelJson.openfda.brand_name[0])
         } else if (labelJson.openfda?.generic_name) {
-            return labelJson.openfda.generic_name[0].capitalize()
+            return capitalize(labelJson.openfda.generic_name[0])
         } else if (labelJson.openfda.substance_name) {
-            return labelJson.openfda.substance_name[0].capitalize()
+            return capitalize(labelJson.openfda.substance_name[0])
         }
         labelJson.id
+    }
+    
+    private String capitalize(String str) {
+        str?.toLowerCase().tokenize().collect { it.capitalize() }.join(' ')
     }
     
     /**
@@ -200,9 +204,14 @@ class SearchService {
         String result = attrVal
         attrNames.each { attrName -> 
             if (attrName && attrVal) {
-                String prefix = attrName.replaceAll('_', SPACE_CHAR).replaceAll('and', '&')
-                if (attrVal.toLowerCase().startsWith(prefix)) {
-                    result = attrVal[prefix.length() + 1 .. -1]
+                List prefixes = [attrName, 
+                                attrName.replaceAll('_', SPACE_CHAR), 
+                                attrName.replaceAll('_', SPACE_CHAR).replaceAll('and', '&')
+                                ]
+                prefixes.each { prefix -> 
+                    if (attrVal.toLowerCase().startsWith(prefix)) {
+                        result = attrVal[prefix.length() + 1 .. -1]
+                    }
                 }
             }
         }
