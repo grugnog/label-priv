@@ -41,7 +41,7 @@ class SearchService {
             log.debug("Searching for term  ${term}")
             String response = openFDAService.invoke(['search' : sanitizeSearchTerm(term), 
                                                       'limit' :  grailsApplication.config.itemsPerPage,
-                                                      'skip' : page * 10])
+                                                      'skip' : page])
             log.debug("Retrieved response ${response} from openFDA")
             return generateResponse(response)
         }
