@@ -3,6 +3,7 @@ package com.semanticbits.label.controller
 import com.semanticbits.label.service.LabelServiceException
 import com.semanticbits.label.service.SearchService
 import grails.converters.JSON
+import grails.util.Holders
 
 /**
  * User: Janakiram Gollapudi
@@ -33,7 +34,7 @@ class SearchController {
  * This method gets called on every search button click and on every pagination
  * @return labels information based on search string as JSON
  */
-    JSON searchJSON() {
+    JSON textSearch() {
         //User entered term
         String term = params.term
         //To capture labels information
@@ -46,7 +47,7 @@ class SearchController {
         if (term) {
             try {
                 //draw captures current page of datatable
-                int page = params.draw ? params.int('draw') : 0
+                int page = params.draw ? params.int('draw')-1 : 0
                 //Get the results using search term
                 log.info "Searching for labels with given string: ${term}"
                 Map<String, Object> searchResults = searchService.search(term, page)
@@ -59,7 +60,7 @@ class SearchController {
                             labelDetails:label
                     ]
                 }
-                log.info "Showing results of page ${params.draw}"
+                log.info "Showing results of page ${page}"
             }
             catch (LabelServiceException e) {
                 log.error("Exception occurred while searching term ${params.term}: ${e}")
@@ -78,5 +79,29 @@ class SearchController {
     Object details() {
         Map termDetails = searchService.getLabelDetails(params.id)
         render(view: 'view', model: [details: termDetails, name: params.name])
+    }
+
+    /**
+     * Advanced search for label
+     * This method gets called when user try to search labels began with '#'
+     * @return results as JSON
+     */
+    JSON autocomplete() {
+       String term = params.term
+       //Get label fields map from config file
+       Map<String, List<String>> labelMap = Holders.config.labels.map
+       List<String> labelFields = []
+       //Extract all label values from the map and put it in a list
+       labelMap.each { key, value ->
+           labelFields.addAll(value)
+       }
+       //Filter list by given string
+       List<String> foundLabelFields = labelFields.findAll { it.startsWith(term[1..term.length() - 1]) }   //Remove first character and search string in list
+       render foundLabelFields as JSON
+    }
+
+    //When user clicks on search button with #
+    def advancedSearch() {
+
     }
 }

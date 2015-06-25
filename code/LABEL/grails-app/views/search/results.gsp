@@ -8,6 +8,7 @@ Date: 6/23/15
 <head>
     <title><g:message code="results.page.title"/></title>
     <meta name="layout" content="main"/>
+    <g:javascript plugin="jquery-ui"/>
     <g:javascript src="search.js"/>
 </head>
 <body>
@@ -21,10 +22,10 @@ Date: 6/23/15
             </div>
             <br/>
             <br/>
-            <g:form controller="search" method="GET">
+            <g:form controller="search" method="GET" id="searchForm">
                 <div class="search">
                     <!--TODO:BEN This is search text box in home page, we have to add search icon inside textbox as shown in mockup  -->
-                    <input type="text" name="term" placeholder="${message(code:"search.prompt.text")}" size="50" value="${params.term}"/>
+                    <input type="text" name="term" id="searchInput" placeholder="${message(code:"search.prompt.text")}" size="50" value="${params.term}"/>
                     <input type="submit" id="searchButton" value="${message(code:"search.button.label")}" class="btn btn-primary"/>
                     <!--TODO:BEN This is help icon beside search button   -->
                     <img src="help.png" />

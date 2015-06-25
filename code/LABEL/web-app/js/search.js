@@ -17,7 +17,7 @@ $(document).ready( function () {
             sInfo: "Showing _START_ - _END_ of _TOTAL_ labels"
         },
         ajax: {
-            url: "../search/searchJSON",
+            url: "../textSearch",
             data: {term:term},
             type: "POST"
         },
@@ -34,6 +34,34 @@ $(document).ready( function () {
             if ($('#labelTable tbody tr td').html() == "No results found. Please update your query.") {
                 $('.dataTables_paginate').hide();
             }
+        }
+    });
+
+
+   //To handle advance search
+    $("#searchInput").autocomplete({
+        autoFocus: true,
+        source: function (request, response) {
+            if(request.term.startsWith("#") && request.term.length > 1){
+                var url = "${createLink(controller: 'search' , action:'autocomplete')}";
+                $.ajax({
+                    dataType:"JSON",
+                    type:"GET",
+                    data:{term:request.term},
+                    url:"/LABEL/search/autocomplete",
+                    success: function(data){
+                        response(data);
+                    },
+                    error: function(data){
+                        console.log("error.........");
+                         //TODO:JanakiRam Show valid message
+                    }
+                });
+            }
+        },
+        select: function(event, ui) {
+            $("#searchInput").val("#"+ui.item.label+":");
+            return false;
         }
     });
 } );
