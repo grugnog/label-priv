@@ -18,23 +18,17 @@ class OpenFDAService {
      */
     String invoke(Map<String, String> searchParams) throws LabelServiceException {
         try {
-            String result
             if (!grailsApplication.config.openFDA.API.url) {
                 throw new LabelServiceException('openFDA.API.url property not configured, unable to invoke openFDA API')
             }
-            if (searchParams?.search) {
-                StringBuilder sb = new StringBuilder(grailsApplication.config.openFDA.API.url).append('?')
-                if (grailsApplication.config.openFDA.API.key) {
-                    sb.append('api_key=').append(grailsApplication.config.openFDA.API.key)
-                }
-                searchParams.each { param, val ->
-                    sb.append('&').append(param).append('=').append(val)
-                }
-                result = new URL(sb.toString()).text
-            } else {
-                throw new LabelServiceException('search parameter must be specified for invoking the openFDA API')
+            StringBuilder sb = new StringBuilder(grailsApplication.config.openFDA.API.url).append('?')
+            if (grailsApplication.config.openFDA.API.key) {
+                sb.append('api_key=').append(grailsApplication.config.openFDA.API.key)
             }
-            return result
+            searchParams.each { param, val ->
+                sb.append('&').append(param).append('=').append(val)
+            }
+            new URL(sb.toString()).text
         } catch (FileNotFoundException fnfe) {
            return '' // term not found return ''
         } catch (all) {

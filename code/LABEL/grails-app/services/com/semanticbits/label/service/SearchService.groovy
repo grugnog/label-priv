@@ -36,16 +36,13 @@ class SearchService {
      * }
      * @throws LabelServiceException
      */
-    Map<String, Object> search(String term, int page = 0) throws LabelServiceException {
-        if (term) {
-            log.debug("Searching for term  ${term}")
-            String response = openFDAService.invoke(['search' : sanitizeSearchTerm(term), 
-                                                      'limit' :  grailsApplication.config.itemsPerPage,
-                                                      'skip' : page])
-            log.debug("Retrieved response ${response} from openFDA")
-            return generateResponse(response)
-        }
-       throw new LabelServiceException('Invalid search, empty search string')
+    Map<String, Object> search(String term='', int page = 0) throws LabelServiceException {
+        log.debug("Searching for term  ${term}")
+        String response = openFDAService.invoke(['search' : sanitizeSearchTerm(term), 
+                                                  'limit' :  grailsApplication.config.itemsPerPage,
+                                                  'skip' : page * grailsApplication.config.itemsPerPage])
+        log.debug("Retrieved response ${response} from openFDA")
+        generateResponse(response)
     }
     
     /**
@@ -75,8 +72,8 @@ class SearchService {
      * @return sanitized term
      */
     private String sanitizeSearchTerm(String term) {
+        String cleanTerm = term ?: ''
         // Strip off first #
-        String cleanTerm = term
         if (term.startsWith('#')) {
             cleanTerm = term[1.. -1]
         }
@@ -104,7 +101,10 @@ class SearchService {
                 Object responseJson = js.parseText(response)
     
                 totalCount = responseJson.meta?.results?.total
-                currentPage =  responseJson.meta?.results?.skip
+                
+                if (responseJson.meta?.results?.skip && responseJson.meta?.results?.limit) {
+                    currentPage =  Math.ceil(responseJson.meta?.results?.skip / responseJson.meta?.results?.limit)
+                }
                 
                 if (totalCount && responseJson.meta?.results?.limit) {
                     totalPages = totalCount / responseJson.meta?.results?.limit
@@ -136,11 +136,11 @@ class SearchService {
      */
     private getLabelTitle(Map labelJson) {
         if (labelJson.openfda.brand_name) {
-            return labelJson.openfda.brand_name[0] 
+            return labelJson.openfda.brand_name[0].capitalize()
         } else if (labelJson.openfda?.generic_name) {
-            return labelJson.openfda.generic_name[0]
+            return labelJson.openfda.generic_name[0].capitalize()
         } else if (labelJson.openfda.substance_name) {
-            return labelJson.openfda.substance_name[0]
+            return labelJson.openfda.substance_name[0].capitalize()
         }
         labelJson.id
     }

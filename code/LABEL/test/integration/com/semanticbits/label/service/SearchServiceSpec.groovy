@@ -34,8 +34,7 @@ class SearchServiceSpec extends Specification {
         when:
         def result = searchService.search('')
         then :
-        LabelServiceException e = thrown()
-        e.message == 'Invalid search, empty search string'
+        assert result.totalCount == 72590
     }
     
     void "test search with special character"() {
@@ -57,26 +56,41 @@ class SearchServiceSpec extends Specification {
         assert result.labels.size() == 10
     }
     
-    void "test search with out of bound page number"() {
+    void "test search with page number first page "() {
         when:
-        def result = searchService.search('fever', 2834)
+        def result = searchService.search('motrin', 0)
         then :
-        assert result.totalCount == 28330
-        assert result.totalPages == 2833
-        assert result.currentCount == 10
-        assert result.currentPage == 2834
-        assert result.labels.size() == 10
-    }
-    
-    void "test search for multiple result without page number"() {
-        when:
-        def result = searchService.search('fever')
-        then :
-        assert result.totalCount == 28330
-        assert result.totalPages == 2833
+        assert result.totalCount == 1171
+        assert result.totalPages == 118
         assert result.currentCount == 10
         assert result.currentPage == 0
         assert result.labels.size() == 10
+        assert result.labels[0].id == 'c46c814a-545b-4b7e-a732-23fae5fb3800'
+        assert result.labels[0].title == 'Meloxicam'
+    }
+    
+    void "test search with page number last page "() {
+        when:
+        def result = searchService.search('motrin', 117)
+        then :
+        assert result.totalCount == 1171
+        assert result.totalPages == 118
+        assert result.currentCount == 1
+        assert result.currentPage == 117
+        assert result.labels.size() == 1
+        assert result.labels[0].id == 'e6d3ddb1-784d-420c-a1ef-7f349cf6f55d'
+        assert result.labels[0].title == 'Piroxicam'
+    }
+    
+    void "test search with out of bound page number"() {
+        when:
+        def result = searchService.search('motrin', 118)
+        then :
+        assert result.totalCount == 0
+        assert result.totalPages == 0
+        assert result.currentCount == 0
+        assert result.currentPage == 0
+        assert result.labels.size() == 0
     }
     
     void "test search for not existing label"() {
