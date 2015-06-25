@@ -159,7 +159,7 @@ class SearchService {
             } else if (value in List) {
                 List newListVal = []
                 value.each { val ->
-                    if(val in String) {
+                    if (val in String) {
                         newListVal += sanitizeLabelValue(name, val)
                     } else {
                         newListVal += val
