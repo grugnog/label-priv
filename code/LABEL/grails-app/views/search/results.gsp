@@ -8,7 +8,6 @@ Date: 6/23/15
 <head>
     <title><g:message code="results.page.title"/></title>
     <meta name="layout" content="main"/>
-    <g:javascript plugin="jquery-ui"/>
     <g:javascript src="search.js"/>
 </head>
 <body>

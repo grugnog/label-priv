@@ -26,7 +26,7 @@ $(document).ready( function () {
                 data: "labelDetails",
                 "render" : function(data, type, r, meta) {
                     var api = new $.fn.dataTable.Api( meta.settings );
-                    var currentPage = api.page()+1 //If user is on first page 'api.page()' returns zero
+                    var currentPage = api.page()
                     var content = '<a name="labelDetailsLink" href="details?id='+data.id+'&title='+data.title+'&term='+term+'&page='+currentPage+'">'+data.title+'</a><p name="labelDescription">'+data.description+'</p>'
                     return content
                 }
@@ -44,7 +44,7 @@ $(document).ready( function () {
     $("#searchInput").autocomplete({
         autoFocus: true,
         source: function (request, response) {
-            if(request.term.startsWith("#") && request.term.length > 1){
+            if(request.term.startsWith("#") && request.term.length > 1 && request.term.indexOf(':') == -1){
                 var url = "${createLink(controller: 'search' , action:'autocomplete')}";
                 $.ajax({
                     dataType:"JSON",
@@ -54,9 +54,8 @@ $(document).ready( function () {
                     success: function(data){
                         response(data);
                     },
-                    error: function(data){
-                        console.log("error.........");
-                         //TODO:JanakiRam Show valid message
+                    error: function(xhr, status, error){
+
                     }
                 });
             }
