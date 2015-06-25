@@ -118,7 +118,7 @@ class SearchService {
                     labels = responseJson.results.collect {
                         [ id : it.id,
                          title : getLabelTitle(it),
-                         description : it.description ? sanitizeLabelValue('description', it.description[0]):'']
+                         description : getLabelDescription(it)]
                     }
                 }
             }
@@ -135,16 +135,32 @@ class SearchService {
      * @return selected title of the label
      */
     private getLabelTitle(Map labelJson) {
-        if (labelJson.openfda?.generic_name) {
+        if (labelJson.openfda.brand_name) {
+            return labelJson.openfda.brand_name[0] 
+        } else if (labelJson.openfda?.generic_name) {
             return labelJson.openfda.generic_name[0]
-        } else if (labelJson.openfda.brand_name) {
-            return labelJson.openfda.brand_name[0]
         } else if (labelJson.openfda.substance_name) {
             return labelJson.openfda.substance_name[0]
-        } else if (labelJson.package_label_principal_display_panel) {
-            return sanitizeLabelValue('principal_display_panel', labelJson.package_label_principal_display_panel[0])
         }
         labelJson.id
+    }
+    
+    /**
+     * Extract label description from label json
+     * @param labelJson json representation of the label record
+     * @return selected description of the label
+     */
+    private getLabelDescription(Map labelJson) {
+        String result
+        if (labelJson.description) {
+            result = sanitizeLabelValue(['description'], labelJson.description[0])
+        } else if (labelJson.package_label_principal_display_panel) {
+             result = sanitizeLabelValue(['principal_display_panel', 'package/label principal display panel',
+                  'package_label_principal_display_panel'], labelJson.package_label_principal_display_panel[0])
+        } else { 
+            result = labelJson.id
+        }
+        result
     }
     
     /**
@@ -155,12 +171,12 @@ class SearchService {
     private Map sanitizeLabelAttributeValues(Map labelAttrs) {
         labelAttrs.each { name, value ->
             if (value in String) {
-                labelAttrs[name] = sanitizeLabelValue(name, value)
+                labelAttrs[name] = sanitizeLabelValue([name], value)
             } else if (value in List) {
                 List newListVal = []
                 value.each { val ->
                     if (val in String) {
-                        newListVal += sanitizeLabelValue(name, val)
+                        newListVal += sanitizeLabelValue([name], val)
                     } else {
                         newListVal += val
                     }
@@ -176,18 +192,18 @@ class SearchService {
     /**
      * Sanitize label attribute value
      *  - Remove the attribute name from the beginning of the attribute value 
-     * @param attrName attribute name
+     * @param attrNames list of attribute name to search for 
      * @param attrVal attribute value
      * @return sanitized attribute value
      */
-    private String sanitizeLabelValue(String attrName, String attrVal) {
+    private String sanitizeLabelValue(List attrNames, String attrVal) {
         String result = attrVal
-        if (attrName && attrVal) {
-            String prefix = attrName.replaceAll('_', SPACE_CHAR).replaceAll('and', '&').toUpperCase()
-            if (attrVal.startsWith(prefix)) {
-                result = attrVal[prefix.length() + 1 .. -1]
-            } else {
-                result = attrVal
+        attrNames.each { attrName -> 
+            if (attrName && attrVal) {
+                String prefix = attrName.replaceAll('_', SPACE_CHAR).replaceAll('and', '&')
+                if (attrVal.toLowerCase().startsWith(prefix)) {
+                    result = attrVal[prefix.length() + 1 .. -1]
+                }
             }
         }
         result

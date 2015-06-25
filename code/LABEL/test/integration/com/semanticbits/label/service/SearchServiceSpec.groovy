@@ -25,7 +25,7 @@ class SearchServiceSpec extends Specification {
         assert result.currentPage == 0
         assert result.labels.size() == 10
         assert result.labels[0].id == 'c46c814a-545b-4b7e-a732-23fae5fb3800'
-        assert result.labels[0].title == 'MELOXICAM'
+        assert result.labels[0].title == 'Meloxicam'
         assert result.labels[0].description == 'Meloxicam, an oxicam derivative, is a member of the enolic acid group of nonsteroidal anti-inflammatory drugs (NSAIDs). Each pastel yellow Meloxicam Tablets, USP contains 7.5 mg or 15 mg meloxicam for oral administration. Meloxicam is chemically designated as 4-hydroxy-2-methyl-N-(5-methyl-2-thiazolyl)-2H-1,2-benzothiazine-3-carboxamide-1,1-dioxide. The molecular weight is 351.4. Its empirical formula is C14H13N3O4S2 and it has the following structural formula: Meloxicam is a pastel yellow solid, practically insoluble in water, with higher solubility observed in strong acids and bases. It is very slightly soluble in methanol. Meloxicam has an apparent partition coefficient (log P)app = 0.1 in n-octanol/buffer pH 7.4. Meloxicam has pKa values of 1.1 and 4.2. Meloxicam is available as a tablet for oral administration containing 7.5 mg or 15 mg meloxicam. The inactive ingredients in Meloxicam Tablets, USP include Colloidal Silicon Dioxide, Sodium Starch Glycolate, Lactose, Magnesium Stearate, Microcrystalline Cellulose, Povidone K-30, and Sodium Citrate. MM1'
     
     }
@@ -79,8 +79,6 @@ class SearchServiceSpec extends Specification {
         assert result.labels.size() == 10
     }
     
- 
-    
     void "test search for not existing label"() {
         when:
         def result = searchService.search('sadasdasds')
@@ -90,6 +88,14 @@ class SearchServiceSpec extends Specification {
         assert result.currentCount == 0
         assert result.currentPage == 0
         assert result.labels.size() == 0
+    }
+    
+    void "test search for label with empty description"() {
+        when:
+        def result = searchService.search('#id:2ba90e61-fe6b-487c-8fbc-847211595345')
+        then :
+        // Unable to do equals assertion because of special char in the description       
+        assert result.labels[0].description.startsWith("See New Dosage & Directions NDC 50580-191-01 Infants' TYLENOL")
     }
     
     void "test search by attribute id"() {
@@ -102,7 +108,7 @@ class SearchServiceSpec extends Specification {
         assert result.currentPage == 0
         assert result.labels.size() == 1
         assert result.labels[0].id == 'c46c814a-545b-4b7e-a732-23fae5fb3800'
-        assert result.labels[0].title == 'MELOXICAM'
+        assert result.labels[0].title == 'Meloxicam'
         assert result.labels[0].description == 'Meloxicam, an oxicam derivative, is a member of the enolic acid group of nonsteroidal anti-inflammatory drugs (NSAIDs). Each pastel yellow Meloxicam Tablets, USP contains 7.5 mg or 15 mg meloxicam for oral administration. Meloxicam is chemically designated as 4-hydroxy-2-methyl-N-(5-methyl-2-thiazolyl)-2H-1,2-benzothiazine-3-carboxamide-1,1-dioxide. The molecular weight is 351.4. Its empirical formula is C14H13N3O4S2 and it has the following structural formula: Meloxicam is a pastel yellow solid, practically insoluble in water, with higher solubility observed in strong acids and bases. It is very slightly soluble in methanol. Meloxicam has an apparent partition coefficient (log P)app = 0.1 in n-octanol/buffer pH 7.4. Meloxicam has pKa values of 1.1 and 4.2. Meloxicam is available as a tablet for oral administration containing 7.5 mg or 15 mg meloxicam. The inactive ingredients in Meloxicam Tablets, USP include Colloidal Silicon Dioxide, Sodium Starch Glycolate, Lactose, Magnesium Stearate, Microcrystalline Cellulose, Povidone K-30, and Sodium Citrate. MM1'
     }
  
@@ -116,12 +122,12 @@ class SearchServiceSpec extends Specification {
         assert result.currentPage == 0
         assert result.labels.size() == 10
         assert result.labels[0].id == 'c46c814a-545b-4b7e-a732-23fae5fb3800'
-        assert result.labels[0].title == 'MELOXICAM'
+        assert result.labels[0].title == 'Meloxicam'
         assert result.labels[0].description == 'Meloxicam, an oxicam derivative, is a member of the enolic acid group of nonsteroidal anti-inflammatory drugs (NSAIDs). Each pastel yellow Meloxicam Tablets, USP contains 7.5 mg or 15 mg meloxicam for oral administration. Meloxicam is chemically designated as 4-hydroxy-2-methyl-N-(5-methyl-2-thiazolyl)-2H-1,2-benzothiazine-3-carboxamide-1,1-dioxide. The molecular weight is 351.4. Its empirical formula is C14H13N3O4S2 and it has the following structural formula: Meloxicam is a pastel yellow solid, practically insoluble in water, with higher solubility observed in strong acids and bases. It is very slightly soluble in methanol. Meloxicam has an apparent partition coefficient (log P)app = 0.1 in n-octanol/buffer pH 7.4. Meloxicam has pKa values of 1.1 and 4.2. Meloxicam is available as a tablet for oral administration containing 7.5 mg or 15 mg meloxicam. The inactive ingredients in Meloxicam Tablets, USP include Colloidal Silicon Dioxide, Sodium Starch Glycolate, Lactose, Magnesium Stearate, Microcrystalline Cellulose, Povidone K-30, and Sodium Citrate. MM1'
     }
 
     
-    void "test search for item without generic name"() {
+    void "test search for item without openfda attribute"() {
         when:
         def result = searchService.search('#id:fb0dcb02-f3ac-4d81-9036-3896ea929348')
         then :
@@ -131,7 +137,7 @@ class SearchServiceSpec extends Specification {
         assert result.currentPage == 0
         assert result.labels.size() == 1
         assert result.labels[0].id == 'fb0dcb02-f3ac-4d81-9036-3896ea929348'
-        assert result.labels[0].title == 'DiclofenacSodium'
+        assert result.labels[0].title == 'fb0dcb02-f3ac-4d81-9036-3896ea929348'
         assert result.labels[0].description == 'Diclofenac Sodium Extended-Release Tablets, USP is a benzeneacetic acid derivative. Diclofenac sodium extended-release is available as extended-release tablets of 100 mg (light pink) for oral administration. The chemical name is 2-[(2,6-dichlorophenyl)amino] benzeneacetic acid, monosodium salt. The molecular weight is 318.14. Its molecular formula is C14H10Cl2NNaO2, and it has the following structural formula The inactive ingredients in Diclofenac Sodium Extended-Release Tablets, USP include: cetyl alcohol, hydroxypropyl methylcellulose, iron oxide, magnesium stearate, polyethylene glycol, polysorbate, povidone, silicon dioxide, sucrose, talc, titanium dioxide. diclofenac sodium structural formula'
     }
     
@@ -145,14 +151,14 @@ class SearchServiceSpec extends Specification {
         assert result.currentPage == 0
         assert result.labels.size() == 1
         assert result.labels[0].id == 'cc52d4da-7159-48f8-a9d7-ed517b134e17'
-        assert result.labels[0].title == 'ACETAMINOPHEN'
+        assert result.labels[0].title == 'Pain Relief Extra Strength'
     }
     
     void "test getLabelDetails" () {
         when:
         def result = searchService.getLabelDetails('c46c814a-545b-4b7e-a732-23fae5fb3800')
         then:
-        result.title == 'MELOXICAM'
+        result.title == 'Meloxicam'
         result.id == 'c46c814a-545b-4b7e-a732-23fae5fb3800'
         result.indications_and_usage == ['Meloxicam is a non-steroidal anti-inflammatory drug indicated for: Osteoarthritis (OA) (1.1) Rheumatoid Arthritis (RA) (1.2) Meloxicam is indicated for relief of the signs and symptoms of osteoarthritis [see Clinical Studies (14.1)]. Meloxicam is indicated for relief of the signs and symptoms of rheumatoid arthritis [see Clinical Studies (14.1)].']
         result.description == ['Meloxicam, an oxicam derivative, is a member of the enolic acid group of nonsteroidal anti-inflammatory drugs (NSAIDs). Each pastel yellow Meloxicam Tablets, USP contains 7.5 mg or 15 mg meloxicam for oral administration. Meloxicam is chemically designated as 4-hydroxy-2-methyl-N-(5-methyl-2-thiazolyl)-2H-1,2-benzothiazine-3-carboxamide-1,1-dioxide. The molecular weight is 351.4. Its empirical formula is C14H13N3O4S2 and it has the following structural formula: Meloxicam is a pastel yellow solid, practically insoluble in water, with higher solubility observed in strong acids and bases. It is very slightly soluble in methanol. Meloxicam has an apparent partition coefficient (log P)app = 0.1 in n-octanol/buffer pH 7.4. Meloxicam has pKa values of 1.1 and 4.2. Meloxicam is available as a tablet for oral administration containing 7.5 mg or 15 mg meloxicam. The inactive ingredients in Meloxicam Tablets, USP include Colloidal Silicon Dioxide, Sodium Starch Glycolate, Lactose, Magnesium Stearate, Microcrystalline Cellulose, Povidone K-30, and Sodium Citrate. MM1']
@@ -165,7 +171,7 @@ class SearchServiceSpec extends Specification {
         when:
         def result = searchService.getLabelDetails('5a22b82f-ae45-4340-be59-1a089804ec4a')
         then:
-        result.title == 'HYDROXYZINE HYDROCHLORIDE'
+        result.title == 'Hydroxyzine Hydrochloride'
         result.id == '5a22b82f-ae45-4340-be59-1a089804ec4a'
         result.openfda.spl_id == ['b6c58ffd-d74f-4e7e-9c33-ee56dfaa1d4e']
         result.openfda.product_type == ['HUMAN PRESCRIPTION DRUG']
