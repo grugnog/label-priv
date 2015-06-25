@@ -24,19 +24,14 @@ if (typeof jQuery !== 'undefined') {
 $(document).ready( function () {
 
     $("#uploadBarCodeButton").on('click', function(event) {
-        $("#uploadBarCode").show();
-        $("#uploadBarCodeButton").hide();
-        $("#searchText").show();
-        $("#searchButton").hide();
-        $("#termText").hide();
+        $("#uploadBarCode, #searchText").show();
+        $("#uploadBarCodeButton, #searchButton, #termText").hide();
         event.preventDefault();
     });
 
     $("#searchText").on('click', function(event) {
-        $("#termText").show();
-        $("#uploadBarCode").hide();
-        $("#searchText").hide();
-        $("#uploadBarCodeButton").show();
+        $("#termText, #uploadBarCodeButton, #searchButton").show();
+        $("#uploadBarCode, #searchText").hide();
         event.preventDefault();
     });
 });
