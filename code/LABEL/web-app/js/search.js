@@ -17,7 +17,7 @@ $(document).ready( function () {
             sInfo: "Showing _START_ - _END_ of _TOTAL_ labels"
         },
         ajax: {
-            url: "../search/searchJSON",
+            url: "/LABEL/search/textSearch",
             data: {term:term},
             type: "POST"
         },
@@ -26,7 +26,7 @@ $(document).ready( function () {
                 data: "labelDetails",
                 "render" : function(data, type, r, meta) {
                     var api = new $.fn.dataTable.Api( meta.settings );
-                    var currentPage = api.page()+1 //If user is on first page 'api.page()' returns zero
+                    var currentPage = api.page()
                     var content = '<a name="labelDetailsLink" href="details?id='+data.id+'&title='+data.title+'&term='+term+'&page='+currentPage+'">'+data.title+'</a><p name="labelDescription">'+data.description+'</p>'
                     return content
                 }
@@ -36,6 +36,32 @@ $(document).ready( function () {
             if ($('#labelTable tbody tr td').html() == "No results found. Please update your query.") {
                 $('.dataTables_paginate').hide();
             }
+        }
+    });
+
+
+   //To handle advance search
+    $("#searchInput").autocomplete({
+        autoFocus: true,
+        source: function (request, response) {
+            if(request.term.startsWith("#") && request.term.length > 1 && request.term.indexOf(':') == -1){
+                $.ajax({
+                    dataType:"JSON",
+                    type:"GET",
+                    data:{term:request.term},
+                    url:"/LABEL/search/autocomplete",
+                    success: function(data){
+                        response(data);
+                    },
+                    error: function(xhr, status, error){
+
+                    }
+                });
+            }
+        },
+        select: function(event, ui) {
+            $("#searchInput").val("#"+ui.item.label+":");
+            return false;
         }
     });
 } );

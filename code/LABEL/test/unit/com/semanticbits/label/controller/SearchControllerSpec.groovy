@@ -1,7 +1,6 @@
 package com.semanticbits.label.controller
 
 import com.semanticbits.label.service.SearchService
-import grails.test.mixin.Mock
 import grails.test.mixin.TestFor
 import spock.lang.Specification
 
@@ -10,7 +9,6 @@ import spock.lang.Specification
  * Date: 6/22/15
  */
 @TestFor(SearchController)
-//@Mock(SearchService)
 class SearchControllerSpec extends Specification {
 
     def setup() {
@@ -53,7 +51,7 @@ class SearchControllerSpec extends Specification {
         def mockSearchService =  mockFor(SearchService)
         mockSearchService.demand.search {obj1, obj2 -> results }
         controller.searchService = mockSearchService.createMock()
-        controller.searchJSON()
+        controller.textSearch()
 
         then:'I should get valid results'
         response.json.iTotalRecords == results.totalCount
@@ -67,12 +65,30 @@ class SearchControllerSpec extends Specification {
         when:'I try to search label with valid value'
         controller.params.draw = 0
         controller.params.term = ''
-        controller.searchJSON()
+        controller.textSearch()
 
         then:'I should get valid results'
         response.json.iTotalRecords == 0
         response.json.iTotalDisplayRecords == 0
         response.json.aaData == []
+    }
+
+    def "test autocomplete for advanced search"() {
+       when:'I try to search label with field'
+       controller.params.term = '#id'
+       controller.autocomplete()
+
+       then:'I should get label field id as result'
+       response.json.toString() == '["id"]'
+    }
+
+    def "test autocomplete for advanced serach with invalid string"() {
+        when:'I try to search label with invalid string'
+        controller.params.term = '#dummy'
+        controller.autocomplete()
+
+        then:'I should get results as empty list'
+        response.json.toString() == '[]'
     }
 
 

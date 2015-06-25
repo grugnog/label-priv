@@ -80,7 +80,8 @@ grails.project.dependency.resolution = {
         compile ':cache:1.1.8'
         compile ":asset-pipeline:2.1.5"
         compile ":functional-test:2.0.0"
-        
+        compile ":jquery-ui:1.10.4"
+
         test ":code-coverage:2.0.3-3"
 
         // plugins needed at runtime but not for compilation
