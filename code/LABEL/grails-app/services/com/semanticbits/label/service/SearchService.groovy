@@ -159,7 +159,11 @@ class SearchService {
             } else if (value in List) {
                 List newListVal = []
                 value.each { val ->
-                    newListVal += sanitizeLabelValue(name, val)
+                    if(val in String) {
+                        newListVal += sanitizeLabelValue(name, val)
+                    } else {
+                        newListVal += val
+                    }
                 }
                 labelAttrs[name] = newListVal
             } else if (value in Map) {

@@ -161,6 +161,16 @@ class SearchServiceSpec extends Specification {
         result.boxed_warning == ['Cardiovascular Risk Nonsteroidal anti-inflammatory drugs (NSAIDs) may cause an increased risk of serious cardiovascular (CV) thrombotic events, myocardial infarction, and stroke, which can be fatal. This risk may increase with duration of use. Patients with cardiovascular disease or risk factors for cardiovascular disease may be at greater risk [see Warnings and Precautions (5.1)]. Meloxicam is contraindicated for the treatment of peri-operative pain in the setting of coronary artery bypass graft (CABG) surgery [ see Contraindications (4.2) and Warnings and Precautions (5.1) ]. Gastrointestinal Risk NSAIDs cause an increased risk of serious gastrointestinal (GI) adverse reactions including bleeding, ulceration, and perforation of the stomach or intestines, which can be fatal. These events can occur at any time during use and without warning symptoms. Elderly patients are at greater risk for serious gastrointestinal events [ see Warnings and Precautions (5.2) ].']
     }
     
+    void "test getLabelDetails with boolean attr" () {
+        when:
+        def result = searchService.getLabelDetails('5a22b82f-ae45-4340-be59-1a089804ec4a')
+        then:
+        result.title == 'HYDROXYZINE HYDROCHLORIDE'
+        result.id == '5a22b82f-ae45-4340-be59-1a089804ec4a'
+        result.openfda.spl_id == ['b6c58ffd-d74f-4e7e-9c33-ee56dfaa1d4e']
+        result.openfda.product_type == ['HUMAN PRESCRIPTION DRUG']
+    }
+    
     void "test getLabelDetails empty id " () {
         when:
         def result = searchService.getLabelDetails('')
