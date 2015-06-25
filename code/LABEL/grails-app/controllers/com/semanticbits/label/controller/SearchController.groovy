@@ -47,7 +47,7 @@ class SearchController {
         if (term) {
             try {
                 //draw captures current page of datatable
-                int page = params.draw ? params.int('draw')-1 : 0
+                int page = params.draw ? params.int('draw') - 1 : 0
                 //Get the results using search term
                 log.info "Searching for labels with given string: ${term}"
                 Map<String, Object> searchResults = searchService.search(term, page)
@@ -98,10 +98,5 @@ class SearchController {
        //Filter list by given string
        List<String> foundLabelFields = labelFields.findAll { it.startsWith(term[1..term.length() - 1]) }   //Remove first character and search string in list
        render foundLabelFields as JSON
-    }
-
-    //When user clicks on search button with #
-    def advancedSearch() {
-
     }
 }

@@ -73,5 +73,23 @@ class SearchControllerSpec extends Specification {
         response.json.aaData == []
     }
 
+    def "test autocomplete for advanced search"() {
+       when:'I try to search label with field'
+       controller.params.term = '#id'
+       controller.autocomplete()
+
+       then:'I should get label field id as result'
+       response.json.toString() == '["id"]'
+    }
+
+    def "test autocomplete for advanced serach with invalid string"() {
+        when:'I try to search label with invalid string'
+        controller.params.term = '#dummy'
+        controller.autocomplete()
+
+        then:'I should get results as empty list'
+        response.json.toString() == '[]'
+    }
+
 
 }
