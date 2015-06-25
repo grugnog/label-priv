@@ -11,6 +11,8 @@ import groovy.json.JsonSlurper
  */
 class SearchService {
 
+            private static final String UNDERSCORE_CHAR = '_'
+
     private static final String SPACE_CHAR = ' '
 
     GrailsApplication grailsApplication
@@ -146,7 +148,7 @@ class SearchService {
     }
     
     private String capitalize(String str) {
-        str?.toLowerCase().tokenize().collect { it.capitalize() }.join(' ')
+        str?.toLowerCase().tokenize()*.capitalize()*.join(SPACE_CHAR)
     }
     
     /**
@@ -205,8 +207,8 @@ class SearchService {
         attrNames.each { attrName -> 
             if (attrName && attrVal) {
                 List prefixes = [attrName, 
-                                attrName.replaceAll('_', SPACE_CHAR), 
-                                attrName.replaceAll('_', SPACE_CHAR).replaceAll('and', '&')
+                                attrName.replaceAll(UNDERSCORE_CHAR, SPACE_CHAR), 
+                                attrName.replaceAll(UNDERSCORE_CHAR, SPACE_CHAR).replaceAll('and', '&')
                                 ]
                 prefixes.each { prefix -> 
                     if (attrVal.toLowerCase().startsWith(prefix)) {
