@@ -1,13 +1,12 @@
 package com.semanticbits.label.controller
 
+import com.semanticbits.label.service.BarcodeService
 import com.semanticbits.label.service.LabelServiceException
 import com.semanticbits.label.service.SearchService
 import grails.converters.JSON
 import grails.util.Holders
 import grails.web.JSONBuilder
-import org.apache.commons.lang.StringUtils
 import org.springframework.web.multipart.MultipartFile
-import org.springframework.web.multipart.MultipartHttpServletRequest
 
 /**
  * User: Janakiram Gollapudi
@@ -39,13 +38,13 @@ class SearchController {
      * Processes a bar code and returns value
      */
     JSON processBarCodeImage() {
-        def results = []
-        if (request instanceof MultipartHttpServletRequest) {
+        String results = []
+        if (request) {
             for (filename in request.fileNames) {
 
                 MultipartFile file = request.getFile(filename)
 
-                def scannedCode = barcodeService.scanBarcode(file.bytes)
+                String scannedCode = barcodeService.scanBarcode(file.bytes)
 
                 JSONBuilder jSON = new JSONBuilder()
                 JSON json = jSON.build {

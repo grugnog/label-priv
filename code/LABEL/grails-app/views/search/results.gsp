@@ -32,9 +32,8 @@ Date: 6/23/15
             <g:form controller="search" action="index" method="GET">
                 <div>
                     <!--TODO:BEN This is search text box in home page, we have to add search icon inside textbox as shown in mockup  -->
-                    <input type="text" name="term" placeholder="${message(code:"search.prompt.text")}" id="termText" size="50"/>
+                    <input type="text" name="term" placeholder="${message(code:"search.prompt.text")}" id="termText" size="50" value="${params.get('term')}" />
                     <!--TODO:BEN As shown in mockiup we have to add '- OR -' between search box and upload image button. I am not sure if this is image or we need text  -->
-                    %{--<input type="file" value="${message(code:'upload.barcode.link.text')}" id="uploadBarCode" name="uploadBarCode" style="display: none"/>--}%
                     <span id="uploadBarCode" style="display: none">
                         &nbsp;
                         <span class="btn btn-primary btn-sm fileinput-button" id="overrideFile">

@@ -9,7 +9,6 @@
     <g:external plugin="jquery-ui" dir="/jquery-ui/themes/ui-lightness/" file="jquery-ui-1.10.4.custom.min.css"/>
     <g:javascript plugin="jquery-ui" src="../jquery-ui/js/jquery-ui-1.10.4.custom.min.js"/>
     <g:javascript src="search.js"/>
-    <meta name="layout" content="main"/>
     <g:javascript src="file-upload/vendor/jquery.ui.widget.js" />
     <g:javascript src='file-upload/vendor/jquery.ui.widget.js' />
     <g:javascript src='file-upload/jquery.iframe-transport.js' />
@@ -34,7 +33,7 @@
                 <g:form controller="search" action="index" method="GET">
                     <div>
                         <!--TODO:BEN This is search text box in home page, we have to add search icon inside textbox as shown in mockup  -->
-                        <input type="text" name="term" placeholder="${message(code:"search.prompt.text")}" id="termText" size="50"/>
+                        <input type="text" name="term" placeholder="${message(code:"search.prompt.text")}" id="termText" size="50" autocomplete="off"/>
                         <!--TODO:BEN As shown in mockiup we have to add '- OR -' between search box and upload image button. I am not sure if this is image or we need text  -->
                         %{--<input type="file" value="${message(code:'upload.barcode.link.text')}" id="uploadBarCode" name="uploadBarCode" style="display: none"/>--}%
                         <span id="uploadBarCode" style="display: none">
@@ -116,6 +115,21 @@
                                 .append($('<span class="text-danger"/>').text(file.error));
                     }
         })
+    });
+
+    $(document).ready( function () {
+
+        $("#uploadBarCodeButton").on('click', function(event) {
+            $("#uploadBarCode, #searchText").show();
+            $("#uploadBarCodeButton, #searchButton, #termText").hide();
+            event.preventDefault();
+        });
+
+        $("#searchText").on('click', function(event) {
+            $("#termText, #uploadBarCodeButton, #searchButton").show();
+            $("#uploadBarCode, #searchText").hide();
+            event.preventDefault();
+        });
     });
 
 </script>
