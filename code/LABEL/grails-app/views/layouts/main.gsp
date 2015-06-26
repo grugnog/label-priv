@@ -20,9 +20,9 @@
 <body>
 <div class="masthead">
     <ul class="nav nav-pills pull-right">
-        <li class="active"><a href="#">About</a></li>
-        <li><a href="#">Contact</a></li>
-        <li><a href="#">Help</a></li>
+        <li class="active"><a href="#"><g:message code='menu.about'/></a></li>
+        <li><a href="#"><g:message code='menu.contact'/></a></li>
+        <li><a href="#"><g:message code='menu.help'/></a></li>
     </ul>
 </div>
 <g:layoutBody />

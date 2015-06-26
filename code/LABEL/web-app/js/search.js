@@ -27,7 +27,7 @@ $(document).ready( function () {
                 "render" : function(data, type, r, meta) {
                     var api = new $.fn.dataTable.Api( meta.settings );
                     var currentPage = api.page()
-                    var content = '<a name="labelDetailsLink" href="details?id='+data.id+'&term='+term+'&page='+currentPage+'">'+data.title+'</a><p name="labelDescription">'+data.description+'</p>'
+                    var content = '<a name="labelDetailsLink" class="labelDetails" href="details?id='+data.id+'&term='+term+'&page='+currentPage+'">'+data.title+'</a><p name="labelDescription" class="labelDescription">'+data.description+'</p>'
                     return content
                 }
             }
