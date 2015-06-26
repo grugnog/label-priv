@@ -27,7 +27,7 @@
             <hr/>
 
             <div class="col-sm-3">
-                <ul class="nav nav-stacked affix">
+                <ul class="nav nav-stacked">
                     <li class="active"><a href="#abuseAndOverdose"><g:message code="abuse.and.over.dosage"/></a></li>
                     <li><a href="#adverseEffects"><g:message code="adverse.effects"/></a></li>
                     <li><a href="#clinicalPharmacology"><g:message code="clinical.pharmacology"/></a></li>
