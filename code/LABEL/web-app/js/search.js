@@ -27,7 +27,7 @@ $(document).ready( function () {
                 "render" : function(data, type, r, meta) {
                     var api = new $.fn.dataTable.Api( meta.settings );
                     var currentPage = api.page()
-                    var content = '<a name="labelDetailsLink" href="details?id='+data.id+'&title='+data.title+'&term='+term+'&page='+currentPage+'">'+data.title+'</a><p name="labelDescription">'+data.description+'</p>'
+                    var content = '<a name="labelDetailsLink" href="details?id='+data.id+'&term='+term+'&page='+currentPage+'">'+data.title+'</a><p name="labelDescription">'+data.description+'</p>'
                     return content
                 }
             }
@@ -41,7 +41,7 @@ $(document).ready( function () {
 
 
    //To handle advance search
-    $("#searchInput").autocomplete({
+    $("#termText").autocomplete({
         autoFocus: true,
         source: function (request, response) {
             if(request.term.startsWith("#") && request.term.length > 1 && request.term.indexOf(':') == -1){
@@ -60,7 +60,7 @@ $(document).ready( function () {
             }
         },
         select: function(event, ui) {
-            $("#searchInput").val("#"+ui.item.label+":");
+            $("#termText").val("#"+ui.item.label+":");
             return false;
         }
     });

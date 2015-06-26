@@ -6,7 +6,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-    <title>${title} - LABEL</title>
+    <title>${details.title} - LABEL</title>
     <meta name="layout" content="main"/>
 </head>
 
@@ -23,11 +23,11 @@
             <br/>
             <a href="index?term=${params.term}&page=${params.page}"><g:message code="back.to.search"/></a>
 
-            <h3>${title}</h3>
+            <h3>${details.title}</h3>
             <hr/>
 
             <div class="col-sm-3">
-                <ul class="nav nav-stacked affix">
+                <ul class="nav nav-stacked">
                     <li class="active"><a href="#abuseAndOverdose"><g:message code="abuse.and.over.dosage"/></a></li>
                     <li><a href="#adverseEffects"><g:message code="adverse.effects"/></a></li>
                     <li><a href="#clinicalPharmacology"><g:message code="clinical.pharmacology"/></a></li>
