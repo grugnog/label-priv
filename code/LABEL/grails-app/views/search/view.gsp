@@ -16,7 +16,7 @@
         <div class="col-sm-12">
 
             <div class="center">
-
+                <img class="logo" src="${resource(dir: "images", file: "LABEL-logo.svg")}"/>
                 <h3><g:message code="home.page.title"/></h3>
             </div>
 
