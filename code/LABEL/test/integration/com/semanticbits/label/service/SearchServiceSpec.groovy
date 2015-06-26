@@ -34,9 +34,66 @@ class SearchServiceSpec extends Specification {
         when:
         def result = searchService.search('')
         then :
-        assert result.totalCount == 72590
+        assert result.totalCount == 5000
+        assert result.totalPages == 500
+        assert result.currentCount == 10
+        assert result.currentPage == 0
+        assert result.labels.size() == 10
     }
     
+    void "test search with page above 499"() {
+        when:
+        def result = searchService.search('', 500)
+        then :
+        LabelServiceException e = thrown()
+        e.message == 'Pagination beyod 5000 records is not supported by openAPI'
+    }
+    
+    void "test pagination with different itemsPerPage config"() {
+        given:
+        def itemsPerPage = grailsApplication.config.itemsPerPage
+        grailsApplication.config.itemsPerPage = 25
+        when:
+        def result = searchService.search('test', 1)
+        then :
+        assert result.totalCount == 5000
+        assert result.totalPages == 200
+        assert result.currentCount == 25
+        assert result.currentPage == 1
+        assert result.labels.size() == 25
+        cleanup:
+        grailsApplication.config.itemsPerPage = itemsPerPage
+    }
+    
+    void "test pagination with different itemsPerPage config last page"() {
+        given:
+        def itemsPerPage = grailsApplication.config.itemsPerPage
+        grailsApplication.config.itemsPerPage = 25
+        when:
+        def result = searchService.search('test', 199)
+        then :
+        assert result.totalCount == 5000
+        assert result.totalPages == 200
+        assert result.currentCount == 25
+        assert result.currentPage == 199
+        assert result.labels.size() == 25
+        cleanup:
+        grailsApplication.config.itemsPerPage = itemsPerPage
+    }
+    
+    void "test pagination with different itemsPerPage config beyond 5000 record"() {
+        given:
+        def itemsPerPage = grailsApplication.config.itemsPerPage
+        grailsApplication.config.itemsPerPage = 25
+        when:
+        def result = searchService.search('test', 250)
+        then :
+        LabelServiceException e = thrown()
+        e.message == 'Pagination beyod 5000 records is not supported by openAPI'
+        cleanup:
+        grailsApplication.config.itemsPerPage = itemsPerPage
+    }
+   
     void "test search with special character"() {
         when:
         def result = searchService.search("mor&tin")
@@ -49,8 +106,8 @@ class SearchServiceSpec extends Specification {
         when:
         def result =searchService.search('fever', 25)
         then :
-        assert result.totalCount == 28330
-        assert result.totalPages == 2833
+        assert result.totalCount == 5000
+        assert result.totalPages == 500
         assert result.currentCount == 10
         assert result.currentPage == 25
         assert result.labels.size() == 10
@@ -167,6 +224,7 @@ class SearchServiceSpec extends Specification {
         assert result.labels[0].id == 'cc52d4da-7159-48f8-a9d7-ed517b134e17'
         assert result.labels[0].title == 'Pain Relief Extra Strength'
     }
+    
     
     void "test getLabelDetails" () {
         when:
