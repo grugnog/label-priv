@@ -13,25 +13,24 @@ import org.springframework.web.multipart.MultipartFile
  * Date: 6/22/15
  */
 class SearchController {
-    static final String INDEX_VIEW = 'index'
     SearchService searchService
     BarcodeService barcodeService
 
-/**
- * To display label home page(which is search label page)
- * This method also gets called when user clicks on search button
- * @return home page if no term provided or returns search results page
- */
+    /**
+     * To display label home page(which is search 'label' page)
+     * @return home page
+     */
     Object index() {
-        //If search string provided then render search results page
-        if (params.term) {
-            String term = params.term
-            render(view:'results', model:[term:term])
-        }
-        //Otherwise return same page(Home page)
-        else {
-            render(view:INDEX_VIEW)
-        }
+      render(view:'index')
+    }
+
+    /**
+     * When user clicks on search button this method gets called
+     * @return search results view
+     */
+    Object textSearchView() {
+        String term = params.term
+        render(view:'results', model:[term:term])
     }
 
     /**
@@ -73,8 +72,7 @@ class SearchController {
         //To capture total labels that we are showing
         int iTotalDisplayRecords = 0
         //If term provided then search by term and return the results
-        if (term) {
-            try {
+        try {
                 //draw captures current page of datatable
                 int page = params.draw ? params.int('draw') - 1 : 0
                 //Get the results using search term
@@ -90,13 +88,13 @@ class SearchController {
                     ]
                 }
                 log.info "Showing results of page ${page}"
-            }
-            catch (LabelServiceException e) {
-                log.error("Exception occurred while searching term ${params.term}: ${e}")
-                render([draw: params.draw, iTotalRecords:iTotalRecords,
-                        iTotalDisplayRecords:iTotalDisplayRecords, aaData:labels] as JSON)
-            }
         }
+        catch (LabelServiceException e) {
+            log.error("Exception occurred while searching term ${params.term}: ${e}")
+            render([draw: params.draw, iTotalRecords:iTotalRecords,
+                    iTotalDisplayRecords:iTotalDisplayRecords, aaData:labels] as JSON)
+        }
+
         //Otherwise return empty results
         render([draw: params.draw, iTotalRecords:iTotalRecords,
                 iTotalDisplayRecords:iTotalDisplayRecords, aaData:labels] as JSON)

@@ -6,7 +6,7 @@ Date: 6/23/15
 <meta charset="UTF-8">
 <html>
 <head>
-    <title><g:message code="results.page.title"/></title>
+    <title><g:message code="home.page.title"/></title>
     <meta name="layout" content="main"/>
     <g:javascript src="search.js"/>
     <g:javascript src="file-upload/vendor/jquery.ui.widget.js" />
@@ -23,17 +23,13 @@ Date: 6/23/15
     <div class="row">
         <div class="col-sm-12">
             <div class="center">
-                <!--TODO: BEN Here we need LABEL logo. Once you put logo remove below h3 tag -->
-                <img src="../images/test.png" />
-                <h3><g:message code="home.page.title"/></h3>
+                <img class="logo" src="${resource(dir: "images", file: "LABEL-logo.svg")}"/>
             </div>
             <br/>
             <br/>
-            <g:form controller="search" action="index" method="GET">
+            <g:form controller="search" action="textSearchView" method="GET">
                 <div>
-                    <!--TODO:BEN This is search text box in home page, we have to add search icon inside textbox as shown in mockup  -->
-                    <input type="text" name="term" placeholder="${message(code:"search.prompt.text")}" id="termText" size="50" value="${params.get('term')}" />
-                    <!--TODO:BEN As shown in mockiup we have to add '- OR -' between search box and upload image button. I am not sure if this is image or we need text  -->
+                    <input type="text" name="term" class="searchBox" placeholder="${message(code:"search.prompt.text")}" id="termText" size="50" value="${params.get('term')}" />
                     <span id="uploadBarCode" style="display: none">
                         &nbsp;
                         <span class="btn btn-primary btn-sm fileinput-button" id="overrideFile">
@@ -49,10 +45,10 @@ Date: 6/23/15
                         </div>
                     </span>
                     <input type="submit" id="searchButton" value="${message(code:"search.button.label")}" class="btn btn-primary"/>
-                    <!--TODO:BEN This is help icon beside search button   -->
-                    <img src="help.png" />
+                    <img class="help"/>
                     <br/>
-
+                    <p id="advancedSearchHelpText" class="advancedSearchHelpText"><g:message code='advancedSearch.help.text'/></p>
+                    <br/>
                     <button class="btn btn-primary" id="uploadBarCodeButton" ><g:message code="upload.barcode.link.text" /></button>
                     <button class="btn btn-primary" id="searchText" style="display: none"><g:message code="search.term.link.text" /></button>
 

@@ -19,14 +19,22 @@ class SearchControllerSpec extends Specification {
         when:'I call index method'
         controller.index()
 
-        then:'I should be able to see lable home page'
+        then:'I should be able to see label home page'
         view == '/search/index'
     }
 
-    def 'test if home page redirect to search results page'(){
+    def 'test to search label with empty term'() {
+        when:'I call textSearchView with empty string'
+        controller.textSearchView()
+
+        then:'I should be on results page'
+        view == '/search/results'
+    }
+
+    def 'test if home page redirect to search results page with valid term'(){
         when:'I try to search label'
         controller.params.term = 'motrin'
-        controller.index()
+        controller.textSearchView()
 
         then:'I should be redirected to search results page'
         view == '/search/results'
@@ -62,9 +70,18 @@ class SearchControllerSpec extends Specification {
     }
 
     def 'test search by label with empty string'() {
+        given:'construct a json to return as response for search method'
+        Map<String, Object> results =    [
+                totalCount: 0,
+                labels:[]
+        ]
+
         when:'I try to search label with valid value'
         controller.params.draw = 0
         controller.params.term = ''
+        def mockSearchService =  mockFor(SearchService)
+        mockSearchService.demand.search {obj1, obj2 -> results }
+        controller.searchService = mockSearchService.createMock()
         controller.textSearch()
 
         then:'I should get valid results'
