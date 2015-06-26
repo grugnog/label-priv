@@ -71,13 +71,14 @@ class SearchController {
         int iTotalRecords = 0
         //To capture total labels that we are showing
         int iTotalDisplayRecords = 0
+        int currentPage = 0
         //If term provided then search by term and return the results
         try {
-                //draw captures current page of datatable
-                int page = params.draw ? params.int('draw') - 1 : 0
+                //Get the current page from start and number of records per page
+                currentPage = ((params.int('start')) / (grailsApplication.config.itemsPerPage))
                 //Get the results using search term
                 log.info "Searching for labels with given string: ${term}"
-                Map<String, Object> searchResults = searchService.search(term, page)
+                Map<String, Object> searchResults = searchService.search(term, currentPage)
                 log.info "Found ${searchResults.totalCount} labels"
                 iTotalRecords = searchResults.totalCount ?: 0
                 iTotalDisplayRecords = searchResults.totalCount ?: 0
@@ -87,16 +88,16 @@ class SearchController {
                             labelDetails:label
                     ]
                 }
-                log.info "Showing results of page ${page}"
+                log.info "Showing results of page ${currentPage}"
         }
         catch (LabelServiceException e) {
             log.error("Exception occurred while searching term ${params.term}: ${e}")
-            render([draw: params.draw, iTotalRecords:iTotalRecords,
+            render([currentPage: currentPage, iTotalRecords:iTotalRecords,
                     iTotalDisplayRecords:iTotalDisplayRecords, aaData:labels] as JSON)
         }
 
         //Otherwise return empty results
-        render([draw: params.draw, iTotalRecords:iTotalRecords,
+        render([currentPage: currentPage, iTotalRecords:iTotalRecords,
                 iTotalDisplayRecords:iTotalDisplayRecords, aaData:labels] as JSON)
     }
 

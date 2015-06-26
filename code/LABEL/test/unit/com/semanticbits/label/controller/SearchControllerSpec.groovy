@@ -54,7 +54,7 @@ class SearchControllerSpec extends Specification {
         ]
 
         when:'I try to search label with valid value'
-        controller.params.draw = 0
+        controller.params.start = 0
         controller.params.term = 'motrin'
         def mockSearchService =  mockFor(SearchService)
         mockSearchService.demand.search {obj1, obj2 -> results }
@@ -77,7 +77,7 @@ class SearchControllerSpec extends Specification {
         ]
 
         when:'I try to search label with valid value'
-        controller.params.draw = 0
+        controller.params.start = 0
         controller.params.term = ''
         def mockSearchService =  mockFor(SearchService)
         mockSearchService.demand.search {obj1, obj2 -> results }
