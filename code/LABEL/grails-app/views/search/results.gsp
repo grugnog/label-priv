@@ -23,7 +23,7 @@ Date: 6/23/15
     <div class="row">
         <div class="col-sm-12">
             <div class="center">
-                <img class="logo" src="${resource(dir: "images", file: "LABEL-logo.svg")}"/>
+                <a class="logoLink" href="${createLink(uri: "/")}"><img class="logo" src="${resource(dir: "images", file: "LABEL-logo.svg")}"/></a>
             </div>
             <br/>
             <br/>
@@ -45,9 +45,8 @@ Date: 6/23/15
                         </div>
                     </span>
                     <input type="submit" id="searchButton" value="${message(code:"search.button.label")}" class="btn btn-primary"/>
-                    <img class="help"/>
+                    <img class="help" title="${message(code: 'advancedSearch.help.text')}" src="${resource(dir: 'images', file: 'help.png')}"/>
                     <br/>
-                    <p id="advancedSearchHelpText" class="advancedSearchHelpText"><g:message code='advancedSearch.help.text'/></p>
                     <br/>
                     <button class="btn btn-primary" id="uploadBarCodeButton" ><g:message code="upload.barcode.link.text" /></button>
                     <button class="btn btn-primary" id="searchText" style="display: none"><g:message code="search.term.link.text" /></button>
