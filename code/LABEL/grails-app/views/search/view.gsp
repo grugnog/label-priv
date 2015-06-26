@@ -11,7 +11,7 @@
 </head>
 
 <body>
-<div class="container">
+<div class="container" id="mainmenu">
     <div class="row">
         <div class="col-sm-12">
 
@@ -46,7 +46,7 @@
 
             <div class="col-sm-9">
                 <div id="abuseAndOverdose">
-                    <h2 class="text-uppercase"><g:message code="abuse.and.over.dosage"/></h2>
+                    <h2 class="text-uppercase"><g:message code="abuse.and.over.dosage"/></h2> <a href="#mainmenu"><g:message code="back.to.top" /></a>
                     <hr/>
 
                     <g:each in="${grails.util.Holders.config.labels.map.ABUSEANDOVERDOSE}" var="drugs">
@@ -60,7 +60,7 @@
 
 
                 <div id="adverseEffects">
-                    <h2 class="text-uppercase"><g:message code="adverse.effects.interactions"/></h2>
+                    <h2 class="text-uppercase"><g:message code="adverse.effects.interactions"/></h2> <a href="#mainmenu"><g:message code="back.to.top" /></a>
 
                     <hr/>
 
@@ -74,7 +74,7 @@
 
                 <div id="clinicalPharmacology">
 
-                    <h2 class="text-uppercase"><g:message code="clinical.pharmacology"/></h2>
+                    <h2 class="text-uppercase"><g:message code="clinical.pharmacology"/></h2> <a href="#mainmenu"><g:message code="back.to.top" /></a>
                     <hr/>
 
                     <g:each in="${grails.util.Holders.config.labels.map.CLINICALPHAR}" var="itr">
@@ -87,7 +87,7 @@
 
                 <div id="indications">
 
-                    <h2 class="text-uppercase"><g:message code="indications.usage"/></h2>
+                    <h2 class="text-uppercase"><g:message code="indications.usage"/></h2> <a href="#mainmenu"><g:message code="back.to.top" /></a>
 
                     <hr/>
 
@@ -101,7 +101,7 @@
 
                 <div id="patientInformation">
 
-                    <h2 class="text-uppercase"><g:message code="patient.information"/></h2>
+                    <h2 class="text-uppercase"><g:message code="patient.information"/></h2> <a href="#mainmenu"><g:message code="back.to.top" /></a>
 
                     <hr/>
 
@@ -116,7 +116,7 @@
 
                 <div id="specialPopulation">
 
-                    <h2 class="text-uppercase"><g:message code="special.population"/></h2>
+                    <h2 class="text-uppercase"><g:message code="special.population"/></h2> <a href="#mainmenu"><g:message code="back.to.top" /></a>
 
                     <hr/>
 
@@ -131,7 +131,7 @@
 
                 <div id="toxilogy">
 
-                    <h2 class="text-uppercase"><g:message code="non.clinical.toxicology"/></h2>
+                    <h2 class="text-uppercase"><g:message code="non.clinical.toxicology"/></h2> <a href="#mainmenu"><g:message code="back.to.top" /></a>
 
                     <hr/>
 
@@ -146,7 +146,7 @@
 
                 <div id="reference">
 
-                    <h2 class="text-uppercase"><g:message code="references"/></h2>
+                    <h2 class="text-uppercase"><g:message code="references"/></h2> <a href="#mainmenu"><g:message code="back.to.top" /></a>
 
                     <hr/>
 
@@ -162,7 +162,7 @@
 
                 <div id="supplyStorage">
 
-                    <h2 class="text-uppercase"><g:message code="supply.storage.handling"/></h2>
+                    <h2 class="text-uppercase"><g:message code="supply.storage.handling"/></h2> <a href="#mainmenu"><g:message code="back.to.top" /></a>
 
                     <hr/>
 
@@ -177,7 +177,7 @@
 
                 <div id="warnings">
 
-                    <h2 class="text-uppercase"><g:message code="warnings.precautions"/></h2>
+                    <h2 class="text-uppercase"><g:message code="warnings.precautions"/></h2> <a href="#mainmenu"><g:message code="back.to.top" /></a>
 
                     <hr/>
 
@@ -192,7 +192,7 @@
 
                 <div id="idVersion">
 
-                    <h2 class="text-uppercase"><g:message code="id.version"/></h2>
+                    <h2 class="text-uppercase"><g:message code="id.version"/></h2> <a href="#mainmenu"><g:message code="back.to.top" /></a>
 
                     <hr/>
 
@@ -207,7 +207,7 @@
 
                 <div id="other">
 
-                    <h2 class="text-uppercase"><g:message code="other.fields"/></h2>
+                    <h2 class="text-uppercase"><g:message code="other.fields"/></h2> <a href="#mainmenu"><g:message code="back.to.top" /></a>
 
                     <hr/>
 
@@ -221,7 +221,7 @@
 
                 <div id="openFDA">
 
-                    <h2 class="text-uppercase"><g:message code="open.fda.fields"/></h2>
+                    <h2 class="text-uppercase"><g:message code="open.fda.fields"/></h2> <a href="#mainmenu"><g:message code="back.to.top" /></a>
 
                     <hr/>
 
