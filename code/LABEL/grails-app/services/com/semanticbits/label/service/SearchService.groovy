@@ -212,7 +212,11 @@ class SearchService {
                                 ]
                 prefixes.each { prefix -> 
                     if (attrVal.toLowerCase().startsWith(prefix)) {
-                        result = attrVal[prefix.length() + 1 .. -1]
+                        if (attrVal.length() > prefix.length() + 1) {
+                            result = attrVal[prefix.length() + 1 .. -1]
+                        } else {
+                            result = ''
+                        } 
                     }
                 }
             }
