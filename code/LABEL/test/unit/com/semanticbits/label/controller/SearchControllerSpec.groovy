@@ -27,7 +27,7 @@ class SearchControllerSpec extends Specification {
         when:'I call textSearchView with empty string'
         controller.textSearchView()
 
-        then:'I should be able on results page'
+        then:'I should be on results page'
         view == '/search/results'
     }
 

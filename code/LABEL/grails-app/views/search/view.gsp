@@ -21,7 +21,7 @@
             </div>
 
             <br/>
-            <a href="index?term=${params.term}&page=${params.page}"><g:message code="back.to.search"/></a>
+            <a href="textSearchView?term=${params.term}&page=${params.page}"><g:message code="back.to.search"/></a>
 
             <h3>${details.title}</h3>
             <hr/>
