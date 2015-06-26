@@ -109,17 +109,15 @@ class BarcodeServiceSpec extends Specification {
         def barCode = barcodeService.scanBarcode(image)
         then:
         barCode == '050428375464'
-        
     }
     
     void "test scan drug label ACETAMINOPHEN"() {
         given:
-        byte [] image =  new File ('test/integration/resources/druglabels/ACETAMINOPHEN.png').bytes
+        byte [] image =  new File ('test/integration/resources/druglabels/Junior Strength Pain Reliever Grape.png').bytes
         when:
         def barCode = barcodeService.scanBarcode(image)
         then:
-        barCode == '007003861096'
-        
+        barCode == '0015127022989'
     }
     
     void "test scan drug label Child ACCUDIAL"() {
@@ -128,27 +126,24 @@ class BarcodeServiceSpec extends Specification {
         when:
         def barCode = barcodeService.scanBarcode(image)
         then:
-        barCode == '034501400038'
-        
+        barCode == '0345014000371'
     }
     
     void "test scan drug label WG ColdCough"() {
         given:
-        byte [] image =  new File ('test/integration/resources/druglabels/WG_Cold&Cough.png').bytes
+        byte [] image =  new File ('test/integration/resources/druglabels/Care One Cold Multi Symptom.png').bytes
         when:
         def barCode = barcodeService.scanBarcode(image)
         then:
-        barCode == '031191713202'
-        
+        barCode == '0341520318382'
     }
     
     void "test scan drug label Allergy and Sinus"() {
         given:
-        byte [] image =  new File ('test/integration/resources/druglabels/Allergy&Sinus.png').bytes
+        byte [] image =  new File ('test/integration/resources/druglabels/Pain Reliever PM.png').bytes
         when:
         def barCode = barcodeService.scanBarcode(image)
         then:
-        barCode == '005042808546'
-        
+        barCode == '0070253962127'
     }
 }
