@@ -15,6 +15,8 @@ class SearchService {
 
     private static final String SPACE_CHAR = ' '
 
+    private static final int OPENFDA_MAXSKIP = 5000
+
     GrailsApplication grailsApplication
     OpenFDAService openFDAService
     
@@ -39,10 +41,14 @@ class SearchService {
      * @throws LabelServiceException
      */
     Map<String, Object> search(String term='', int page = 0) throws LabelServiceException {
-        log.debug("Searching for term  ${term}")
+        log.debug("Searching for term ${term}, page=${page}")
+        int skip = page * grailsApplication.config.itemsPerPage 
+        if (skip >= OPENFDA_MAXSKIP) {
+            throw new LabelServiceException('Pagination beyod 5000 records is not supported by openAPI')
+        }
         String response = openFDAService.invoke(['search' : sanitizeSearchTerm(term), 
                                                   'limit' :  grailsApplication.config.itemsPerPage,
-                                                  'skip' : page * grailsApplication.config.itemsPerPage])
+                                                  'skip' : skip])
         log.debug("Retrieved response ${response} from openFDA")
         generateResponse(response)
     }
@@ -103,6 +109,7 @@ class SearchService {
                 Object responseJson = js.parseText(response)
     
                 totalCount = responseJson.meta?.results?.total
+                totalCount = (totalCount > OPENFDA_MAXSKIP) ? OPENFDA_MAXSKIP : totalCount
                 
                 if (responseJson.meta?.results?.skip && responseJson.meta?.results?.limit) {
                     currentPage =  Math.ceil(responseJson.meta?.results?.skip / responseJson.meta?.results?.limit)
