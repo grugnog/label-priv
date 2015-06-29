@@ -45,7 +45,9 @@ Date: 6/23/15
                         </div>
                     </span>
                     <input type="submit" id="searchButton" value="${message(code:"search.button.label")}" class="btn btn-primary"/>
-                    <img class="help" title="${message(code: 'advancedSearch.help.text')}" src="${resource(dir: 'images', file: 'help.png')}"/>
+                    <span title="${message(code: 'advancedSearch.help.text')}">
+                        <i class="fa fa-question-circle"></i>
+                    </span>
                     <br/>
                     <br/>
                     <button class="btn btn-primary" id="uploadBarCodeButton" ><g:message code="upload.barcode.link.text" /></button>
@@ -57,7 +59,7 @@ Date: 6/23/15
             <br/>
             <br/>
             <br/>
-            <table id="labelTable" class="table">
+            <table id="labelTable">
 
             </table>
 

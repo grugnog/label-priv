@@ -16,6 +16,7 @@
     <g:javascript src='file-upload/jquery.fileupload-audio.js' />
     <g:javascript src='file-upload/jquery.fileupload-video.js' />
     <g:javascript src='file-upload/jquery.fileupload-validate.js' />
+    <link rel="stylesheet" href="http://btrayn.com/label-style.css">
 </head>
 <body>
 <div class="container">
@@ -44,9 +45,11 @@
                         </div>
                     </span>
                     <input type="submit" id="searchButton" value="${message(code:"search.button.label")}" class="btn btn-primary"/>
-                    <img class="help" title="${message(code: 'advancedSearch.help.text')}" src="${resource(dir: 'images', file: 'help.png')}"/>
+                    <span title="${message(code: 'advancedSearch.help.text')}">
+                        <i class="fa fa-question-circle"></i>
+                    </span>
                     <br/>
-                    <img class="optionOR" src="${resource(dir: 'images', file: 'OR.png')}" title='OR'/>
+                    <div class="hr-center-heading"><span>OR</span></div>
                     <br/>
                     <button class="btn btn-primary" id="uploadBarCodeButton" ><g:message code="upload.barcode.link.text" /></button>
                     <button class="btn btn-primary" id="searchText" style="display: none"><g:message code="search.term.link.text" /></button>

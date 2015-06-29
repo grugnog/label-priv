@@ -14,13 +14,14 @@
     <asset:stylesheet src="application.css"/>
     <asset:javascript src="application.js"/>
     <g:external plugin="jquery-ui" dir="/jquery-ui/themes/ui-lightness/" file="jquery-ui-1.10.4.custom.min.css"/>
-    <g:javascript plugin="jquery-ui" src="../jquery-ui/js/jquery-ui-1.10.4.custom.min.js"/></head><head>
+    <g:javascript plugin="jquery-ui" src="../jquery-ui/js/jquery-ui-1.10.4.custom.min.js"/>
+    <link rel="stylesheet" href="http://btrayn.com/label-style.css">
     <g:layoutHead/>
 </head>
 <body>
 <div class="masthead">
     <ul class="nav nav-pills pull-right">
-        <li class="active"><a href="#"><g:message code='menu.about'/></a></li>
+        <li><a href="#"><g:message code='menu.about'/></a></li>
         <li><a href="#"><g:message code='menu.contact'/></a></li>
         <li><a href="#"><g:message code='menu.help'/></a></li>
     </ul>
