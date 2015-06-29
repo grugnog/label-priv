@@ -4,7 +4,6 @@
 <head>
     <title><g:message code="home.page.title"/></title>
     <asset:stylesheet src="application.css" />
-    <asset:stylesheet src="search.css"/>
     <asset:javascript src="application.js" />
     <g:external plugin="jquery-ui" dir="/jquery-ui/themes/ui-lightness/" file="jquery-ui-1.10.4.custom.min.css"/>
     <g:javascript plugin="jquery-ui" src="../jquery-ui/js/jquery-ui-1.10.4.custom.min.js"/>
@@ -19,51 +18,43 @@
     <g:javascript src='file-upload/jquery.fileupload-validate.js' />
 </head>
 <body>
-<div class="container centerSearch">
+<div class="container">
     <div class="row">
-        <div class="center">
-            <img class="logo" src="${resource(dir: "images", file: "LABEL-logo.svg")}"/>
-        </div>
-        <br/>
-        <br/>
-        <g:form controller="search" action="textSearchView" method="GET">
-            <div>
-                <input type="text" class="searchBox" name="term" placeholder="${message(code:"search.prompt.text")}" id="termText" size="50" autocomplete="off"/>
-                <span id="uploadBarCode" style="display: none">
-                    &nbsp;
-                    <span class="btn btn-primary btn-sm fileinput-button" id="overrideFile">
-                        <span>Upload</span>
-                        <!-- The file input field used as target for the file upload widget -->
-                        <input id="fileupload" type="file" name="files[]" accept="image/*;capture=camera" multiple>
-                        <!-- The container for the uploaded files -->
-
-                    </span>
-                    <span id="filesUpdate" class="files"></span>
-                    <div id="progress" class="progress" style="display: none">
-                        <div class="progress-bar"></div>
-                    </div>
-                </span>
-                <input type="submit" id="searchButton" value="${message(code:"search.button.label")}" class="btn btn-primary"/>
-                <img class="help"/>
-                <br/>
-                <p id="advancedSearchHelpText" class="advancedSearchHelpText"><g:message code='advancedSearch.help.text'/></p>
-                <img class="optionOR" />
-                <br/>
-                <button class="btn btn-primary" id="uploadBarCodeButton" ><g:message code="upload.barcode.link.text" /></button>
-                <button class="btn btn-primary" id="searchText" style="display: none"><g:message code="search.term.link.text" /></button>
-
+        <div class="col-sm-12">
+            <div class="center">
+                <a class="logoLink" href="${createLink(uri: '/')}"><img class="logo" src="${resource(dir: "images", file: "LABEL-logo.svg")}"/></a>
             </div>
-        </g:form>
-    </div>
+            <br/>
+            <br/>
+            <g:form controller="search" action="textSearchView" method="GET">
+                <div>
+                    <input type="text" class="searchBox" name="term" placeholder="${message(code:"search.prompt.text")}" id="termText" size="50" autocomplete="off"/>
+                    <span id="uploadBarCode" style="display: none">
+                        &nbsp;
+                        <span class="btn btn-primary btn-sm fileinput-button" id="overrideFile">
+                            <span>Upload</span>
+                            <!-- The file input field used as target for the file upload widget -->
+                            <input id="fileupload" type="file" name="files[]" accept="image/*;capture=camera" multiple>
+                            <!-- The container for the uploaded files -->
 
-    <div class="masthead">
-        <ul class="nav nav-pills">
-            <li class="active"><a href="#"><g:message code='menu.about'/></a></li>
-            <li><a href="#"><g:message code='menu.contact'/></a></li>
-            <li><a href="#"><g:message code='menu.help'/></a></li>
-        </ul>
-    </div>
+                        </span>
+                        <span id="filesUpdate" class="files"></span>
+                        <div id="progress" class="progress" style="display: none">
+                            <div class="progress-bar"></div>
+                        </div>
+                    </span>
+                    <input type="submit" id="searchButton" value="${message(code:"search.button.label")}" class="btn btn-primary"/>
+                    <img class="help" title="${message(code: 'advancedSearch.help.text')}" src="${resource(dir: 'images', file: 'help.png')}"/>
+                    <br/>
+                    <img class="optionOR" src="${resource(dir: 'images', file: 'OR.png')}" title='OR'/>
+                    <br/>
+                    <button class="btn btn-primary" id="uploadBarCodeButton" ><g:message code="upload.barcode.link.text" /></button>
+                    <button class="btn btn-primary" id="searchText" style="display: none"><g:message code="search.term.link.text" /></button>
 
+                </div>
+            </g:form>
+        </div>
+    </div>
 </div>
 
 <script type="text/javascript">
