@@ -34,7 +34,7 @@
                         <span class="btn btn-primary btn-sm fileinput-button" id="overrideFile">
                             <span>Upload</span>
                             <!-- The file input field used as target for the file upload widget -->
-                            <input id="fileupload" type="file" name="files[]" accept="image/*;capture=camera" multiple>
+                            <input id="fileupload" type="file" name="files[]" accept="image/*;capture=camera">
                             <!-- The container for the uploaded files -->
 
                         </span>
