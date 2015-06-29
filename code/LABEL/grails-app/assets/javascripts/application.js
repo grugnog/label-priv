@@ -34,4 +34,9 @@ $(document).ready( function () {
         $("#uploadBarCode, #searchText").hide();
         event.preventDefault();
     });
+
+    $(".nav li").on("click", function() {
+        $(".nav li").removeClass("active");
+        $(this).addClass("active");
+    });
 });
