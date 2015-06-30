@@ -81,6 +81,13 @@ Date: 6/23/15
                             'width',
                             progress + '%'
                     );
+                },
+                error: function (e, data) {
+                    $("#filesUpdate").html("");
+                    $("#filesUpdate")
+                            .append("<br>")
+                            .append("<br>")
+                            .append($('<span class="text-danger"/>').text("Unable to decode barcode. Please upload an alternate image or manually type the barcode into the search field like this: #openfda.upc:0123456789"));
                 }
             }).on('fileuploadprocessalways', function (e, data) {
                         var index = data.index,
