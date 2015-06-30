@@ -2,14 +2,14 @@ require 'rbconfig'
 
 def initGit(config)
  
-  # Set up Git to remember GitHub OAuth token to be able to clone the repo on a nightly basis.
+  # Set up Git to remember GitHub OAuth token to be able to clone the repo.
   config.vm.provision "shell", privileged: false, inline: "git config --global credential.helper store"
   config.vm.provision "shell", privileged: false, inline: "rm -rf ~/LABEL && git clone -b develop https://#{ENV['GITHUB_OAUTH_TOKEN']}:x-oauth-basic@github.com/semanticbits/label-priv.git ~/LABEL"
 end
 
 def runCommonLinuxShellCmd(config)
   # Run OS updates on each Linux VM, install Git and other needed stuff.
-  config.vm.provision "shell", inline: "apt-get update && sudo apt-get -y install mc git"
+  config.vm.provision "shell", inline: "apt-get update && sudo apt-get -y install git"
 
   initGit(config)
 end
@@ -18,14 +18,14 @@ def installGrails(config)
     # Install GVM and run it to install Grails.
     config.vm.provision "shell", privileged: false, inline: "curl -s get.gvmtool.net | bash && source \"$HOME/.gvm/bin/gvm-init.sh\" && yes Y | gvm install grails 2.5.0"
 	
-	# Add modified PATH and GRAILS_HOME to /etc/environment so that they are visible to SSH sessions initiated by Jenkins SSH Plugins.
+    # Add modified PATH and GRAILS_HOME to /etc/environment so that they are exposed to SSH sessions initiated by Jenkins SSH Plugins.
     config.vm.provision "shell", privileged: false, inline: "sudo bash -l -c 'echo \"PATH=$PATH\" >> /etc/environment'"
     config.vm.provision "shell", privileged: false, inline: "sudo bash -l -c 'echo \"GRAILS_HOME=$GRAILS_HOME\" >> /etc/environment'"
 
 end
 
 def installDevStackWithChef(config)
- # Installs Java, Tomcat, Postgres client via Chef.
+ # Installs Java, Tomcat via Chef.
  config.vm.provision "chef_solo" do |chef|
 		# Install Java and Tomcat
 		chef.add_recipe "java"
@@ -62,7 +62,7 @@ Vagrant.configure(2) do |config|
 	    aws.secret_access_key = ENV['AWS_ACCESS_SECRET']
 	    aws.keypair_name = ENV['AWS_KEYNAME']
 	    override.ssh.private_key_path = ENV['AWS_KEYPATH']
-		override.ssh.username = "ubuntu"	   
+  	    override.ssh.username = "ubuntu"	   
   end
 
   # DEV
@@ -74,9 +74,9 @@ Vagrant.configure(2) do |config|
 	    aws.elastic_ip = ENV['AWS_DEV_ELASTIC_IP']
     end
     
-	# Install required software and updates.
-	runCommonLinuxShellCmd(dev)
-	installDevStackWithChef(dev)
+    # Install required software and updates.
+    runCommonLinuxShellCmd(dev)
+    installDevStackWithChef(dev)
     installGrails(dev)
 
     # Upload a Bash script used to redeploy the Web app.
@@ -174,7 +174,7 @@ Vagrant.configure(2) do |config|
     end	
 	
 	win_slave.vm.provision "shell", inline: "choco install git -params \"/GitAndUnixToolsOnPath\" -y"
-	win_slave.vm.provision "shell", inline: "choco install far 7zip.install java.jdk firefox google-chrome-x64 -y"
+	win_slave.vm.provision "shell", inline: "choco install 7zip.install java.jdk firefox google-chrome-x64 -y"
 	win_slave.vm.provision "shell", inline: "git config --global credential.helper store"
     win_slave.vm.provision "shell", inline: "git clone -b develop https://#{ENV['GITHUB_OAUTH_TOKEN']}:x-oauth-basic@github.com/semanticbits/label-priv.git LABEL"	
 	
