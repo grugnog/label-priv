@@ -33,7 +33,7 @@ Date: 6/23/15
                     </span>
                     <input type="submit" id="searchButton" value="${message(code:"search.button.label")}" class="btn btn-primary"/>
                     <span title="${message(code: 'advancedSearch.help.text')}">
-                        <a data-toggle="modal" data-target="#labelDownloadModal"><i class="fa fa-question-circle"></i></a>
+                        <a data-toggle="modal" data-target="#advancedSearchModal" id="helpLink"><i class="fa fa-question-circle"></i></a>
                     </span>
                     <br/>
                     <br/>

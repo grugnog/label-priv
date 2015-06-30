@@ -29,7 +29,7 @@
                     </span>
                     <input type="submit" id="searchButton" value="${message(code:"search.button.label")}" class="btn btn-primary"/>
                     <span title="${message(code: 'advancedSearch.help.text')}">
-                        <a data-toggle="modal" data-target="#labelDownloadModal"><i class="fa fa-question-circle"></i></a>
+                        <a data-toggle="modal" data-target="#advancedSearchModal" id="helpLink"><i class="fa fa-question-circle"></i></a>
                     </span>
                     <br/>
                     <div class="hr-center-heading"><span>OR</span></div>
@@ -94,23 +94,6 @@
                     }
                 })
     });
-
-    $(document).ready( function () {
-
-        $("#uploadBarCodeButton").on('click', function(event) {
-            $("#uploadBarCode, #searchText").show();
-            $("#uploadBarCodeButton, #searchButton, #termText").hide();
-            event.preventDefault();
-        });
-
-        $("#searchText").on('click', function(event) {
-            $("#termText, #uploadBarCodeButton, #searchButton").show();
-            $("#uploadBarCode, #searchText").hide();
-            event.preventDefault();
-        });
-    });
-
 </script>
-
 </body>
 </html>
