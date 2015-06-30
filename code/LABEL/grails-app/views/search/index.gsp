@@ -3,33 +3,16 @@
 <html>
 <head>
     <title><g:message code="home.page.title"/></title>
-    <asset:stylesheet src="application.css" />
-    <asset:javascript src="application.js" />
-    <g:external plugin="jquery-ui" dir="/jquery-ui/themes/ui-lightness/" file="jquery-ui-1.10.4.custom.min.css"/>
-    <g:javascript plugin="jquery-ui" src="../jquery-ui/js/jquery-ui-1.10.4.custom.min.js"/>
+    <meta name="layout" content="main"/>
     <g:javascript src="search.js"/>
-    <g:javascript src="file-upload/vendor/jquery.ui.widget.js" />
-    <g:javascript src='file-upload/vendor/jquery.ui.widget.js' />
-    <g:javascript src='file-upload/jquery.iframe-transport.js' />
-    <g:javascript src='file-upload/jquery.fileupload.js' />
-    <g:javascript src='file-upload/jquery.fileupload-process.js' />
-    <g:javascript src='file-upload/jquery.fileupload-audio.js' />
-    <g:javascript src='file-upload/jquery.fileupload-video.js' />
-    <g:javascript src='file-upload/jquery.fileupload-validate.js' />
-    <link rel="stylesheet" href="http://btrayn.com/label-style.css">
 </head>
 <body>
 <div class="container">
     <div class="row">
         <div class="col-sm-12">
-            <div class="center">
-                <a class="logoLink" href="${createLink(uri: '/')}"><img class="logo" src="${resource(dir: "images", file: "LABEL-logo.svg")}"/></a>
-            </div>
-            <br/>
-            <br/>
             <g:form controller="search" action="textSearchView" method="GET">
                 <div>
-                    <input type="text" class="searchBox" name="term" placeholder="${message(code:"search.prompt.text")}" id="termText" size="50" autocomplete="off"/>
+                    <input type="text" class="searchBox" name="term" placeholder="${message(code:"search.prompt.text")}" id="termText" size="35" autocomplete="off"/>
                     <span id="uploadBarCode" style="display: none">
                         &nbsp;
                         <span class="btn btn-primary btn-sm fileinput-button" id="overrideFile">
@@ -46,7 +29,7 @@
                     </span>
                     <input type="submit" id="searchButton" value="${message(code:"search.button.label")}" class="btn btn-primary"/>
                     <span title="${message(code: 'advancedSearch.help.text')}">
-                        <i class="fa fa-question-circle"></i>
+                        <a data-toggle="modal" data-target="#advancedSearchModal" id="helpLink"><i class="fa fa-question-circle"></i></a>
                     </span>
                     <br/>
                     <div class="hr-center-heading"><span>OR</span></div>
@@ -88,6 +71,13 @@
                         'width',
                         progress + '%'
                 );
+            },
+            error: function (e, data) {
+                $("#filesUpdate").html("");
+                $("#filesUpdate")
+                        .append("<br>")
+                        .append("<br>")
+                        .append($('<span class="text-danger"/>').text("Unable to decode barcode. Please upload an alternate image or manually type the barcode into the search field like this: #openfda.upc:0123456789"));
             }
         }).on('fileuploadprocessalways', function (e, data) {
                     var index = data.index,
@@ -104,23 +94,6 @@
                     }
                 })
     });
-
-    $(document).ready( function () {
-
-        $("#uploadBarCodeButton").on('click', function(event) {
-            $("#uploadBarCode, #searchText").show();
-            $("#uploadBarCodeButton, #searchButton, #termText").hide();
-            event.preventDefault();
-        });
-
-        $("#searchText").on('click', function(event) {
-            $("#termText, #uploadBarCodeButton, #searchButton").show();
-            $("#uploadBarCode, #searchText").hide();
-            event.preventDefault();
-        });
-    });
-
 </script>
-
 </body>
 </html>
