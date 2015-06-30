@@ -15,18 +15,46 @@
     <asset:javascript src="application.js"/>
     <g:external plugin="jquery-ui" dir="/jquery-ui/themes/ui-lightness/" file="jquery-ui-1.10.4.custom.min.css"/>
     <g:javascript plugin="jquery-ui" src="../jquery-ui/js/jquery-ui-1.10.4.custom.min.js"/>
-    <link rel="stylesheet" href="http://btrayn.com/label-style.css">
+    <g:javascript src="file-upload/vendor/jquery.ui.widget.js" />
+    <g:javascript src='file-upload/vendor/jquery.ui.widget.js' />
+    <g:javascript src='file-upload/jquery.iframe-transport.js' />
+    <g:javascript src='file-upload/jquery.fileupload.js' />
+    <g:javascript src='file-upload/jquery.fileupload-process.js' />
+    <g:javascript src='file-upload/jquery.fileupload-audio.js' />
+    <g:javascript src='file-upload/jquery.fileupload-video.js' />
+    <g:javascript src='file-upload/jquery.fileupload-validate.js' />
     <g:layoutHead/>
 </head>
 <body>
-<div class="masthead">
-    <ul class="nav nav-pills pull-right">
-        <li><a href="#"><g:message code='menu.about'/></a></li>
-        <li><a href="#"><g:message code='menu.contact'/></a></li>
-        <li><a href="#"><g:message code='menu.help'/></a></li>
-    </ul>
+<div class="center">
+    <a class="logoLink" href="${createLink(uri: '/')}"><img class="logo" src="${resource(dir: "images", file: "LABEL-logo.svg")}"/></a>
 </div>
+<br/>
+<br/>
 <g:layoutBody />
+<!-- Modal -->
+<div class="modal fade" id="labelDownloadModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Download</h4>
+            </div>
+            <div class="modal-body">
+                <ul>
+                    <li><a href="${resource(dir: 'images', file:'druglabels/Care One Cold Multi Symptom.png')}" download="Care One Cold Multi Symptom.png">Care One Cold Multi Symptom.png</a></li>
+                    <li><a href="${resource(dir: 'images', file:'druglabels/ChildACCUDIAL.png')}" download="ChildACCUDIAL.png">ChildACCUDIAL.png</a></li>
+                    <li><a href="${resource(dir: 'images', file:'druglabels/Junior Strength Pain Reliever Grape.png')}" download="Junior Strength Pain Reliever Grape.png">Junior Strength Pain Reliever Grape.png</a></li>
+                    <li><a href="${resource(dir: 'images', file:'druglabels/Pain Reliever PM.png')}" download="Pain Reliever PM.png">Pain Reliever PM.png</a></li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="footer" role="contentinfo"></div>
 </body>
 </html>
