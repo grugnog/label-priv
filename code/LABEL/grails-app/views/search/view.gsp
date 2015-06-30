@@ -14,12 +14,6 @@
 <div class="container" id="mainmenu">
     <div class="row">
         <div class="col-sm-12">
-
-            <div class="center">
-                <img class="logo" src="${resource(dir: "images", file: "LABEL-logo.svg")}"/>
-            </div>
-
-            <br/>
             <a href="textSearchView?term=${params.term}&page=${params.page}"><g:message code="back.to.search"/></a>
 
             <h3>${details.title}</h3>
