@@ -172,7 +172,8 @@ labels.map = [
               "SUPPLYSTORAGE": ["how_supplied", "storage_and_handling", "safe_handling_warning"],
               "WARNINGS": ["boxed_warning", "warnings_and_precautions", "user_safety_warnings", "precautions", "warnings", "general_precautions"],
               "OTHER": ["laboratory_tests", "recent_major_changes", "microbiology", "package_label_principal_display_panel", "spl_unclassified_section"],
-              "OPENFDA": ["openfda"],
+              "OPENFDA": ["application_number", "brand_name", "dosage_form", "generic_name", "manufacturer_name", "is_original_packager", "product_ndc", "product_type", "route", "substance_name", "spl_id",
+                            "spl_set_id", "pharm_class_moa", "pharm_class_cs", "pharm_class_pe", "pharm_class_epc", "upc", "unii", "rxcui"],
             ]
 
 

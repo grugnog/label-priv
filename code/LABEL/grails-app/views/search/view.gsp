@@ -215,17 +215,13 @@
                 <div id="openFDA">
 
                     <h2 class="text-uppercase"><g:message code="open.fda.fields"/></h2> <a href="#mainmenu"><g:message code="back.to.top" /></a>
-
                     <hr/>
-
                     <g:each in="${grails.util.Holders.config.labels.map.OPENFDA}" var="itr">
-                        <g:if test="${details."${itr}"}">
-                            <g:render template="viewListDetails" model='[id: "${itr}", code: "${itr.replaceAll("_", ".")}", valueList: details."${itr}" ]' />
+                        <g:if test="${details.openfda."${itr}"}">
+                            <g:render template="viewListDetails" model='[id: "${itr}", code: "${itr.replaceAll("_", ".")}", valueList: details.openfda."${itr}" ]' />
                         </g:if>
                     </g:each>
-
                 </div>
-
                 </div>
 
             <br/>
