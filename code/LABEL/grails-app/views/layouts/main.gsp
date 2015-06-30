@@ -15,7 +15,6 @@
     <asset:javascript src="application.js"/>
     <g:external plugin="jquery-ui" dir="/jquery-ui/themes/ui-lightness/" file="jquery-ui-1.10.4.custom.min.css"/>
     <g:javascript plugin="jquery-ui" src="../jquery-ui/js/jquery-ui-1.10.4.custom.min.js"/>
-    <g:javascript src="file-upload/vendor/jquery.ui.widget.js" />
     <g:javascript src='file-upload/vendor/jquery.ui.widget.js' />
     <g:javascript src='file-upload/jquery.iframe-transport.js' />
     <g:javascript src='file-upload/jquery.fileupload.js' />
@@ -33,13 +32,13 @@
 <br/>
 <g:layoutBody />
 <!-- Modal -->
-<div class="modal fade" id="labelDownloadModal" role="dialog">
+<div class="modal fade" id="imageSearchModal" role="dialog">
     <div class="modal-dialog">
 
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Download</h4>
+                <h4 class="modal-title">Example barcode images</h4>
             </div>
             <div class="modal-body">
                 <ul>
@@ -47,6 +46,28 @@
                     <li><a href="${resource(dir: 'images', file:'druglabels/ChildACCUDIAL.png')}" download="ChildACCUDIAL.png">ChildACCUDIAL.png</a></li>
                     <li><a href="${resource(dir: 'images', file:'druglabels/Junior Strength Pain Reliever Grape.png')}" download="Junior Strength Pain Reliever Grape.png">Junior Strength Pain Reliever Grape.png</a></li>
                     <li><a href="${resource(dir: 'images', file:'druglabels/Pain Reliever PM.png')}" download="Pain Reliever PM.png">Pain Reliever PM.png</a></li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="advancedSearchModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Example advanced searches</h4>
+            </div>
+            <div class="modal-body">
+                <ul>
+                    <li><a href="${createLink(controller: 'search', action: 'textSearchView', params: [term:'#id:2ba90e61-fe6b-487c-8fbc-847211595345'])}">#id:2ba90e61-fe6b-487c-8fbc-847211595345</a></li>
+                    <li><a href="${createLink(controller: 'search', action: 'textSearchView', params: [term:'#generic_name:MELOXICAM'])}">#generic_name:MELOXICAM</a></li>
+                    <li><a href="${createLink(controller: 'search', action: 'textSearchView', params: [term:'#openfda.upc:0070038610946'])}">#openfda.upc:0070038610946</a></li>
                 </ul>
             </div>
             <div class="modal-footer">

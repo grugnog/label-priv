@@ -26,12 +26,14 @@ $(document).ready( function () {
     $("#uploadBarCodeButton").on('click', function(event) {
         $("#uploadBarCode, #searchText").show();
         $("#uploadBarCodeButton, #searchButton, #termText, #advancedSearchHelpText").hide();
+        $("#helpLink").attr('data-target', '#imageSearchModal')
         event.preventDefault();
     });
 
     $("#searchText").on('click', function(event) {
         $("#termText, #uploadBarCodeButton, #searchButton, #advancedSearchHelpText").show();
         $("#uploadBarCode, #searchText").hide();
+        $("#helpLink").attr('data-target', '#advancedSearchModal')
         event.preventDefault();
     });
 
