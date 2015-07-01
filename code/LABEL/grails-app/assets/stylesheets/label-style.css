@@ -162,6 +162,9 @@ a.paginate_button.next {
 }
 p.labelDescription {
 	line-height: 24px;
+    line-height: 24px;
+    max-height: 70px;
+    overflow: hidden;
 }
 .nav.nav-stacked > li.active > a {
 	color: #222;
@@ -221,6 +224,7 @@ span#overrideFile > span {
 @media (max-width: 520px) {
 input#termText {
 	margin-bottom: 20px;
+    width: 100%;
 }
 input#searchButton {
 	margin-left: 45px;
@@ -237,4 +241,20 @@ div#labelTable_paginate {
 	width: 100%;
 	text-align: center;
 }
+}
+/*
+* To fit pagination in single line on iPhone 5
+*/
+@media (max-width: 320px) {
+ a.paginate_button.previous {
+     margin-right:0;
+ }
+ a.paginate_button.next {
+     margin-left:0;
+ }
+ a.paginate_button {
+     min-width: 25px;
+     height:25px
+ }
+ .col-sm-9 > div > div, .col-sm-9 .col-sm-4, .col-sm-9 .col-sm-11 {padding: 0}
 }
