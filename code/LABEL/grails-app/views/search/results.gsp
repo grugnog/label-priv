@@ -83,6 +83,7 @@ Date: 6/23/15
                     );
                 },
                 error: function (e, data) {
+                    $('#progress').hide();
                     $("#filesUpdate").html("");
                     $("#filesUpdate")
                             .append("<br>")

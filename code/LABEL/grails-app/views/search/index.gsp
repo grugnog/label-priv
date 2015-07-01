@@ -73,6 +73,7 @@
                 );
             },
             error: function (e, data) {
+                $('#progress').hide();
                 $("#filesUpdate").html("");
                 $("#filesUpdate")
                         .append("<br>")

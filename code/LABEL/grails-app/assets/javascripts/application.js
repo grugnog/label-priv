@@ -26,14 +26,19 @@ $(document).ready( function () {
     $("#uploadBarCodeButton").on('click', function(event) {
         $("#uploadBarCode, #searchText").show();
         $("#uploadBarCodeButton, #searchButton, #termText, #advancedSearchHelpText").hide();
-        $("#helpLink").attr('data-target', '#imageSearchModal')
+        $("#helpLink").attr('data-target', '#imageSearchModal');
         event.preventDefault();
     });
 
     $("#searchText").on('click', function(event) {
         $("#termText, #uploadBarCodeButton, #searchButton, #advancedSearchHelpText").show();
         $("#uploadBarCode, #searchText").hide();
-        $("#helpLink").attr('data-target', '#advancedSearchModal')
+        $("#helpLink").attr('data-target', '#advancedSearchModal');
+        //Remove two <br> elements before error span
+        $(".text-danger").prev().remove()
+        $(".text-danger").prev().remove()
+        //Remove error span
+        $(".text-danger").remove();
         event.preventDefault();
     });
 
