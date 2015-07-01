@@ -41,12 +41,16 @@
                 <div id="abuseAndOverdose">
                     <h2 class="text-uppercase"><g:message code="abuse.and.over.dosage"/></h2> <a href="#mainmenu"><g:message code="back.to.top" /></a>
                     <hr/>
-
+                    <g:set var="hasValues" value="${java.lang.Boolean.FALSE}" />
                     <g:each in="${grails.util.Holders.config.labels.map.ABUSEANDOVERDOSE}" var="drugs">
                         <g:if test="${details."${drugs}"}">
+                            <g:set var="hasValues" value="${java.lang.Boolean.TRUE}" />
                             <g:render template="viewListDetails" model='[id: "${drugs}", code: "${drugs.replaceAll("_", ".")}", valueList: details."${drugs}" ]' />
                         </g:if>
                     </g:each>
+                    <g:if test="${!hasValues}" >
+                        <g:message code="no.details" />
+                    </g:if>
 
                 </div>
                 <br/>
@@ -56,12 +60,16 @@
                     <h2 class="text-uppercase"><g:message code="adverse.effects.interactions"/></h2> <a href="#mainmenu"><g:message code="back.to.top" /></a>
 
                     <hr/>
-
+                    <g:set var="hasValues" value="${java.lang.Boolean.FALSE}" />
                     <g:each in="${grails.util.Holders.config.labels.map.ADVERSEEFFECTS}" var="itr">
                         <g:if test="${details."${itr}"}">
+                            <g:set var="hasValues" value="${java.lang.Boolean.TRUE}" />
                             <g:render template="viewListDetails" model='[id: "${itr}", code: "${itr.replaceAll("_", ".")}", valueList: details."${itr}" ]' />
                         </g:if>
                     </g:each>
+                    <g:if test="${!hasValues}" >
+                        <g:message code="no.details" />
+                    </g:if>
 
                 </div>
 
@@ -70,11 +78,16 @@
                     <h2 class="text-uppercase"><g:message code="clinical.pharmacology"/></h2> <a href="#mainmenu"><g:message code="back.to.top" /></a>
                     <hr/>
 
+                    <g:set var="hasValues" value="${java.lang.Boolean.FALSE}" />
                     <g:each in="${grails.util.Holders.config.labels.map.CLINICALPHAR}" var="itr">
                         <g:if test="${details."${itr}"}">
+                            <g:set var="hasValues" value="${java.lang.Boolean.TRUE}" />
                             <g:render template="viewListDetails" model='[id: "${itr}", code: "${itr.replaceAll("_", ".")}", valueList: details."${itr}" ]' />
                         </g:if>
                     </g:each>
+                    <g:if test="${!hasValues}" >
+                        <g:message code="no.details" />
+                    </g:if>
 
                 </div>
 
@@ -83,12 +96,16 @@
                     <h2 class="text-uppercase"><g:message code="indications.usage"/></h2> <a href="#mainmenu"><g:message code="back.to.top" /></a>
 
                     <hr/>
-
+                    <g:set var="hasValues" value="${java.lang.Boolean.FALSE}" />
                     <g:each in="${grails.util.Holders.config.labels.map.INDICATIONS}" var="itr">
                         <g:if test="${details."${itr}"}">
+                            <g:set var="hasValues" value="${java.lang.Boolean.TRUE}" />
                             <g:render template="viewListDetails" model='[id: "${itr}", code: "${itr.replaceAll("_", ".")}", valueList: details."${itr}" ]' />
                         </g:if>
                     </g:each>
+                    <g:if test="${!hasValues}" >
+                        <g:message code="no.details" />
+                    </g:if>
 
                 </div>
 
@@ -97,14 +114,17 @@
                     <h2 class="text-uppercase"><g:message code="patient.information"/></h2> <a href="#mainmenu"><g:message code="back.to.top" /></a>
 
                     <hr/>
-
+                    <g:set var="hasValues" value="${java.lang.Boolean.FALSE}" />
                     <g:each in="${grails.util.Holders.config.labels.map.PATIENTINFO}" var="itr">
                         <g:if test="${details."${itr}"}">
+                            <g:set var="hasValues" value="${java.lang.Boolean.TRUE}" />
                             <g:render template="viewListDetails" model='[id: "${itr}", code: "${itr.replaceAll("_", ".")}", valueList: details."${itr}" ]' />
                         </g:if>
                     </g:each>
 
-
+                    <g:if test="${!hasValues}" >
+                        <g:message code="no.details" />
+                    </g:if>
                 </div>
 
                 <div id="specialPopulation">
@@ -112,12 +132,17 @@
                     <h2 class="text-uppercase"><g:message code="special.population"/></h2> <a href="#mainmenu"><g:message code="back.to.top" /></a>
 
                     <hr/>
-
+                    <g:set var="hasValues" value="${java.lang.Boolean.FALSE}" />
                     <g:each in="${grails.util.Holders.config.labels.map.SPECIALPOPULATION}" var="itr">
                         <g:if test="${details."${itr}"}">
+                            <g:set var="hasValues" value="${java.lang.Boolean.TRUE}" />
                             <g:render template="viewListDetails" model='[id: "${itr}", code: "${itr.replaceAll("_", ".")}", valueList: details."${itr}" ]' />
                         </g:if>
                     </g:each>
+
+                    <g:if test="${!hasValues}" >
+                        <g:message code="no.details" />
+                    </g:if>
 
 
                 </div>
@@ -127,13 +152,17 @@
                     <h2 class="text-uppercase"><g:message code="non.clinical.toxicology"/></h2> <a href="#mainmenu"><g:message code="back.to.top" /></a>
 
                     <hr/>
-
+                    <g:set var="hasValues" value="${java.lang.Boolean.FALSE}" />
                     <g:each in="${grails.util.Holders.config.labels.map.TOXILOGY}" var="itr">
                         <g:if test="${details."${itr}"}">
+                            <g:set var="hasValues" value="${java.lang.Boolean.TRUE}" />
                             <g:render template="viewListDetails" model='[id: "${itr}", code: "${itr.replaceAll("_", ".")}", valueList: details."${itr}" ]' />
                         </g:if>
                     </g:each>
 
+                    <g:if test="${!hasValues}" >
+                        <g:message code="no.details" />
+                    </g:if>
 
                 </div>
 
@@ -142,14 +171,17 @@
                     <h2 class="text-uppercase"><g:message code="references"/></h2> <a href="#mainmenu"><g:message code="back.to.top" /></a>
 
                     <hr/>
-
+                    <g:set var="hasValues" value="${java.lang.Boolean.FALSE}" />
                     <g:each in="${grails.util.Holders.config.labels.map.REFERENCE}" var="itr">
                         <g:if test="${details."${itr}"}">
+                            <g:set var="hasValues" value="${java.lang.Boolean.TRUE}" />
                             <g:render template="viewListDetails" model='[id: "${itr}", code: "${itr.replaceAll("_", ".")}", valueList: details."${itr}" ]' />
                         </g:if>
                     </g:each>
 
-
+                    <g:if test="${!hasValues}" >
+                        <p><g:message code="no.details" /></p>
+                    </g:if>
                 </div>
 
 
@@ -158,14 +190,17 @@
                     <h2 class="text-uppercase"><g:message code="supply.storage.handling"/></h2> <a href="#mainmenu"><g:message code="back.to.top" /></a>
 
                     <hr/>
-
+                    <g:set var="hasValues" value="${java.lang.Boolean.FALSE}" />
                     <g:each in="${grails.util.Holders.config.labels.map.SUPPLYSTORAGE}" var="itr">
                         <g:if test="${details."${itr}"}">
+                            <g:set var="hasValues" value="${java.lang.Boolean.TRUE}" />
                             <g:render template="viewListDetails" model='[id: "${itr}", code: "${itr.replaceAll("_", ".")}", valueList: details."${itr}" ]' />
                         </g:if>
                     </g:each>
 
-
+                    <g:if test="${!hasValues}" >
+                        <g:message code="no.details" />
+                    </g:if>
                 </div>
 
                 <div id="warnings">
@@ -173,12 +208,17 @@
                     <h2 class="text-uppercase"><g:message code="warnings.precautions"/></h2> <a href="#mainmenu"><g:message code="back.to.top" /></a>
 
                     <hr/>
-
+                    <g:set var="hasValues" value="${java.lang.Boolean.FALSE}" />
                     <g:each in="${grails.util.Holders.config.labels.map.WARNINGS}" var="itr">
                         <g:if test="${details."${itr}"}">
+                            <g:set var="hasValues" value="${java.lang.Boolean.TRUE}" />
                             <g:render template="viewListDetails" model='[id: "${itr}", code: "${itr.replaceAll("_", ".")}", valueList: details."${itr}" ]' />
                         </g:if>
                     </g:each>
+
+                    <g:if test="${!hasValues}" >
+                        <g:message code="no.details" />
+                    </g:if>
 
                 </div>
 
@@ -188,12 +228,17 @@
                     <h2 class="text-uppercase"><g:message code="id.version"/></h2> <a href="#mainmenu"><g:message code="back.to.top" /></a>
 
                     <hr/>
-
+                    <g:set var="hasValues" value="${java.lang.Boolean.FALSE}" />
                     <g:each in="${grails.util.Holders.config.labels.map.IDANDVERSION}" var="itr">
                         <g:if test="${details."${itr}"}">
+                            <g:set var="hasValues" value="${java.lang.Boolean.TRUE}" />
                             <g:render template="viewStringDetails" model='[id: "${itr}", code: "${itr.replaceAll("_", ".")}", value: details."${itr}" ]' />
                         </g:if>
                     </g:each>
+
+                    <g:if test="${!hasValues}" >
+                        <g:message code="no.details" />
+                    </g:if>
 
                 </div>
 
@@ -203,12 +248,18 @@
                     <h2 class="text-uppercase"><g:message code="other.fields"/></h2> <a href="#mainmenu"><g:message code="back.to.top" /></a>
 
                     <hr/>
+                    <g:set var="hasValues" value="${java.lang.Boolean.FALSE}" />
 
                     <g:each in="${grails.util.Holders.config.labels.map.OTHER}" var="itr">
                         <g:if test="${details."${itr}"}">
+                            <g:set var="hasValues" value="${java.lang.Boolean.TRUE}" />
                             <g:render template="viewListDetails" model='[id: "${itr}", code: "${itr.replaceAll("_", ".")}", valueList: details."${itr}" ]' />
                         </g:if>
                     </g:each>
+
+                    <g:if test="${!hasValues}" >
+                        <g:message code="no.details" />
+                    </g:if>
 
                 </div>
 
@@ -216,11 +267,17 @@
 
                     <h2 class="text-uppercase"><g:message code="open.fda.fields"/></h2> <a href="#mainmenu"><g:message code="back.to.top" /></a>
                     <hr/>
+                    <g:set var="hasValues" value="${java.lang.Boolean.FALSE}" />
                     <g:each in="${grails.util.Holders.config.labels.map.OPENFDA}" var="itr">
                         <g:if test="${details.openfda."${itr}"}">
+                            <g:set var="hasValues" value="${java.lang.Boolean.TRUE}" />
                             <g:render template="viewListDetails" model='[id: "${itr}", code: "${itr.replaceAll("_", ".")}", valueList: details.openfda."${itr}" ]' />
                         </g:if>
                     </g:each>
+
+                    <g:if test="${!hasValues}" >
+                        <g:message code="no.details" />
+                    </g:if>
                 </div>
                 </div>
 
