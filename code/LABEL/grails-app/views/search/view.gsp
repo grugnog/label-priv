@@ -13,14 +13,15 @@
 <body>
 <div class="container" id="mainmenu">
     <div class="row">
+    <div data-spy="affix">
+        <a href="textSearchView?term=${params.term}&page=${params.page}"><g:message code="back.to.search"/></a>
+
+        <h3>${details.title}</h3>
+        <hr/>
+    </div>
         <div class="col-sm-12">
-            <a href="textSearchView?term=${params.term}&page=${params.page}"><g:message code="back.to.search"/></a>
-
-            <h3>${details.title}</h3>
-            <hr/>
-
-            <div class="col-sm-3">
-                <ul class="nav nav-stacked">
+            <div class="col-sm-3" class="affix-top-size">
+                <ul class="nav nav-stacked" data-spy="affix">
                     <li class="active"><a href="#abuseAndOverdose"><g:message code="abuse.and.over.dosage"/></a></li>
                     <li><a href="#adverseEffects"><g:message code="adverse.effects"/></a></li>
                     <li><a href="#clinicalPharmacology"><g:message code="clinical.pharmacology"/></a></li>
@@ -37,7 +38,7 @@
                 </ul>
             </div>
 
-            <div class="col-sm-9">
+            <div class="col-sm-9" class="affix-top-size">
                 <div id="abuseAndOverdose">
                     <h2 class="text-uppercase"><g:message code="abuse.and.over.dosage"/></h2> <a href="#mainmenu"><g:message code="back.to.top" /></a>
                     <hr/>
