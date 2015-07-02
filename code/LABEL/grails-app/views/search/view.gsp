@@ -13,7 +13,7 @@
 <body>
 <div class="container" id="mainmenu">
     <div class="row">
-    <div data-spy="affix">
+    <div class="col-sm-12" data-spy="affix">
         <a href="${backToSearchURL}"><g:message code="back.to.search"/></a>
 
         <h3>${details.title}</h3>
