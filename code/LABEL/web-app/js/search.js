@@ -34,6 +34,9 @@ $(document).ready( function () {
             }
         ],
         "fnDrawCallback": function(oSettings) {
+            $('body').animate({
+                scrollTop: $("#labelTable_wrapper").offset().top
+            }, 1000);
             if ($('#labelTable tbody tr td').html() == "No results found. Please update your query.") {
                 $('.dataTables_paginate').hide();
             }
