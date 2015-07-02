@@ -262,6 +262,7 @@ div#labelTable_paginate {
  @media (min-width: 768px) {
      .affix {
          position: fixed;
+         z-index: 1;
      }
  }
 

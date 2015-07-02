@@ -38,7 +38,7 @@
                 </ul>
             </div>
 
-            <div class="col-sm-9 affix-top-size " style="background: white">
+            <div class="col-sm-9 affix-top-size " style="background: white; z-index: 2">
                 <div id="abuseAndOverdose">
                     <h2 class="text-uppercase"><g:message code="abuse.and.over.dosage"/></h2> <a href="#mainmenu"><g:message code="back.to.top" /></a>
                     <hr/>
