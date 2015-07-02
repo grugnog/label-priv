@@ -11,8 +11,7 @@ $(document).ready( function () {
                 sPrevious: "<",
                 sNext: ">"
             } ,
-            sEmptyTable:"No results found. Please update your query.",
-            sInfo: "Showing _START_-_END_ of _TOTAL_+ labels"
+            sEmptyTable:"No results found. Please update your query."
         },
         ajax: {
             url: "/LABEL/search/textSearch",
@@ -38,7 +37,14 @@ $(document).ready( function () {
             if ($('#labelTable tbody tr td').html() == "No results found. Please update your query.") {
                 $('.dataTables_paginate').hide();
             }
+        },
+        "fnInfoCallback": function( oSettings, iStart, iEnd, iMax, iTotal, sPre ) {
+            if(iTotal == 5000) {
+              return "Showing "+iStart+"-"+iEnd+" of "+iTotal+"+ labels";
+            }
+            return "Showing "+iStart+"-"+iEnd+" of "+iTotal+" labels";
         }
+
     });
 
 
