@@ -4,17 +4,15 @@ $(document).ready( function () {
         searching: false,
         processing: true,
         serverSide: true,
-        sPaginationType: "full_numbers",
+        sPaginationType: "simple_numbers",
         sDom: "<'row'<'col-md-6'i><'col-md-6'<'pull-right'p>>r>t<'row'<'col-md-6'><'col-md-6'>>",
         oLanguage: {
             oPaginate: {
                 sPrevious: "<",
-                sNext: ">",
-                sFirst: "<<",
-                sLast: ">>"
+                sNext: ">"
             } ,
             sEmptyTable:"No results found. Please update your query.",
-            sInfo: "Showing _START_ - _END_ of _TOTAL_ labels"
+            sInfo: "Showing _START_-_END_ of _TOTAL_+ labels"
         },
         ajax: {
             url: "/LABEL/search/textSearch",

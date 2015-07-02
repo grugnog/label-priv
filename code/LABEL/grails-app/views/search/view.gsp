@@ -14,7 +14,7 @@
 <div class="container" id="mainmenu">
     <div class="row">
     <div data-spy="affix">
-        <a href="textSearchView?term=${params.term}&page=${params.page}"><g:message code="back.to.search"/></a>
+        <a href="${backToSearchURL}"><g:message code="back.to.search"/></a>
 
         <h3>${details.title}</h3>
         <hr/>
