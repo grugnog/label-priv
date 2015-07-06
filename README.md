@@ -8,6 +8,6 @@ The above URL is a hyperlink to the publicly available instance of our prototype
 
 * a. [One leader](https://projects.semanticbits.com/confluence/display/LABEL/Team)
 * b. [Multidisciplinary team](https://projects.semanticbits.com/confluence/display/LABEL/Team)
-* c. What people need: 
-* d. Human centered design: 
-* e. Style guide
+* c. [What people need]()
+* d. [Human centered design]()
+* e. [Style guide]()
