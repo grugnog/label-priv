@@ -1,6 +1,6 @@
 $(document).ready( function () {
     var term = $("#term").val();
-    $('#labelTable').dataTable({
+    var oTable = $('#labelTable').dataTable({
         searching: false,
         processing: true,
         serverSide: true,
@@ -15,7 +15,7 @@ $(document).ready( function () {
         },
         ajax: {
             url: "/LABEL/search/textSearch",
-            data: {term:term},
+            data: {term:term, page:function() { return $('#pageNumber').val();}},
             type: "POST"
         },
         columns: [
@@ -46,12 +46,18 @@ $(document).ready( function () {
               return "Showing "+iStart+"-"+iEnd+" of "+iTotal+"+ labels";
             }
             return "Showing "+iStart+"-"+iEnd+" of "+iTotal+" labels";
+        },
+        "initComplete": function (oSettings) {
+            var pageNumber = $('#pageNumber').val();
+            if($.isNumeric(pageNumber)){
+                var oTable = this;
+                oTable.fnPageChange(parseInt(pageNumber));
+                $('#pageNumber').val('');
+            }
         }
-
     });
 
-
-   //To handle advance search
+    //To handle advance search
     $("#termText").autocomplete({
         autoFocus: true,
         source: function (request, response) {

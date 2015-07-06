@@ -72,10 +72,12 @@ class SearchController {
         //To capture total labels that we are showing
         int iTotalDisplayRecords = 0
         int currentPage = 0
+        int itemsPerPage = grailsApplication.config.itemsPerPage
+        int start  = params.page ? ((params.int('page')) * itemsPerPage) : params.int('start')
         //If term provided then search by term and return the results
         try {
                 //Get the current page from start and number of records per page
-                currentPage = ((params.int('start')) / (grailsApplication.config.itemsPerPage))
+                currentPage = (start / (grailsApplication.config.itemsPerPage))
                 //Get the results using search term
                 log.info "Searching for labels with given string: ${term}"
                 Map<String, Object> searchResults = searchService.search(term, currentPage)
