@@ -17,50 +17,45 @@
                     </h1>
 
                     <div class="page-metadata">
-                        <p>This page last changed on Jun 24, 2015 by <font color="#0050B2">joshua.phillips</font>.</p>
+                        <p>This page last changed on Jul 06, 2015 by <font color="#0050B2">joshua.phillips</font>.</p>
                     </div>
                 </div>
 
                 <div id="content" class="view">
                     <div id="main-content" class="wiki-content group">
                     <p><style type='text/css'>/*<![CDATA[*/
-div.rbtoc1435676289204 {padding: 0px;}
-div.rbtoc1435676289204 ul {list-style: disc;margin-left: 0px;}
-div.rbtoc1435676289204 li {margin-left: 0px;padding-left: 0px;}
+div.rbtoc1436226946463 {padding: 0px;}
+div.rbtoc1436226946463 ul {list-style: disc;margin-left: 0px;}
+div.rbtoc1436226946463 li {margin-left: 0px;padding-left: 0px;}
 
-/*]]>*/</style><div class='toc-macro rbtoc1435676289204'>
+/*]]>*/</style><div class='toc-macro rbtoc1436226946463'>
 <ul class='toc-indentation'>
+<li><a href='#Environments-AmazonWebServices'>Amazon Web Services</a></li>
 <li><a href='#Environments-Authentication'>Authentication</a></li>
 <li><a href='#Environments-Dev'>Dev</a></li>
 <li><a href='#Environments-QA'>QA</a></li>
-<li><a href='#Environments-CI'>CI</a></li>
+<li><a href='#Environments-ContinuousIntegration(CI)'>Continuous Integration (CI)</a></li>
+<li><a href='#Environments-ContinuousMonitoring'><span style="line-height: 1.4285715;background-color: transparent;">Continuous Monitoring</span></a></li>
 </ul>
-</div></p><p> </p><h1 id="Environments-Authentication">Authentication</h1><p>Use AWS credentials to log in to the nodes below.</p><h1 id="Environments-Dev">Dev</h1><ul><li>Name: LABEL-DEV</li><li><span style="line-height: 1.4285715;background-color: transparent;">App URL: </span><a href="http://ec2-54-175-56-188.compute-1.amazonaws.com:8080/LABEL/" style="line-height: 1.4285715;background-color: transparent;" class="external-link" rel="nofollow">http://ec2-54-175-56-188.compute-1.amazonaws.com:8080/LABEL/</a></li><li><span style="line-height: 1.4285715;background-color: transparent;">Notes: Refreshes nightly or upon a successful CI build: label-unit &gt; label-integration &gt; label-functional.</span></li></ul><h1 id="Environments-QA">QA</h1><ul><li>Name: LABEL-QA</li><li><span style="line-height: 1.4285715;background-color: transparent;">App URL: </span><a href="http://ec2-54-175-144-58.compute-1.amazonaws.com:8080/LABEL/" style="line-height: 1.4285715;background-color: transparent;" class="external-link" rel="nofollow">http://ec2-54-175-144-58.compute-1.amazonaws.com:8080/LABEL/</a></li><li><span style="line-height: 1.4285715;background-color: transparent;">Notes: Refreshes on-demand from a Git tag.</span></li></ul><h1 id="Environments-CI">CI</h1><ul><li>Name: LABEL-CI-JENKINS</li><li>App URL: <a href="http://ec2-54-172-116-12.compute-1.amazonaws.com:8080/" class="external-link" rel="nofollow">http://ec2-54-172-116-12.compute-1.amazonaws.com:8080/</a></li><li><span style="line-height: 1.4285715;background-color: transparent;">Notes: Developers use their GitHub username/password to log in.</span></li></ul><p><span style="line-height: 1.4285715;background-color: transparent;"><br /></span></p><ul><li>Name: LABEL-CI-LINUX</li><li>Private IP:  <span style="color: rgb(68,68,68);">54.175.36.85</span></li><li><span>Notes: Managed by LABEL-CI-JENKINS</span></li></ul><p><span><br /></span></p><ul><li>Name: LABEL-CI-WINDOWS</li><li>Private IP: <span style="color: rgb(68,68,68);">172.31.63.203</span></li><li>Notes: Managed by LABEL-CI-JENKINS</li></ul><p><span><br /></span></p><p><span style="line-height: 1.4285715;background-color: transparent;"><br /></span></p><p><span style="line-height: 1.4285715;background-color: transparent;"><br /></span></p><p> </p>
+</div></p><p> </p><p> </p><h1 id="Environments-AmazonWebServices">Amazon Web Services</h1><p>We utilize Vagrant and Chef to automate the <a href="https://projects.semanticbits.com/confluence/display/LABEL/Environments" rel="nofollow">environment</a> set up. Each node in the environment (DEV, QA, CI) is deployed to an EC2 instance, based on pre-configured Amazon Machine Images (AMIs).</p><h1 id="Environments-Authentication">Authentication</h1><p>Use AWS credentials to log in to the nodes below.</p><h1 id="Environments-Dev">Dev</h1><ul><li>Name: LABEL-DEV</li><li><span style="line-height: 1.4285715;background-color: transparent;">App URL: </span><a href="http://ec2-54-175-56-188.compute-1.amazonaws.com:8080/LABEL/" style="line-height: 1.4285715;background-color: transparent;" class="external-link" rel="nofollow">http://ec2-54-175-56-188.compute-1.amazonaws.com:8080/LABEL/</a></li><li><span style="line-height: 1.4285715;background-color: transparent;">Notes: Refreshes nightly or upon a successful CI build: label-unit &gt; label-integration &gt; label-functional.</span></li></ul><h1 id="Environments-QA">QA</h1><ul><li>Name: LABEL-QA</li><li><span style="line-height: 1.4285715;background-color: transparent;">App URL: </span><a href="http://ec2-54-175-144-58.compute-1.amazonaws.com:8080/LABEL/" style="line-height: 1.4285715;background-color: transparent;" class="external-link" rel="nofollow">http://ec2-54-175-144-58.compute-1.amazonaws.com:8080/LABEL/</a></li><li><span style="line-height: 1.4285715;background-color: transparent;">Notes: Refreshes on-demand from a Git tag.</span></li></ul><h1 id="Environments-ContinuousIntegration(CI)">Continuous Integration (CI)</h1><p>We utilize Jenkins in our CI environment to run <a href="http://ec2-54-172-116-12.compute-1.amazonaws.com:8080/job/LABEL-unit/" class="external-link" rel="nofollow">unit</a>, <a href="http://ec2-54-172-116-12.compute-1.amazonaws.com:8080/job/LABEL-integration/" class="external-link" rel="nofollow">integration</a>, and <a href="http://ec2-54-172-116-12.compute-1.amazonaws.com:8080/job/LABEL-functional/" class="external-link" rel="nofollow">functional</a> test cases, as well as code quality checks. It is also used to automate deployment of our <a href="http://ec2-54-172-116-12.compute-1.amazonaws.com:8080/job/LABEL-dev/" class="external-link" rel="nofollow">DEV</a> and <a href="http://ec2-54-172-116-12.compute-1.amazonaws.com:8080/job/LABEL-uat/" class="external-link" rel="nofollow">QA/UAT</a> environments.</p><p> </p><ul><li>Name: LABEL-CI-JENKINS</li><li>App URL: <a href="http://ec2-54-172-116-12.compute-1.amazonaws.com:8080/" class="external-link" rel="nofollow">http://ec2-54-172-116-12.compute-1.amazonaws.com:8080/</a></li><li><span style="line-height: 1.4285715;background-color: transparent;">Notes: Developers use their GitHub username/password to log in.</span></li></ul><p><span style="line-height: 1.4285715;background-color: transparent;"><br /></span></p><ul><li>Name: LABEL-CI-LINUX</li><li>Private IP: 172.31.31.253</li><li>Public IP:  <span style="color: rgb(68,68,68);">54.175.36.85</span></li><li><span>Notes: Managed by LABEL-CI-JENKINS</span></li></ul><p><span><br /></span></p><ul><li>Name: LABEL-CI-WINDOWS</li><li>Private IP: <span style="color: rgb(68,68,68);">172.31.63.203</span></li><li><span style="color: rgb(68,68,68);">Public IP: 52.6.252.104</span></li><li>Notes: Managed by LABEL-CI-JENKINS</li></ul><p><span><br /></span></p><h1 id="Environments-ContinuousMonitoring"><span style="line-height: 1.4285715;background-color: transparent;">Continuous Monitoring</span></h1><p><span style="line-height: 1.4285715;background-color: transparent;">We utilize <a href="http://aws.amazon.com/cloudwatch/" class="external-link" rel="nofollow">AWS CloudWatch</a> for continuous monitoring.</span></p><p><span style="line-height: 1.4285715;background-color: transparent;"><img class="confluence-embedded-image" src="attachments/26050822/26738694.png" data-image-src="attachments/26050822/26738694.png"><br /></span></p><p><span style="line-height: 1.4285715;background-color: transparent;"><br /></span></p><p><span style="line-height: 1.4285715;background-color: transparent;"><br /></span></p><p> </p>
                     </div>
 
-                    
-                                                        <div class="pageSection group">
+                                        <div class="pageSection group">
                         <div class="pageSectionHeader">
-                            <h2 id="comments" class="pageSectionTitle">Comments:</h2>
+                            <h2 id="attachments" class="pageSectionTitle">Attachments:</h2>
                         </div>
 
-                        <table border="0" width="100%">
-                                                        <tr>
-                                <td >
-                                    <a name="comment-26050829"></a>
-                                    <font class="smallfont"><p><a class="confluence-userlink user-mention" data-username="gopal.unnikrishnan" href="https://projects.semanticbits.com/confluence/display/~gopal.unnikrishnan" data-linked-resource-id="3145800" data-linked-resource-type="userinfo" data-base-url="https://projects.semanticbits.com/confluence">Gopalakrishnan Unnikrishnan</a>, <a class="confluence-userlink user-mention" data-username="lalit.agarwal" href="https://projects.semanticbits.com/confluence/display/~lalit.agarwal" data-linked-resource-id="4292643" data-linked-resource-type="userinfo" data-base-url="https://projects.semanticbits.com/confluence">Lalit Agarwal</a>, <a class="confluence-userlink user-mention" data-username="janakiram.gollapudi" href="https://projects.semanticbits.com/confluence/display/~janakiram.gollapudi" data-linked-resource-id="4653120" data-linked-resource-type="userinfo" data-base-url="https://projects.semanticbits.com/confluence">Janaki Rama Rao Gollapudi</a>, <a class="confluence-userlink user-mention" data-username="patrick.mcconnell" href="https://projects.semanticbits.com/confluence/display/~patrick.mcconnell" data-linked-resource-id="950274" data-linked-resource-type="userinfo" data-base-url="https://projects.semanticbits.com/confluence">Patrick McConnell</a>, <a class="confluence-userlink user-mention" data-username="joshua.phillips" href="https://projects.semanticbits.com/confluence/display/~joshua.phillips" data-linked-resource-id="3145814" data-linked-resource-type="userinfo" data-base-url="https://projects.semanticbits.com/confluence">joshua phillips</a>, <a class="confluence-userlink user-mention" data-username="denis.krylov" href="https://projects.semanticbits.com/confluence/display/~denis.krylov" data-linked-resource-id="3145810" data-linked-resource-type="userinfo" data-base-url="https://projects.semanticbits.com/confluence">Denis Krylov</a>, please see the environments information above. I will shut them down for the weekend, though.</p></font>
-                                    <div align="left" class="smallfont" style="color: #666666; width: 98%; margin-bottom: 10px;">
-                                        <img src="images/icons/contenttypes/comment_16.png" height="16" width="16" border="0" align="absmiddle"/>
-                                        Posted by denis.krylov at Jun 19, 2015 17:24
-                                    </div>
-                                </td>
-                            </tr>
-                                                    </table>
+                        <div class="greybox" align="left">
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/26050822/26738694.png">monitoring.png</a> (image/png)
+                                <br/>
+                                                    </div>
                     </div>
-                                      
+                    
+                 
                 </div>             </div> 
             <div id="footer" style="background: url(https://projects.semanticbits.com/confluence/images/border/border_bottom.gif) repeat-x;">
-                <p><small>Document generated by Confluence on Jun 30, 2015 10:58</small></p>
+                <p><small>Document generated by Confluence on Jul 06, 2015 19:55</small></p>
             </div>
         </div>     </body>
 </html>
