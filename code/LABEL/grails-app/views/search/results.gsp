@@ -52,6 +52,7 @@ Date: 6/23/15
 
         </div>
     </div>
+    <input type="hidden" id="pageNumber" value="${params.page}"/>
 </div>
     <script type="text/javascript">
         $(function () {

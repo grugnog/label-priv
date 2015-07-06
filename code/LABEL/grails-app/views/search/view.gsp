@@ -12,33 +12,31 @@
 
 <body>
 <div class="container" id="mainmenu">
-    <div class="row">
-    <div class="col-sm-12" data-spy="affix">
-        <a href="${backToSearchURL}"><g:message code="back.to.search"/></a>
-
-        <h3>${details.title}</h3>
-        <hr/>
+    <div id="backToSearch" class="col-sm-12" data-spy="affix" style="background: white">
+    <a href="${backToSearchURL}"><g:message code="back.to.search"/></a>
+    <h3>${details.title}</h3>
+    <hr/>
     </div>
+    <div class="row">
         <div class="col-sm-12">
-            <div class="col-sm-3 affix-top-size">
-                <ul class="nav nav-stacked" data-spy="affix">
-                    <li class="active"><a href="#abuseAndOverdose"><g:message code="abuse.and.over.dosage"/></a></li>
-                    <li><a href="#adverseEffects"><g:message code="adverse.effects"/></a></li>
-                    <li><a href="#clinicalPharmacology"><g:message code="clinical.pharmacology"/></a></li>
-                    <li><a href="#indications"><g:message code="indications.usage"/></a></li>
-                    <li><a href="#patientInformation"><g:message code="patient.information"/></a></li>
-                    <li><a href="#specialPopulation"><g:message code="special.population"/></a></li>
-                    <li><a href="#toxilogy"><g:message code="non.clinical.toxicology"/></a></li>
-                    <li><a href="#reference"><g:message code="references"/></a></li>
-                    <li><a href="#supplyStorage"><g:message code="supply.storage.handling"/></a></li>
-                    <li><a href="#warnings"><g:message code="warnings.precautions"/></a></li>
-                    <li><a href="#idVersion"><g:message code="id.version"/></a></li>
-                    <li><a href="#other"><g:message code="other.fields"/></a></li>
-                    <li><a href="#openFDA"><g:message code="open.fda.fields"/></a></li>
-                </ul>
-            </div>
-
-            <div class="col-sm-9 affix-top-size " style="background: white; z-index: 2">
+            <div id="fieldContentDiv" class="col-sm-3 affix-top-size">
+                    <ul class="nav nav-stacked" data-spy="affix" id="fieldContent">
+                        <li class="active"><a href="#abuseAndOverdose"><g:message code="abuse.and.over.dosage"/></a></li>
+                        <li><a href="#adverseEffects"><g:message code="adverse.effects"/></a></li>
+                        <li><a href="#clinicalPharmacology"><g:message code="clinical.pharmacology"/></a></li>
+                        <li><a href="#indications"><g:message code="indications.usage"/></a></li>
+                        <li><a href="#patientInformation"><g:message code="patient.information"/></a></li>
+                        <li><a href="#specialPopulation"><g:message code="special.population"/></a></li>
+                        <li><a href="#toxilogy"><g:message code="non.clinical.toxicology"/></a></li>
+                        <li><a href="#reference"><g:message code="references"/></a></li>
+                        <li><a href="#supplyStorage"><g:message code="supply.storage.handling"/></a></li>
+                        <li><a href="#warnings"><g:message code="warnings.precautions"/></a></li>
+                        <li><a href="#idVersion"><g:message code="id.version"/></a></li>
+                        <li><a href="#other"><g:message code="other.fields"/></a></li>
+                        <li><a href="#openFDA"><g:message code="open.fda.fields"/></a></li>
+                    </ul>
+               </div>
+            <div id="fieldDetails" class="col-sm-9 affix-top-size">
                 <div id="abuseAndOverdose">
                     <h2 class="text-uppercase"><g:message code="abuse.and.over.dosage"/></h2> <a href="#mainmenu"><g:message code="back.to.top" /></a>
                     <hr/>
@@ -288,6 +286,24 @@
         </div>
     </div>
 </div>
-
+<script type="text/javascript">
+    $(function(){
+        var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ? true : false;
+        if( !isMobile ){
+            var stickyRibbonTop = $('#backToSearch').offset().top;
+            $(window).scroll(function(){
+                if( $(window).scrollTop() > stickyRibbonTop) {
+                    $('#backToSearch').addClass('stick');
+                    $('#fieldContentDiv').removeClass('affix-top-size');
+                    $('#fieldContent').addClass('stickContent');
+                } else {
+                    $('#backToSearch').removeClass('stick');
+                    $('#fieldContentDiv').addClass('affix-top-size');
+                    $('#fieldContent').removeClass('stickContent');
+                }
+            });
+        }
+    });
+</script>
 </body>
 </html>

@@ -287,3 +287,22 @@ div#labelTable_paginate {
          margin-top:auto;
      }
  }
+
+@media (min-width: 768px) {
+    .backToSearch {
+        margin-top:-100px;
+    }
+}
+
+@media (min-width: 768px) {
+    .stick {
+        position: fixed;
+        top: 0px;
+    }
+}
+ @media (min-width: 768px) {
+     .stickContent {
+         position: fixed;
+         top: 100px;
+     }
+ }
