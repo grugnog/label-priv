@@ -8,13 +8,13 @@ Patrick
 
 # Evidence #
 
-* a. [One leader](https://projects.semanticbits.com/confluence/display/LABEL/Team)
-* b. [Multidisciplinary team](https://projects.semanticbits.com/confluence/display/LABEL/Team)
-* c. [What people need]() (Patrick)
-* d. [Human centered design]() (Patrick)
-* e. [Style guide]() (Patrick)
-* f. [Usability tests]() (Patrick)
-* g. [Iterative approach]() (Patrick)
+* a. [One leader](https://projects.semanticbits.com/confluence/display/LABEL/Leader)
+* b. [Multidisciplinary team](https://projects.semanticbits.com/confluence/display/LABEL/Resources)
+* c. [What people need](https://projects.semanticbits.com/confluence/display/LABEL/Users)
+* d. [Human centered design](https://projects.semanticbits.com/confluence/display/LABEL/Human-centered+Design)
+* e. [Style guide](https://projects.semanticbits.com/confluence/display/LABEL/UI+Style+Guide)
+* f. [Usability tests](https://projects.semanticbits.com/confluence/display/LABEL/Users)
+* g. [Iterative approach](https://projects.semanticbits.com/confluence/display/LABEL/Schedule)
 * h. [Prototype]() Patrick
 * i. [Modern open-source technologies]() (Joshua)
 * j. [IaaS]() Joshua
