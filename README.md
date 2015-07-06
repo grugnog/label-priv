@@ -15,7 +15,7 @@ Patrick
 * e. [Style guide](https://projects.semanticbits.com/confluence/display/LABEL/UI+Style+Guide)
 * f. [Usability tests](https://projects.semanticbits.com/confluence/display/LABEL/Users)
 * g. [Iterative approach](https://projects.semanticbits.com/confluence/display/LABEL/Schedule)
-* h. [Prototype]() Patrick
+* h. [Responsive prototype](http://ec2-54-175-144-58.compute-1.amazonaws.com:8080/LABEL/)
 * i. [Modern open-source technologies]() (Joshua)
 * j. [IaaS]() Joshua
 * k. [Unit tests]() Joshua
