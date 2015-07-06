@@ -25,7 +25,3 @@ Patrick
 * o. [Deployed to container]() Joshua
 * p. [Installation documentation]() Joshua
 * q. [Licensing]() Joshua
-
-# U.S. Digital Services Playbook #
-
-Patrick
