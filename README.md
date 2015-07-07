@@ -41,3 +41,10 @@ All documentation can be found in [our github pages](http://semanticbits.github.
 * o. [Deployed to container](http://semanticbits.github.io/label-priv/Environments.html#Environments-AmazonWebServices)
 * p. [Installation documentation](http://semanticbits.github.io/label-priv/Installation%2BGuide.html)
 * q. [Licensing](http://semanticbits.github.io/label-priv/Configuration%2BManagement.html#ConfigurationManagement-Third-PartySoftware)
+
+# Known Issues #
+
+* OpenFDA label API contains only a few UPC codes of known products and they don't always match to the UPC codes found on over the counter labels
+* Clicking on navigation links on label details page doesn't always take user to the correct location in the document
+* Mobile interface of label details does not have a sticky header
+* Scrolling a small amount on label details shows text between label title and header
